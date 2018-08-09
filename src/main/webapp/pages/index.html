@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="z-ch">
+<head>
+    <title>首页</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="keywords"
+          content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
+    <meta name="author" content="设计：王齐 <wangqi@bootcss.com>">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/icon/iconfont.css" rel="stylesheet"/>
+    <link href="/css/sidebar-menu.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/pagination/css/jquery.pagination.css">
+    <link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css">
+    <link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/niceValidator/dist/jquery.validator.css">
+    <script src="/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/layer/layer.js" type="text/javascript"></script>
+    <script src="/niceValidator/dist/jquery.validator.min.js?local=zh-CN" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/ztree/js/jquery.ztree.all.min.js"></script>
+    <script src="/pagination/js/jquery.pagination.min.js"></script>
+    <script src="/js/juicer.js"></script>
+    <script src="/js/art.template.js"></script>
+</head>
+<body style="overflow: hidden;">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 bg-primary" style="height: 50px">
+            <div class="col-xs-2" style="line-height: 50px;font-size: 20px;font-weight: bold">iJava管理系统</div>
+            <div class="col-xs-10">
+                <div class="row" style="float: right;margin-top: 2px;">
+                    <div class="f_left">
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;管理员
+                    </div>
+                    <div class="f_left">
+                        <span class="glyphicon glyphicon-home"></span>&nbsp;龙讯科技
+                    </div>
+                    <div class="f_left">
+                        <span class="glyphicon glyphicon-map-marker"></span>&nbsp;合肥黄山路和谐花园
+                    </div>
+                    <div class="f_left">
+                        <span class="glyphicon glyphicon-edit"></span>&nbsp;个人信息
+                    </div>
+                    <div class="f_left">
+                        <span class="glyphicon glyphicon-off"></span>&nbsp;退出登录
+                    </div>
+                </div>
+                <div id="mainHeader" class="row header" style="float: right;margin-top: 5px"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2 main-sidebar"></div>
+        <div class="col-xs-10">
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-12">
+                    <ol class="breadcrumb text-primary">
+                        <li>
+                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                            <a href="#">系统管理</a>
+                        </li>
+                        <!--<li><a href="#">Library</a></li>-->
+                        <li class="active">菜单管理</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row" id="mainContainer">页面加载失败！</div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/js/sidebar-menu.js"></script>
+<script id="headerMenu" type="text/html">
+    <ul>
+        <% for( var i = 0 ; i < data.length ; i ++ ) {%>
+        <li onclick="loadLeftMenu(this)" data-id="<%=data[i].id%>"><i class="iconfont <%=data[i].iconClass%>"></i><%=data[i].name%>
+        </li>
+        <%}%>
+    </ul>
+    <div class=" input-group">
+        <input style="width: 150px;height: 25px;line-height: 25px;color:#1E9FFF;border-right: 0" type="text"
+               class="form-control" placeholder="搜索站点信息"/>
+        <a style="height: 25px;height: 25px;color:#1E9FFF;float: right;border-left: 0;margin-left: -3px"
+           class="btn btn-default" href="#" role="button">
+            <span class="glyphicon glyphicon-search" style="position: relative;top:-2px;left:2px"></span>
+        </a>
+    </div>
+</script>
+<script id="leftMenu" type="text/html">
+    <% for( var i = 0 ; i < data.length ; i ++ ) {%>
+    <% if(data[i].type == 'INDICATOR'){ %>
+    <li class="header"><%=data[i].name%></li>
+    <%}%>
+    <%if(data[i].children.length > 0){%>
+    <% for( var n = 0 ; n < data[i].children.length ; n ++ ) {%>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-dashboard"></i> <span><%=data[i].children[n].name%></span> <i
+                class="fa fa-angle-right pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <% for( var j = 0 ; j < data[i].children[n].children.length ; j ++ ) {%>
+            <li type="<%=data[i].children[n].children[j].type%>" reqUrl="<%=data[i].children[n].children[j].reqUrl%>">
+                <a href="#"><i class="fa fa-circle-o"></i><%=data[i].children[n].children[j].name%></a>
+                <ul class="treeview-menu">
+                    <%include('leftMenu',{data:data[i].children[n].children[j].children})%>
+                </ul>
+            </li>
+            <%}%>
+        </ul>
+    </li>
+    <%}%>
+    <%}else{%>
+    <li type="<%=data[i].type%>" reqUrl="<%=data[i].reqUrl%>"><a href="#"><i class="fa fa-circle-o"></i><%=data[i].name%></a>
+    </li>
+    <%}%>
+    <%}%>
+</script>
+<script>
+    // layer.alert('登陆信息已过期，请重新登陆！',{title:'系统提示',icon:7},function(e){
+    //     location.href= '/login/loginIn';
+    // });
+    // $("#mainContainer").load("/menu/menu_list");
+    loadSysMenu();
+
+    function getConstant(id, tableName, columnName, desc) {
+        var sel = $("#" + id);
+        $.ajax({
+            type: 'post',
+            url: '/common/getConstant',
+            dataType: 'json',
+            data: {tableName: tableName, columnName: columnName},
+            async: false,
+            success: function (result) {
+                if (result.data.length == 0) {
+                    sel.empty().append('<option value="">请选择' + desc + '</option>');
+                } else {
+                    sel.empty().append('<option value="">请选择' + desc + '</option>');
+                    for (var i = 0; i < result.data.length; i++) {
+                        sel.append('<option value="' + result.data[i].CODE + '">' + result.data[i].NAME + '</option>');
+                    }
+                }
+            }
+        });
+    }
+
+    function loadSysMenu() {
+        $.post("/menu/getMenuTree", {type: "CATAGORY"}, function (result) {
+            $("#mainHeader").empty().html(template('headerMenu', {data: result}));
+            $("#mainHeader ul li:first").addClass('active-header');
+            $("#mainHeader ul li").click(function () {
+                $(this).addClass('active-header').siblings().removeClass('active-header');
+            });
+        });
+    }
+
+    function loadLeftMenu(obj) {
+        let id = $(obj).attr("data-id");
+        $.post("/menu/getMenuTree", {id: id,queryFlag:'1'}, function (result) {
+            $(".main-sidebar").empty().html("<ul class=\"sidebar-menu\">" + template('leftMenu', {data: result}) + "</ul>");
+            $.sidebarMenu($('.sidebar-menu'));
+            $('.sidebar-menu li').click(function () {
+                let type = $(this).attr("type");
+                let url = $(this).attr("reqUrl");
+                if(type == 'STATIC' || type == 'URL'){
+                    if(url == undefined || url == ''){
+                        return;
+                    }else{
+                        $("#mainContainer").load(url);
+                    }
+                }
+            });
+        });
+    }
+</script>
+</html>

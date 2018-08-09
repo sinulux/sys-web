@@ -1,0 +1,182 @@
+.sidebar-menu {
+    list-style: none;
+    height: 500px;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #222d32;
+}
+
+.sidebar-menu > li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-menu > li > a {
+    padding: 12px 5px 12px 15px;
+    display: block;
+    border-left: 3px solid transparent;
+    color: #b8c7ce;
+}
+
+.sidebar-menu > li > a > .fa {
+    width: 20px;
+}
+
+.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a {
+    color: #fff;
+    background: #1e282c;
+    border-left-color: #3c8dbc;
+}
+
+.sidebar-menu > li > .treeview-menu {
+    margin: 0 1px;
+    background: #2c3b41;
+}
+
+.sidebar-menu > li .label,
+.sidebar-menu > li .badge {
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+.sidebar-menu li.header {
+    padding: 10px 25px 10px 15px;
+    font-size: 12px;
+    color: #4b646f;
+    background: #1a2226;
+}
+
+.sidebar-menu li > a > .fa-angle-left {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.sidebar-menu li.active > a > .fa-angle-left {
+    transform: rotate(-90deg);
+}
+
+.sidebar-menu li.active > .treeview-menu {
+    display: block;
+}
+
+.sidebar-menu a {
+    color: #b8c7ce;
+    text-decoration: none;
+}
+
+.sidebar-menu .treeview-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 5px;
+}
+
+.sidebar-menu .treeview-menu .treeview-menu {
+    padding-left: 20px;
+}
+
+.sidebar-menu .treeview-menu > li {
+    margin: 0;
+}
+
+.sidebar-menu .treeview-menu > li > a {
+    padding: 5px 5px 5px 15px;
+    display: block;
+    font-size: 14px;
+    color: #8aa4af;
+}
+
+.sidebar-menu .treeview-menu > li > a > .fa {
+    width: 20px;
+}
+
+.sidebar-menu .treeview-menu > li > a > .fa-angle-left,
+.sidebar-menu .treeview-menu > li > a > .fa-angle-down {
+    width: auto;
+}
+
+.sidebar-menu .treeview-menu > li.active > a, .sidebar-menu .treeview-menu > li > a:hover {
+    color: #fff;
+}
+
+.main-sidebar {
+    height: 90%;
+    z-index: 810;
+    padding: 0;
+    margin: 0;
+    background-color: #222d32;
+}
+
+.header ul {
+    float: left;
+    margin-right: 10px;
+}
+
+.header ul li {
+    float: left;
+    list-style: none;
+    height: 25px;
+    line-height: 25px;
+    width: auto;
+    padding: 0 10px;
+}
+
+.header ul li:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid #FF5722;
+    cursor: pointer;
+}
+.active-header{
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid #FF5722;
+    cursor: pointer;
+}
+
+.f_left {
+    float: left;
+    width: auto;
+    font-size: 10px;
+    padding: 0 5px;
+    cursor: pointer
+}
+
+.f_left:hover {
+    color: #FF5722
+}
+
+/*css主要部分的样式*//*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+
+::-webkit-scrollbar {
+    width: 10px; /*对垂直流动条有效*/
+    height: 10px; /*对水平流动条有效*/
+}
+
+/*定义滚动条的轨道颜色、内阴影及圆角*/
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .5);
+    background-color: #FFFFFF;
+    border-radius: 1px;
+}
+
+/*定义滑块颜色、内阴影及圆角*/
+::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #F2F2F2;
+}
+
+/*定义两端按钮的样式*/
+::-webkit-scrollbar-button {
+}
+
+/*定义右下角汇合处的样式*/
+::-webkit-scrollbar-corner {
+    background: khaki;
+}

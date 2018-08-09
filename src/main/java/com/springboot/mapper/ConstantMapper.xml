@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.ConstantMapper">
+    <select id="getConstantPageCnt" parameterType="map" resultType="long">
+		select count(1) from sys_constants
+		<if test="key != null and key != ''">
+			where code = #{key} or name like concat('%',concat(#{key},'%'))
+		</if>
+	</select>
+
+	<select id="getConstantPageList" parameterType="map" resultType="map">
+		select * from sys_constants
+		<if test="key != null and key != ''">
+			where code = #{key} or name like concat('%',concat(#{key},'%'))
+		</if>
+		order by rid desc
+		limit #{startNum},#{pageSize}
+	</select>
+
+	<select id="getCountByCode" parameterType="ConstantEO" resultType="Integer">
+		select count(1) from sys_constants where code = #{code}
+	</select>
+
+	<insert id="saveConstant" parameterType="ConstantEO">
+		insert into sys_constants(code,name,table_name,column_name)
+		values(#{code},#{name},#{tableName},#{columnName})
+	</insert>
+
+	<select id="getOneById" parameterType="Integer" resultType="ConstantEO">
+		select code ,name,table_name tableName,column_name columnName from sys_constants
+		where rid = #{id}
+	</select>
+
+	<update id="updateConstant" parameterType="ConstantEO">
+		update sys_constants
+		set code = #{code},
+		name = #{name},
+		table_name = #{tableName},
+		column_name = #{columnName}
+		where rid = #{rid}
+	</update>
+
+	<delete id="del" parameterType="Integer">
+		delete from sys_constants where rid = #{id}
+	</delete>
+</mapper> 

@@ -1,0 +1,237 @@
+<div class="container row">
+    <div class="col-md-4">
+        <ul id="menuTree" class="ztree bg-warning"
+            style="height: 430px;overflow-y: auto;
+            overflow-x:hidden;padding: 0;margin: 0;border-right:1px solid #C9C9C9">
+        </ul>
+    </div>
+    <div class="col-md-8 hidden bg-info" id="rightInfo" style="height: 430px">
+        <div class="col-sm-12">
+            <div class="col-sm-8" style="border-bottom: 1px solid #F0F0F0;padding: 0;margin-bottom: 20px">
+                <span class="text-info" style="border-bottom: 2px solid #1E9FFF;padding: 2px 5px">详细信息</span>
+            </div>
+        </div>
+        <form class="form-horizontal" method="post" autocomplete="off">
+            <input type="text" style="display: none" name="pid" value="0"/>
+            <input type="text" style="display: none" name="id"/>
+            <div class="form-group">
+                <div class="col-sm-2 control-label text-right">菜单编号：</div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="code" name="code" placeholder="菜单编号">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-sm-2 control-label text-right">菜单名称：</span>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="菜单名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-sm-2 control-label text-right">排序号：</span>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="ord" name="ord" placeholder="排序号">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-sm-2 control-label text-right">菜单类型：</span>
+                <div class="col-sm-6">
+                    <select class="form-control" id="type" name="type"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-sm-2 control-label text-right">URL：</span>
+                <div class="col-sm-6">
+                    <input class="form-control" id="reqUrl" name="reqUrl" placeholder="URL"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-sm-2 control-label text-right">菜单状态：</span>
+                <div class="col-sm-6">
+                    <select class="form-control" id="status" name="status"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">提交</button>
+                    <button type="reset" class="btn btn-danger">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var zTree, currNode, optType = "add";
+    var setting = {
+        view: {
+            addDiyDom: function (treeId, treeNode) {
+                var aObj = $("#" + treeNode.tId + "_a");
+                var editStr =
+                    "<a data-toggle='tooltip' title='添加同级菜单' id='diyBtn1_" + treeNode.id + "' onclick='add();return false;'><img width='12' src='/images/add_floder.png'></a>" +
+                    "<a data-toggle='tooltip' title='添加下级菜单' id='diyBtn1_" + treeNode.id + "' onclick='edit(" + treeNode.id + ",\"add\");return false;'><img width='10' src='/images/add.png'></a>" +
+                    "<a data-toggle='tooltip' title='修改菜单' id='diyBtn2_" + treeNode.id + "' onclick='edit(" + treeNode.id + ",\"edit\");return false;'><img width='10' src='/images/edit.png'></a>" +
+                    "<a data-toggle='tooltip' title='删除菜单' id='diyBtn2_" + treeNode.id + "' onclick='del(" + treeNode.id + ");return false;'><img width='10' src='/images/delete.png'></a>";
+                aObj.after(editStr);
+                $("[data-toggle='tooltip']").tooltip();
+            }
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                pIdKey:"pid"
+            }
+        },
+        callback: {
+            onClick: function (event, treeId, treeNode) {
+                currNode = treeNode, optType = 'edit';
+                $("input[name=pid]").val(currNode['pid'] == null?0:currNode['pid']);
+                $("input[name=id]").val(currNode['id']);
+                $("input[name=code]").val(currNode['code']);
+                $("input[name=name]").val(currNode['name']);
+                $("input[name=ord]").val(currNode['ord']);
+                $("input[name=reqUrl]").val(currNode['reqUrl']);
+                $("select[name=type] option").attr("selected", false);
+                $("select[name=status] option").attr("selected", false);
+                $("select[name=type] option[value=" + currNode['type'] + "]").attr("selected", true);
+                $("select[name=status] option[value=" + currNode['status'] + "]").attr("selected", true);
+                showEditForm();
+            }
+        }
+    };
+    function add(){
+        $("form")[0].reset();
+        $("input[name=pid]").val(0);
+        optType = 'add';
+        showEditForm();
+    }
+    function edit(id, type) {
+        optType = type;
+        currNode = zTree.getNodeByParam("id", id);
+        zTree.selectNode(currNode);
+        if (type == 'add') {
+            $("form")[0].reset();
+            $("input[name=pid]").val(currNode['id']);
+        } else {
+            $("input[name=pid]").val(currNode['pid'] == null?0:currNode['pid']);
+            $("input[name=id]").val(currNode['id']);
+            $("input[name=code]").val(currNode['code']);
+            $("input[name=name]").val(currNode['name']);
+            $("input[name=ord]").val(currNode['ord']);
+            $("input[name=reqUrl]").val(currNode['reqUrl']);
+            $("select[name=type] option").attr("selected", false);
+            $("select[name=status] option").attr("selected", false);
+            $("select[name=type] option[value=" + currNode['type'] + "]").attr("selected", true);
+            $("select[name=status] option[value=" + currNode['status'] + "]").attr("selected", true);
+        }
+        showEditForm();
+    }
+
+    function del(id) {
+        currNode = zTree.getNodeByParam("id", id);
+        if (currNode.children != null && currNode.children.length > 0) {
+            layer.msg("该菜单含有子菜单，不允许删除！", {icon: 2, shade: 0.01, time: 1000});
+            return;
+        }
+        layer.confirm('删除后将不能恢复，是否确定删除？', {
+            icon:3,
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post(
+                "/menu/del",
+                {id:id},
+                function (result) {
+                    if (result.status == 1) {
+                        layer.msg(
+                            result.desc,
+                            {icon: 1, shade: 0.01, time: 1000},
+                            function (index) {
+                                layer.close(index);
+                                zTree.removeNode(currNode);
+                                var nodes = zTree.getNodes();
+                                if (nodes == undefined || nodes.length == 0) {
+                                    $("#menuTree").empty().append('<li><a href="javascript:showEditForm()">暂无菜单，点击添加菜单</a></li>');
+                                }
+                            }
+                        );
+                    } else {
+                        layer.msg(result.desc, {icon: 2, shade: 0.01, time: 1000});
+                    }
+                }
+            );
+        });
+    }
+
+    function getNodes() {
+        var zNodes = [];
+        $.ajax({
+            type: 'post',
+            url: '/menu/getMenuTree',
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                zNodes = result;
+            }
+        });
+        return zNodes;
+    }
+
+    $(document).ready(function () {
+        var nodes = getNodes();
+        zTree = $.fn.zTree.init($("#menuTree"), setting, nodes);
+        if (nodes.length == 0) {
+            $("#menuTree").empty().append('<li><a href="javascript:showEditForm()">暂无菜单，点击添加菜单</a></li>');
+        }
+        formValid();
+        getConstant("type", "SYS_MENU", "MENU_TYPE", "菜单类型");
+        getConstant("status", "SYS_MENU", "STATUS", "菜单状态");
+    });
+
+    function showEditForm() {
+        $("#rightInfo").show();
+    }
+
+    function formValid() {
+        $("#rightInfo form").validator({
+            fields: {
+                code: "菜单编码:required; length(1~20)",
+                name: "菜单名称:required; length(1~)",
+                ord: "排序号:required;",
+                type: "菜单类型:required;",
+                status: "菜单状态:required;",
+            },
+            focusCleanup: true,
+            timely: 3,
+            theme: 'yellow_right_effect',
+            msgClass: "n-bottom",
+            valid: function (form) {
+                // form.submit();
+                var formData = decodeURIComponent($("form").serialize(), true);
+                $.post(
+                    "/menu/save",
+                    formData,
+                    function (result) {
+                        if (result.status == 1) {
+                            layer.msg(
+                                result.desc,
+                                {icon: 1, shade: 0.01, time: 1000},
+                                function (index) {
+                                    layer.close(index);
+                                    zTree = $.fn.zTree.init($("#menuTree"), setting, getNodes());
+                                    var node = zTree.getNodeByParam("id", result.data);
+                                    if (optType == 'add') {
+                                        // zTree.addNodes(currNode, node);
+                                        $("input[name=id]").val(result.data);
+                                        optType = 'edit';
+                                    }
+                                    currNode = node;
+                                    zTree.selectNode(node);
+                                }
+                            );
+                        } else {
+                            layer.msg(result.desc, {icon: 2, shade: 0.01, time: 1000});
+                        }
+                    }
+                );
+            }
+        });
+    }
+</script>
