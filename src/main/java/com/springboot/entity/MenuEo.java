@@ -28,6 +28,16 @@ public class MenuEo {
 
     private String queryFlag;
 
+    private String iconClass;
+
+    public String getIconClass() {
+        return iconClass;
+    }
+
+    public void setIconClass(String iconClass) {
+        this.iconClass = iconClass;
+    }
+
     public String getQueryFlag() {
         return queryFlag;
     }

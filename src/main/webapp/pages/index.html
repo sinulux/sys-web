@@ -75,12 +75,12 @@
 <script id="headerMenu" type="text/html">
     <ul>
         <% for( var i = 0 ; i < data.length ; i ++ ) {%>
-        <li onclick="loadLeftMenu(this)" data-id="<%=data[i].id%>"><i class="iconfont <%=data[i].iconClass%>"></i><%=data[i].name%>
+        <li onclick="loadLeftMenu(this)" data-id="<%=data[i].id%>"><i class="iconfont <%=data[i].iconClass%>"></i>&nbsp;<%=data[i].name%>
         </li>
         <%}%>
     </ul>
     <div class=" input-group">
-        <input style="width: 150px;height: 25px;line-height: 25px;color:#1E9FFF;border-right: 0" type="text"
+        <input style="width: 80px;height: 25px;line-height: 25px;color:#1E9FFF;border-right: 0" type="text"
                class="form-control" placeholder="搜索站点信息"/>
         <a style="height: 25px;height: 25px;color:#1E9FFF;float: right;border-left: 0;margin-left: -3px"
            class="btn btn-default" href="#" role="button">
@@ -97,8 +97,7 @@
     <% for( var n = 0 ; n < data[i].children.length ; n ++ ) {%>
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span><%=data[i].children[n].name%></span> <i
-                class="fa fa-angle-right pull-right"></i>
+            <i class="fa fa-dashboard"></i> <span><%=data[i].children[n].name%></span><i class="iconfont icon-msnui-rightmini pull-right"></i>
         </a>
         <ul class="treeview-menu">
             <% for( var j = 0 ; j < data[i].children[n].children.length ; j ++ ) {%>
@@ -113,7 +112,7 @@
     </li>
     <%}%>
     <%}else{%>
-    <li type="<%=data[i].type%>" reqUrl="<%=data[i].reqUrl%>"><a href="#"><i class="fa fa-circle-o"></i><%=data[i].name%></a>
+    <li type="<%=data[i].type%>" reqUrl="<%=data[i].reqUrl%>"><a href="#"><i class="iconfont <%=data[i].iconClass%>"></i>&nbsp;<%=data[i].name%></a>
     </li>
     <%}%>
     <%}%>
