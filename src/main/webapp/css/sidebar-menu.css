@@ -1,11 +1,11 @@
 .sidebar-menu {
     list-style: none;
-    height: 500px;
+    height: 1200px;
     overflow: auto;
     margin: 0;
     padding: 0;
-    width: 100%;
     background-color: #222d32;
+    transition: all .3s;
 }
 
 .sidebar-menu > li {
@@ -107,11 +107,13 @@
 }
 
 .main-sidebar {
-    height: 90%;
+    min-height: 100%;
     z-index: 810;
     padding: 0;
     margin: 0;
+    transition: all .3s;
     background-color: #222d32;
+    display: block;
 }
 
 .header ul {
@@ -142,9 +144,9 @@
 .f_left {
     float: left;
     width: auto;
-    font-size: 10px;
     padding: 0 5px;
-    cursor: pointer
+    cursor: pointer;
+    margin: 10px auto;
 }
 
 .f_left:hover {
@@ -179,4 +181,7 @@
 /*定义右下角汇合处的样式*/
 ::-webkit-scrollbar-corner {
     background: khaki;
+}
+#mainHeader{
+    margin-right: -30px;
 }

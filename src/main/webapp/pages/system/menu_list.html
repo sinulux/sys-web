@@ -1,68 +1,68 @@
-<div class="container row" style="margin-top: -5px">
-    <div class="col-md-4">
+<div class="container row col-xs-12">
+    <div class="col-xs-3">
+        <div class="text-center text-primary bg-primary">系统菜单</div>
         <ul id="menuTree" class="ztree bg-warning"
-            style="height: 430px;overflow-y: auto;
-            overflow-x:hidden;padding: 0;margin: 0;border-right:1px solid #C9C9C9">
+            style="height: 800px;overflow: auto;border-right:1px solid #C9C9C9">
         </ul>
     </div>
-    <div class="col-md-8 hidden bg-info" id="rightInfo" style="height: 430px">
-        <div class="col-sm-12">
-            <div class="col-sm-8" style="border-bottom: 1px solid #F0F0F0;padding: 0;margin-bottom: 20px">
-                <span class="text-info" style="border-bottom: 2px solid #1E9FFF;padding: 2px 5px">详细信息</span>
-            </div>
+    <div class="col-xs-9 hidden bg-info" id="rightInfo" style="height: 800px;overflow: auto">
+        <div class="col-xs-12" style="border-bottom: 1px solid #F0F0F0;padding: 0;margin-bottom: 20px">
+            <span class="text-info" style="border-bottom: 2px solid #1E9FFF;line-height: 30px">详细信息</span>
         </div>
-        <form class="form-horizontal" method="post" autocomplete="off">
-            <input type="text" style="display: none" name="pid" value="0"/>
-            <input type="text" style="display: none" name="id"/>
-            <div class="form-group">
-                <div class="col-sm-2 control-label text-right">菜单编号：</div>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="code" name="code" placeholder="菜单编号">
+        <div class="col-xs-12">
+            <form class="form-horizontal" method="post" autocomplete="off">
+                <input type="text" style="display: none" name="pid" value="0"/>
+                <input type="text" style="display: none" name="id"/>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label text-right">菜单编号：</div>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="code" name="code" placeholder="菜单编号">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <span class="col-sm-2 control-label text-right">菜单名称：</span>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="菜单名称">
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">菜单名称：</span>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="菜单名称">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <span class="col-sm-2 control-label text-right">排序号：</span>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="ord" name="ord" placeholder="排序号">
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">排序号：</span>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="ord" name="ord" placeholder="排序号">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <span class="col-sm-2 control-label text-right">菜单类型：</span>
-                <div class="col-sm-6">
-                    <select class="form-control" id="type" name="type"></select>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">菜单类型：</span>
+                    <div class="col-xs-10">
+                        <select class="form-control" id="type" name="type"></select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <span class="col-sm-2 control-label text-right">URL：</span>
-                <div class="col-sm-6">
-                    <input class="form-control" id="reqUrl" name="reqUrl" placeholder="URL"/>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">URL：</span>
+                    <div class="col-xs-10">
+                        <input class="form-control" id="reqUrl" name="reqUrl" placeholder="URL"/>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <span class="col-sm-2 control-label text-right">菜单状态：</span>
-                <div class="col-sm-6">
-                    <select class="form-control" id="status" name="status"></select>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">菜单状态：</span>
+                    <div class="col-xs-10">
+                        <select class="form-control" id="status" name="status"></select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <span class="col-sm-2 control-label text-right">菜单图标：</span>
-                <div class="col-sm-6">
-                    <input class="form-control" id="iconClass" name="iconClass" placeholder="菜单图标"/>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">菜单图标：</span>
+                    <div class="col-xs-10">
+                        <input class="form-control" id="iconClass" name="iconClass" placeholder="菜单图标"/>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">提交</button>
-                    <button type="reset" class="btn btn-danger">重置</button>
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-xs-10">
+                        <button type="submit" class="btn btn-default">提交</button>
+                        <button type="reset" class="btn btn-danger">重置</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
