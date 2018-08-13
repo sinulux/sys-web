@@ -3,7 +3,9 @@ package com.springboot.controller;
 import com.springboot.common.busi.ResponseData;
 import com.springboot.service.common.ICommonService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -26,5 +28,10 @@ public class CommonController {
         params.put("columnName",columnName);
         List<Map<String, Object>> constantList = commonService.getConstantList(params);
         return ResponseData.success(constantList,"查询成功！");
+    }
+
+    @RequestMapping(value = "/{errorCode}",method = RequestMethod.GET)
+    public String errorPage(@PathVariable("errorCode")String errorCode){
+        return "/pages/error/" + errorCode;
     }
 }

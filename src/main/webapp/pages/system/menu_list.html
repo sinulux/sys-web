@@ -72,7 +72,7 @@
             addDiyDom: function (treeId, treeNode) {
                 var aObj = $("#" + treeNode.tId + "_a");
                 var editStr =
-                    "<a data-toggle='tooltip' title='添加同级菜单' id='diyBtn1_" + treeNode.id + "' onclick='add();return false;'><img width='12' src='/images/add_floder.png'></a>" +
+                    "<a data-toggle='tooltip' title='添加同级菜单' id='diyBtn1_" + treeNode.id + "' onclick='add(" + treeNode.id + ");return false;'><img width='12' src='/images/add_floder.png'></a>" +
                     "<a data-toggle='tooltip' title='添加下级菜单' id='diyBtn1_" + treeNode.id + "' onclick='edit(" + treeNode.id + ",\"add\");return false;'><img width='10' src='/images/add.png'></a>" +
                     "<a data-toggle='tooltip' title='修改菜单' id='diyBtn2_" + treeNode.id + "' onclick='edit(" + treeNode.id + ",\"edit\");return false;'><img width='10' src='/images/edit.png'></a>" +
                     "<a data-toggle='tooltip' title='删除菜单' id='diyBtn2_" + treeNode.id + "' onclick='del(" + treeNode.id + ");return false;'><img width='10' src='/images/delete.png'></a>";
@@ -104,9 +104,10 @@
             }
         }
     };
-    function add(){
+    function add(id){
         $("form")[0].reset();
-        $("input[name=pid]").val(0);
+        currNode = zTree.getNodeByParam("id", id);
+        $("input[name=pid]").val(currNode['pid']);
         optType = 'add';
         showEditForm();
     }
