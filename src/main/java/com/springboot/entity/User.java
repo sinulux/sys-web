@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * mapper的实体类
  */
-public class UserEntity implements Serializable {
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Long id;
@@ -15,11 +15,20 @@ public class UserEntity implements Serializable {
 	private String email;
 	private String nickName;
 	private String regTime;
+	private String status;
 
-	public UserEntity() {
+	public String getStatus() {
+		return status;
 	}
 
-	public UserEntity(String userName, String passWord, String email, String nickName, String regTime) {
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public User() {
+	}
+
+	public User(String userName, String passWord, String email, String nickName, String regTime) {
 		this.userName = userName;
 		this.passWord = passWord;
 		this.email = email;
