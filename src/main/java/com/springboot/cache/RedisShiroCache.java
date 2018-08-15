@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author cheng
+ * @author wangshibao
  * @className: RedisShiroCache
  * @description: redis管理shiro缓存
  * @dateTime 2018/4/24 16:04
@@ -45,7 +45,7 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
         byte[] keyByteArray = getKey(key);
         // 从redis中获取数据
         byte[] valueByteArray = RedisUtil.get(keyByteArray);
-        log.info("从缓存中获取数据");
+//        log.debug("从缓存中获取数据");
         // 返回对应的数据
         return valueByteArray == null ? null : SerializationUtils.deserialize(valueByteArray);
     }
@@ -64,7 +64,7 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
         byte[] keyByteArray = getKey(key);
         byte[] valueByteArray = SerializationUtils.serialize((Serializable) value);
         RedisUtil.set(keyByteArray, valueByteArray);
-        log.info("保存shiro缓存到redis");
+        log.debug("保存shiro缓存到redis");
         // 返回保存的值
         return SerializationUtils.deserialize(valueByteArray);
     }
@@ -84,7 +84,7 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
         byte[] valueByteArray = RedisUtil.get(keyByteArray);
         // 删除
         RedisUtil.del(keyByteArray);
-        log.info("从redis中删除");
+        log.debug("从redis中删除");
         // 返回删除的数据
         return SerializationUtils.deserialize(valueByteArray);
     }
@@ -96,7 +96,7 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
      */
     @Override
     public void clear() throws CacheException {
-        log.info("清空所有的缓存");
+        log.debug("清空所有的缓存");
         RedisUtil.delByPrefix(ShiroUtil.SHIRO_CACHE_PREFIX);
     }
 
@@ -108,7 +108,7 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
     @Override
     public int size() {
         Set<byte[]> keyByteArraySet = RedisUtil.keys(ShiroUtil.SHIRO_CACHE_PREFIX);
-        log.info("获取缓存个数");
+        log.debug("获取缓存个数");
         return keyByteArraySet.size();
     }
 
@@ -120,7 +120,7 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
     @Override
     public Set keys() {
         Set<byte[]> keyByteArraySet = RedisUtil.keys(ShiroUtil.SHIRO_CACHE_PREFIX);
-        log.info("获取缓存所有的key");
+        log.debug("获取缓存所有的key");
         return keyByteArraySet;
     }
 
@@ -138,7 +138,7 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
             byte[] valueByteArray = RedisUtil.get(keyByteArray);
             valueList.add(SerializationUtils.deserialize(valueByteArray));
         }
-        log.info("获取缓存所有的value");
+        log.debug("获取缓存所有的value");
         return valueList;
     }
 

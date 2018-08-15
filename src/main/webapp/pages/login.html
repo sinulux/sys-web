@@ -57,7 +57,7 @@
             password: "密码:required; length(6~20)"
         },
         focusCleanup: true,
-        timely: 9,
+        timely: 3,
         theme:'yellow_right_effect',
         msgClass:'n-top',
         valid: function (form) {
@@ -68,7 +68,7 @@
                 "/login/userLogin",
                 formData,
                 function (result) {
-                    if (result.status == 'success') {
+                    if (result.status == '1') {
                         layer.msg('登录成功！正在进入...', {
                             icon: 16
                             , shade: 0.01,
@@ -78,7 +78,7 @@
                             window.location.href = "/index/goIndex";
                         });
                     } else {
-                        layer.alert(result.desc, {icon: 2});
+                        layer.alert(result.data, {icon: 2});
                     }
                 }
             );

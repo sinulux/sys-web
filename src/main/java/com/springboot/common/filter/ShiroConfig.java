@@ -164,24 +164,30 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(createSecurityManager());
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/v1/toLoginPage");
+        shiroFilterFactoryBean.setLoginUrl("/login/loginIn");
 
         // 过滤器
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
         // 配置不会被过滤的链接 顺序判断
         // 过虑器链定义，从上向下顺序执行，一般将/**放在最下边
-        // 用户注册匿名访问
-        filterChainDefinitionMap.put("/v1/users/", "anon");
-        // 管理员登录页面
-        filterChainDefinitionMap.put("/v1/toLoginPage", "anon");
-        // 管理员登录
-        filterChainDefinitionMap.put("/v1/login", "anon");
+        // 验证码1
+        filterChainDefinitionMap.put("/login/getGhCode", "anon");
+        // 验证码2
+        filterChainDefinitionMap.put("/login/getCode", "anon");
+        // 开放登陆
+        filterChainDefinitionMap.put("/login/userLogin", "anon");
         // 对静态资源设置匿名访问
         // anon:所有url都都可以匿名访问
-        filterChainDefinitionMap.put("/static/**", "anon");
-
+        filterChainDefinitionMap.put("/bootstrap/**", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");
+        filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/layer/**", "anon");
+        filterChainDefinitionMap.put("/niceValidator/**", "anon");
+        filterChainDefinitionMap.put("/pagination/**", "anon");
+        filterChainDefinitionMap.put("/ztree/**", "anon");
         // authc:所有url都必须认证通过才可以访问
-        filterChainDefinitionMap.put("/**", "anon");
+        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

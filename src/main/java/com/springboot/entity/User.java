@@ -1,7 +1,11 @@
 package com.springboot.entity;
 
 
+import org.springframework.data.annotation.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * mapper的实体类
@@ -9,32 +13,16 @@ import java.io.Serializable;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Id
 	private Long id;
+	private String userId;
 	private String userName;
 	private String passWord;
-	private String email;
-	private String nickName;
-	private String regTime;
 	private String status;
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public User() {
-	}
-
-	public User(String userName, String passWord, String email, String nickName, String regTime) {
-		this.userName = userName;
-		this.passWord = passWord;
-		this.email = email;
-		this.nickName = nickName;
-		this.regTime = regTime;
-	}
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date createDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date updateDate;
 
 	public Long getId() {
 		return id;
@@ -42,6 +30,14 @@ public class User implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserName() {
@@ -60,27 +56,27 @@ public class User implements Serializable {
 		this.passWord = passWord;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
-	public String getRegTime() {
-		return regTime;
+	public Date getUpdateDate() {
+		return updateDate;
 	}
 
-	public void setRegTime(String regTime) {
-		this.regTime = regTime;
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 }

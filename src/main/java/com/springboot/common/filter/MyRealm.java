@@ -39,12 +39,16 @@ public class MyRealm extends AuthorizingRealm {
 
     /**
      * @description: 加密密码
-     * @author cheng
+     * @author wangshibao
      * @dateTime 2018/4/23 15:01
      */
     public static String encrypt(String password, String salt) {
         Md5Hash md5Hash = new Md5Hash(password, salt, HASH_ITERATIONS);
         return md5Hash.toString();
+    }
+
+    public static void main(String[] args){
+        System.out.println(encrypt("111111","1"));
     }
 
     /**
@@ -61,22 +65,21 @@ public class MyRealm extends AuthorizingRealm {
         // 依据用户账号查找用户
         ResponseData apiResponse = userService.selectByUserAccount(userAccount);
         // 账号不存在
-//        if (ApiResponse.FAIL_TYPE.equals(apiResponse.getType())) {
-//            throw new UnknownAccountException();
-//        }
-        List<User> userList = (List<User>) apiResponse.getData();
-        User user = userList.get(0);
+        if (apiResponse == null || apiResponse.getData() == null) {
+            throw new UnknownAccountException("帐号不存在");
+        }
+        User user = (User)apiResponse.getData();
         // 获取用户状态
         String userStatus = user.getStatus();
         // 获取用户密码
         String userPassword = user.getPassWord();
         // 账号锁定
         if (userStatus == UserStatusEnum.LOCKED_ACCOUNT.name()) {
-            throw new LockedAccountException();
+            throw new LockedAccountException("帐号已锁定");
         }
         // 账号禁用
         if (userStatus == UserStatusEnum.DISABLED_ACCOUNT.name()) {
-            throw new DisabledAccountException();
+            throw new DisabledAccountException("帐号不可用");
         }
         // 盐
         Long salt = user.getId();
@@ -86,7 +89,8 @@ public class MyRealm extends AuthorizingRealm {
         // 如果没有配置Shiro加密，会直接进行比较
         // 如果配置了Shiro的加密,会先对UsernamePasswordToken(userAccount, userPassword)中的密码进行加密，
         // 再和SimpleAuthenticationInfo(userAccount, userPassword, ByteSource.Util.bytes(salt), this.getName())中的密码进行比较
-        return new SimpleAuthenticationInfo(userAccount, userPassword, ByteSource.Util.bytes(salt), this.getName());
+        // 注意salt不能用Long 后期可以采用UUID加密
+        return new SimpleAuthenticationInfo(userAccount, userPassword, ByteSource.Util.bytes(String.valueOf(salt)), this.getName());
     }
 
     /**

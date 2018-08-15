@@ -1,7 +1,13 @@
 package com.springboot.controller;
 
+import com.springboot.common.busi.ResponseData;
 import com.springboot.common.util.CodeUtil;
 import com.springboot.common.util.GraphicHelper;
+import com.springboot.entity.User;
+import com.springboot.service.system.IUserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +32,9 @@ import java.util.Map;
 public class LoginController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Resource
+    private IUserService userService;
 
     @RequestMapping("/loginIn")
     public String toLogin(){
@@ -89,9 +99,32 @@ public class LoginController {
     @ResponseBody
     public Object userLogin(String username,String password,String validCode){
         logger.info(username + " " + password + " " + validCode);
-        Map<String,Object> rtMap = new HashMap();
-        rtMap.put("status","success");
-        rtMap.put("desc","登陆成功");
-        return rtMap;
+        // 从SecurityUtils里边创建一个 subject
+        Subject subject = SecurityUtils.getSubject();
+        // 在认证提交前准备 token（令牌）
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        // 执行认证登陆
+        try{
+            subject.login(token);
+        }catch (Exception e){
+            return ResponseData.success(e.getMessage(),"登陆失败");
+        }
+        //根据权限，指定返回数据
+        ResponseData role = userService.selectByUserAccount(username);
+        if (role == null) {
+            return ResponseData.success("登陆失败");
+        }
+        if ("sysadmin".equals(((User)role.getData()).getUserName())) {
+            return ResponseData.success("欢迎来到管理员页面");
+        }
+        return ResponseData.success(role,"普通用户登陆成功");
+    }
+
+    @RequestMapping(value = "/logOut", method = RequestMethod.GET)
+    public ResponseData logout() {
+        Subject subject = SecurityUtils.getSubject();
+        //注销
+        subject.logout();
+        return ResponseData.success("成功注销！");
     }
 }
