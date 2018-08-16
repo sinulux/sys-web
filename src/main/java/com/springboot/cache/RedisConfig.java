@@ -21,8 +21,8 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
 /**
  * redis配置
- * @author wangshibao
  *
+ * @author wangshibao
  */
 @Configuration
 @EnableCaching
@@ -30,7 +30,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
-        MessageListenerAdapter listenerAdapter) {
+                                            MessageListenerAdapter listenerAdapter) {
 
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
@@ -48,9 +48,9 @@ public class RedisConfig extends CachingConfigurerSupport {
         // 设置其他缓存时间,可以使用@Cacheable(value = "12h", keyGenerator = "keyGenerator")
         // value = "people#120#90", key = "#person.id"
         Map<String, Long> expires = new HashMap<>();
-        expires.put("12h",3600 * 12L);
-        expires.put("1h",3600 * 1L);
-        expires.put("10m",60 * 5L);
+        expires.put("12h", 3600 * 12L);
+        expires.put("1h", 3600 * 1L);
+        expires.put("10m", 60 * 5L);
         cacheManager.setExpires(expires);
 
         return cacheManager;
@@ -78,10 +78,12 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     public class Receiver {
         private CountDownLatch latch;
+
         @Autowired
         public Receiver(CountDownLatch latch) {
             this.latch = latch;
         }
+
         public void receiveMessage(String message) {
             latch.countDown();
         }

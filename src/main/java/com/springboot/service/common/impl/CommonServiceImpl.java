@@ -12,6 +12,7 @@ import java.util.Map;
 public class CommonServiceImpl implements ICommonService {
     @Resource
     private CommonMapper commonMapper;
+
     @Override
     public List<Map<String, Object>> getConstantList(Map<String, Object> params) {
         return commonMapper.getConstantList(params);

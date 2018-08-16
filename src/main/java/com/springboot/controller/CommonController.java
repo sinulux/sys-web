@@ -22,16 +22,16 @@ public class CommonController {
 
     @RequestMapping("/getConstant")
     @ResponseBody
-    public ResponseData getConstantList(String tableName,String columnName){
-        Map<String,Object> params = new HashMap<>();
-        params.put("tableName",tableName);
-        params.put("columnName",columnName);
+    public ResponseData getConstantList(String tableName, String columnName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("tableName", tableName);
+        params.put("columnName", columnName);
         List<Map<String, Object>> constantList = commonService.getConstantList(params);
-        return ResponseData.success(constantList,"查询成功！");
+        return ResponseData.success(constantList, "查询成功！");
     }
 
-    @RequestMapping(value = "/{errorCode}",method = RequestMethod.GET)
-    public String errorPage(@PathVariable("errorCode")String errorCode){
+    @RequestMapping(value = "/{errorCode}", method = RequestMethod.GET)
+    public String errorPage(@PathVariable("errorCode") String errorCode) {
         return "/pages/error/" + errorCode;
     }
 }

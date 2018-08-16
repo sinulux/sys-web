@@ -1,6 +1,7 @@
 package com.springboot.controller;
 
 import com.springboot.common.busi.ResponseData;
+import com.springboot.common.filter.ShiroUtil;
 import com.springboot.common.util.CodeUtil;
 import com.springboot.common.util.GraphicHelper;
 import com.springboot.entity.User;
@@ -37,13 +38,13 @@ public class LoginController {
     private IUserService userService;
 
     @RequestMapping("/loginIn")
-    public String toLogin(){
+    public String toLogin() {
         logger.info("跳转登陆页面...");
         return "/pages/login";
     }
 
     @RequestMapping("/getCode")
-    public void getValidCode(HttpServletRequest req, HttpServletResponse resp){
+    public void getValidCode(HttpServletRequest req, HttpServletResponse resp) {
         // 调用工具类生成的验证码和验证码图片
         Map<String, Object> codeMap = CodeUtil.generateCodeAndPic();
 
@@ -68,8 +69,9 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
     @RequestMapping("/getGhCode")
-    public void getGhCode(HttpServletRequest request, HttpServletResponse response){
+    public void getGhCode(HttpServletRequest request, HttpServletResponse response) {
         // 获得 当前请求 对应的 会话对象
         HttpSession session = request.getSession();
 
@@ -95,33 +97,42 @@ public class LoginController {
         session.setAttribute(uri, code);
     }
 
-    @RequestMapping(value="/userLogin",method = RequestMethod.POST)
+    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     @ResponseBody
-    public Object userLogin(HttpServletRequest request,String username,String password,String validCode){
+    public Object userLogin(HttpServletRequest request, String username, String password, String validCode) {
         logger.info(username + " " + password + " " + validCode);
         Object code = request.getSession().getAttribute("code");
-        if(code == null || validCode.equals(code.toString())){
-            return ResponseData.fail("验证码不正确","登陆失败");
+        if (code == null || validCode.equals(code.toString())) {
+            return ResponseData.fail("验证码不正确", "登陆失败");
         }
         // 从SecurityUtils里边创建一个 subject
         Subject subject = SecurityUtils.getSubject();
         // 在认证提交前准备 token（令牌）
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        User user = null;
         // 执行认证登陆
-        try{
+        try {
             subject.login(token);
-        }catch (Exception e){
-            return ResponseData.success(e.getMessage(),"登陆失败");
+            // 用户认证成功,获取当前用户
+            user = ShiroUtil.getCurrentUser();
+        } catch (Exception e) {
+            // 用户认证失败,删除当前用户
+            ShiroUtil.removeCurrentUser();
+            return ResponseData.success(e.getMessage(), "登陆失败");
         }
         //根据权限，指定返回数据
         ResponseData role = userService.selectByUserAccount(username);
         if (role == null) {
+            // 用户认证失败,删除当前用户
+            ShiroUtil.removeCurrentUser();
             return ResponseData.success("登陆失败");
         }
-        if ("sysadmin".equals(((User)role.getData()).getUserName())) {
+        // 在此添加权限信息到用户
+        // TODO
+        if ("sysadmin".equals(((User) role.getData()).getUserName())) {
             return ResponseData.success("欢迎来到管理员页面");
         }
-        return ResponseData.success(role,"普通用户登陆成功");
+        return ResponseData.success(user, "普通用户登陆成功");
     }
 
     @RequestMapping(value = "/logOut", method = RequestMethod.GET)

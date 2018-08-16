@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author cheng
+ * @author wangshibao
  * @className: MyRealm
  * @description: 自定义realm
  * @dateTime 2018/4/18 15:40
@@ -101,7 +101,6 @@ public class MyRealm extends AuthorizingRealm {
 
     /**
      * @description: 用于授权
-     * @author cheng
      * @dateTime 2018/4/18 15:42
      */
     @Override

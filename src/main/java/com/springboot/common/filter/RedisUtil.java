@@ -7,12 +7,12 @@ import redis.clients.jedis.JedisPool;
 import java.util.Set;
 
 /**
- * @author cheng
+ * @author wangshibao
  * @className: RedisUtil
  * @description: redis操作工具类
  * @dateTime 2018/4/23 16:12
  */
- // 因为工具类中的JedisPool 使用了spring注入，所以该工具类也要加入IOC容器
+// 因为工具类中的JedisPool 使用了spring注入，所以该工具类也要加入IOC容器
 @Component
 public class RedisUtil {
 
@@ -23,7 +23,6 @@ public class RedisUtil {
 
     /**
      * @description: 静态字段, 通过set注入jedispool
-     * @author cheng
      * @dateTime 2018/4/24 9:45
      */
 //    @Autowired
@@ -33,7 +32,6 @@ public class RedisUtil {
 
     /**
      * @description: 私有化构造函数
-     * @author cheng
      * @dateTime 2018/4/23 16:12
      */
     private RedisUtil() {
@@ -41,7 +39,6 @@ public class RedisUtil {
 
     /**
      * @description: 获取jedis
-     * @author cheng
      * @dateTime 2018/4/24 9:47
      */
     public static Jedis getJedis() {
@@ -50,7 +47,6 @@ public class RedisUtil {
 
     /**
      * @description: 保存到redis
-     * @author cheng
      * @dateTime 2018/4/24 10:04
      */
     public static void set(byte[] key, byte[] value) {
@@ -64,7 +60,6 @@ public class RedisUtil {
 
     /**
      * @description: 从redis中获取
-     * @author cheng
      * @dateTime 2018/4/24 10:11
      */
     public static byte[] get(byte[] key) {
@@ -78,7 +73,6 @@ public class RedisUtil {
 
     /**
      * @description: 从redis中删除
-     * @author cheng
      * @dateTime 2018/4/24 10:17
      */
     public static void del(byte[] key) {
@@ -92,7 +86,6 @@ public class RedisUtil {
 
     /**
      * @description: 依据前缀删除key
-     * @author cheng
      * @dateTime 2018/4/24 16:48
      */
     public static void delByPrefix(String keyPrefix) {
@@ -110,7 +103,6 @@ public class RedisUtil {
 
     /**
      * @description: 设置redis过期时间
-     * @author cheng
      * @dateTime 2018/4/24 10:21
      */
     public static void expire(byte[] key, int seconds) {
@@ -124,7 +116,6 @@ public class RedisUtil {
 
     /**
      * @description: 从redis中获取指定前缀的key
-     * @author cheng
      * @dateTime 2018/4/24 10:25
      */
     public static Set<byte[]> keys(String shiroSessionPrefix) {

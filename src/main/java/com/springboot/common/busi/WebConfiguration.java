@@ -21,33 +21,32 @@ public class WebConfiguration {
 
     @Bean
     public FilterRegistrationBean testFilterRegistration() {
-
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new MyFilter());
         registration.addUrlPatterns("/*");
         registration.addInitParameter("paramName", "paramValue");
-        registration.setName("MyFilter");
+        registration.setName("webFilter");
         registration.setOrder(1);
         return registration;
     }
 
     public class MyFilter implements Filter {
-		@Override
-		public void destroy() {
+        @Override
+        public void destroy() {
             System.out.println("Filter is destroy");
-		}
+        }
 
-		@Override
-		public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
-				throws IOException, ServletException {
-			HttpServletRequest request = (HttpServletRequest) srequest;
-			System.out.println("this is MyFilter,url :"+request.getRequestURI());
-			filterChain.doFilter(srequest, sresponse);
-		}
+        @Override
+        public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
+                throws IOException, ServletException {
+            HttpServletRequest request = (HttpServletRequest) srequest;
+            System.out.println("this is webFilter,url :" + request.getRequestURI());
+            filterChain.doFilter(srequest, sresponse);
+        }
 
-		@Override
-		public void init(FilterConfig arg0) {
+        @Override
+        public void init(FilterConfig arg0) {
             System.out.println("load init param " + arg0.getInitParameterNames());
-		}
+        }
     }
 }

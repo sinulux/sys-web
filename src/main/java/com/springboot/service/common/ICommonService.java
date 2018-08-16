@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface ICommonService {
 
-    public List<Map<String,Object>> getConstantList(Map<String, Object> params);
+    public List<Map<String, Object>> getConstantList(Map<String, Object> params);
 }

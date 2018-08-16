@@ -24,7 +24,6 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
 
     /**
      * @description: 获取加工后的key的字节数组
-     * @author cheng
      * @dateTime 2018/4/24 9:57
      */
     private byte[] getKey(Object key) {
@@ -33,7 +32,6 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
 
     /**
      * @description: 从缓存中获取数据
-     * @author cheng
      * @dateTime 2018/4/24 16:09
      */
     @Override
@@ -52,7 +50,6 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
 
     /**
      * @description: 保存shiro缓存到redis
-     * @author cheng
      * @dateTime 2018/4/24 16:13
      */
     @Override
@@ -71,7 +68,6 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
 
     /**
      * @description: 从redis中删除
-     * @author cheng
      * @dateTime 2018/4/24 16:19
      */
     @Override
@@ -91,7 +87,6 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
 
     /**
      * @description: 清空所有的缓存
-     * @author cheng
      * @dateTime 2018/4/24 16:25
      */
     @Override
@@ -102,7 +97,6 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
 
     /**
      * @description: 缓存个数
-     * @author cheng
      * @dateTime 2018/4/24 16:56
      */
     @Override
@@ -114,7 +108,6 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
 
     /**
      * @description: 获取所有的key
-     * @author cheng
      * @dateTime 2018/4/24 16:59
      */
     @Override
@@ -126,7 +119,6 @@ public class RedisShiroCache<K, V> implements Cache<K, V> {
 
     /**
      * @description: 获取所有的value
-     * @author cheng
      * @dateTime 2018/4/24 16:59
      */
     @Override

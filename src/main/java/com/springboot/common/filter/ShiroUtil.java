@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author cheng
+ * @author wangshibao
  * @className: ShiroUtil
  * @description: 管理shiro session的工具类
  * @dateTime 2018/4/19 10:15
@@ -59,7 +59,6 @@ public class ShiroUtil {
 
     /**
      * @description: 私有化构造函数
-     * @author cheng
      * @dateTime 2018/4/19 10:15
      */
     private ShiroUtil() {
@@ -67,7 +66,6 @@ public class ShiroUtil {
 
     /**
      * @description: 获取session
-     * @author cheng
      * @dateTime 2018/4/19 10:38
      */
     public static Session getSession() {
@@ -84,7 +82,6 @@ public class ShiroUtil {
 
     /**
      * @description: 将数据放到shiro session中
-     * @author cheng
      * @dateTime 2018/4/19 10:45
      */
     public static void setAttribute(Object key, Object value) {
@@ -99,7 +96,6 @@ public class ShiroUtil {
 
     /**
      * @description: 获取shiro session中的数据
-     * @author cheng
      * @dateTime 2018/4/19 10:48
      */
     public static Object getAttribute(Object key) {
@@ -116,7 +112,6 @@ public class ShiroUtil {
 
     /**
      * @description: 删除shiro session中的数据
-     * @author cheng
      * @dateTime 2018/4/19 10:51
      */
     public static void removeAttribute(Object key) {
@@ -131,7 +126,6 @@ public class ShiroUtil {
 
     /**
      * @description: 设置当前用户
-     * @author cheng
      * @dateTime 2018/4/19 10:59
      */
     public static void setCurrentUser(Object user) {
@@ -140,7 +134,6 @@ public class ShiroUtil {
 
     /**
      * @description: 获取当前用户
-     * @author cheng
      * @dateTime 2018/4/19 10:59
      */
     public static User getCurrentUser() {
@@ -150,7 +143,6 @@ public class ShiroUtil {
 
     /**
      * @description:删除当前用户
-     * @author cheng
      * @dateTime 2018/4/19 10:59
      */
     public static void removeCurrentUser() {
@@ -159,7 +151,6 @@ public class ShiroUtil {
 
     /**
      * @description: 加密密码
-     * @author cheng
      * @dateTime 2018/4/23 15:01
      */
     public static String encrypt(String password, String salt) {

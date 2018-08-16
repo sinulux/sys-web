@@ -22,27 +22,27 @@ public class MenuController {
     private IMenuService menuService;
 
     @RequestMapping("/menu_list")
-    public String getMenuPage(){
+    public String getMenuPage() {
         logger.info("菜单主页面...");
         return "/pages/system/menu_list";
     }
 
     @RequestMapping("/getMenuTree")
     @ResponseBody
-    public List<MenuEo> getMenuTree(MenuEo eo){
+    public List<MenuEo> getMenuTree(MenuEo eo) {
         List<MenuEo> menuTree = new ArrayList<>();
-        if(eo.getId() != null){
+        if (eo.getId() != null) {
             menuTree = this.getChildren(eo);
-        }else{
+        } else {
             menuTree = menuService.getMenuTree(eo);
         }
         return menuTree;
     }
 
-    public List<MenuEo> getChildren(MenuEo eo){
+    public List<MenuEo> getChildren(MenuEo eo) {
         List<MenuEo> children = new ArrayList<MenuEo>();
         children = menuService.getMenuTree(eo);
-        for(MenuEo item:children){
+        for (MenuEo item : children) {
             eo.setId(item.getId());
             item.setChildren(getChildren(eo));
         }
@@ -51,18 +51,18 @@ public class MenuController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public ResponseData save(MenuEo eo){
+    public ResponseData save(MenuEo eo) {
         logger.info("保存菜单信息...");
         eo.setCreateUser(1);
         Integer primaryKey = menuService.saveMenuInfo(eo);
-        return ResponseData.success(primaryKey,"保存成功！");
+        return ResponseData.success(primaryKey, "保存成功！");
     }
 
     @RequestMapping("/del")
     @ResponseBody
-    public ResponseData del(MenuEo eo){
+    public ResponseData del(MenuEo eo) {
         logger.info("删除菜单信息...");
         Integer cnt = menuService.del(eo);
-        return ResponseData.success(cnt,"删除成功！");
+        return ResponseData.success(cnt, "删除成功！");
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author cheng
+ * @author wangshibao
  * @className: LoginServiceImpl
  * @description:
  * @dateTime 2018/4/19 9:21
@@ -32,7 +32,6 @@ public class LoginServiceImpl implements ILoginService {
 
     /**
      * @description: 登录
-     * @author cheng
      * @dateTime 2018/4/19 9:21
      */
     @Override

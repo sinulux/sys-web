@@ -1,5 +1,9 @@
 package com.springboot.common.busi;
 
+/**
+ * 相应数据
+ * @author wangshibao
+ */
 public class ResponseData {
 
     private Integer status;
@@ -32,7 +36,7 @@ public class ResponseData {
         this.data = data;
     }
 
-    public static ResponseData success(){
+    public static ResponseData success() {
         ResponseData responseData = new ResponseData();
         responseData.setData(null);
         responseData.setStatus(1);
@@ -40,7 +44,7 @@ public class ResponseData {
         return responseData;
     }
 
-    public static ResponseData success(String desc){
+    public static ResponseData success(String desc) {
         ResponseData responseData = new ResponseData();
         responseData.setData(null);
         responseData.setStatus(1);
@@ -48,7 +52,7 @@ public class ResponseData {
         return responseData;
     }
 
-    public static ResponseData success(Object data,String desc){
+    public static ResponseData success(Object data, String desc) {
         ResponseData responseData = new ResponseData();
         responseData.setData(data);
         responseData.setStatus(1);
@@ -56,7 +60,7 @@ public class ResponseData {
         return responseData;
     }
 
-    public static ResponseData fail(){
+    public static ResponseData fail() {
         ResponseData responseData = new ResponseData();
         responseData.setData(null);
         responseData.setStatus(0);
@@ -64,7 +68,7 @@ public class ResponseData {
         return responseData;
     }
 
-    public static ResponseData fail(String desc){
+    public static ResponseData fail(String desc) {
         ResponseData responseData = new ResponseData();
         responseData.setData(null);
         responseData.setStatus(0);
@@ -72,7 +76,7 @@ public class ResponseData {
         return responseData;
     }
 
-    public static ResponseData fail(Object data,String desc){
+    public static ResponseData fail(Object data, String desc) {
         ResponseData responseData = new ResponseData();
         responseData.setData(data);
         responseData.setStatus(0);

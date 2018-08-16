@@ -29,7 +29,6 @@ public class ShiroConfig {
 
     /**
      * @description:自定义realm
-     * @author cheng
      * @dateTime 2018/4/18 15:44
      */
     @Bean
@@ -42,26 +41,24 @@ public class ShiroConfig {
         hashedCredentialsMatcher.setHashIterations(ShiroUtil.HASH_ITERATIONS);
         MyRealm myRealm = new MyRealm();
         myRealm.setCredentialsMatcher(hashedCredentialsMatcher);
-        log.info("自定义realm");
+        log.debug("自定义realm注入完成");
         return myRealm;
     }
 
     /**
      * @description: 自定义sessionDao
-     * @author cheng
      * @dateTime 2018/4/24 10:47
      */
     public RedisShiroSessionDao createRedisShiroSessionDao() {
         RedisShiroSessionDao sessionDao = new RedisShiroSessionDao();
         // 设置缓存管理器
         sessionDao.setCacheManager(createCacheManager());
-        log.info("自定义sessionDao");
+        log.debug("自定义sessionDao");
         return sessionDao;
     }
 
     /**
      * @description: 自定义shiro session cookie
-     * @author cheng
      * @dateTime 2018/4/24 11:09
      */
     public SimpleCookie createSessionIdCookie() {
@@ -70,14 +67,13 @@ public class ShiroConfig {
         simpleCookie.setHttpOnly(true);
         // 定义Cookie的过期时间，单位为秒，如果设置为-1表示浏览器关闭，则Cookie消失
         simpleCookie.setMaxAge(-1);
-        log.info("自定义SessionIdCookie");
+        log.debug("自定义SessionIdCookie");
         return simpleCookie;
     }
 
 
     /**
      * @description: 自定义sessionManager
-     * @author cheng
      * @dateTime 2018/4/24 10:37
      */
     public SessionManager createMySessionManager() {
@@ -98,7 +94,6 @@ public class ShiroConfig {
 
     /**
      * @description: 记住我cookie
-     * @author cheng
      * @dateTime 2018/4/24 15:39
      */
     public SimpleCookie createRemeberMeCookie() {
@@ -107,37 +102,34 @@ public class ShiroConfig {
         simpleCookie.setHttpOnly(true);
         // 定义Cookie的过期时间，单位为秒，如果设置为-1表示浏览器关闭，则Cookie消失
         simpleCookie.setMaxAge(2592000);
-        log.info("自定义RemeberMeCookie");
+        log.debug("自定义RemeberMeCookie");
         return simpleCookie;
     }
 
     /**
      * @description: 自定义记住我
-     * @author cheng
      * @dateTime 2018/4/24 15:35
      */
     public CookieRememberMeManager createRememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         // 设置记住我的cookie
         cookieRememberMeManager.setCookie(createRemeberMeCookie());
-        log.info("配置RemeberMeManager");
+        log.debug("配置RemeberMeManager");
         return cookieRememberMeManager;
     }
 
     /**
      * @description: 自定义缓存管理器
-     * @author cheng
      * @dateTime 2018/4/24 15:59
      */
     public RedisShiroCacheManager createCacheManager() {
         RedisShiroCacheManager redisShiroCacheManager = new RedisShiroCacheManager();
-        log.info("自定义CacheManager");
+        log.debug("自定义CacheManager");
         return redisShiroCacheManager;
     }
 
     /**
      * @description: 注意方法返回值SecurityManager为org.apache.shiro.mgt.SecurityManager, 不要导错包
-     * @author cheng
      * @dateTime 2018/4/18 15:48
      */
     public SecurityManager createSecurityManager() {
@@ -150,13 +142,12 @@ public class ShiroConfig {
         securityManager.setRememberMeManager(createRememberMeManager());
         // 自定义cacheManager
         securityManager.setCacheManager(createCacheManager());
-        log.info("配置rsecurityManager");
+        log.debug("配置securityManager");
         return securityManager;
     }
 
     /**
      * @description: shiro web过滤器
-     * @author cheng
      * @dateTime 2018/4/18 15:50
      */
     @Bean
@@ -165,6 +156,8 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(createSecurityManager());
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login/loginIn");
+        shiroFilterFactoryBean.setSuccessUrl("/index/goIndex");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/common/403");
 
         // 过滤器
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
@@ -176,6 +169,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login/getCode", "anon");
         // 开放登陆
         filterChainDefinitionMap.put("/login/userLogin", "anon");
+        // 退出登录
+        filterChainDefinitionMap.put("/login/logOut", "logout");
         // 对静态资源设置匿名访问
         // anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/bootstrap/**", "anon");
@@ -189,6 +184,7 @@ public class ShiroConfig {
         // authc:所有url都必须认证通过才可以访问
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        log.debug("注入资源访问配置完成：" + filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 

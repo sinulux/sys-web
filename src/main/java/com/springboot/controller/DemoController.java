@@ -20,40 +20,41 @@ public class DemoController {
     /**
      * 测试时发现只有ModelAndView对象会被freemarker解析
      * 支持如下几种对象传递参数
+     *
      * @param mv
      * @return
      */
     @GetMapping("/freemarker")
-    public ModelAndView index(ModelAndView mv,Map<String,Object> map,ModelMap mm,Model m) {
+    public ModelAndView index(ModelAndView mv, Map<String, Object> map, ModelMap mm, Model m) {
         logger.info("this is a freemarker page !");
         mv.setViewName("freemarker");
-        map.put("mkey","Map key");
-        mm.put("mmkey","modelMap key");
-        m.addAttribute("model","model");
+        map.put("mkey", "Map key");
+        mm.put("mmkey", "modelMap key");
+        m.addAttribute("model", "model");
 //        ModelMap test = new ModelMap();
 //        test.addAttribute("test","哈哈哈哈哈，这个不行啊");//看看单独new的对象能否被解析到
-        mv.addObject("key","Hello,I am a freemarker page !  You are successful of ModelAndView !");
+        mv.addObject("key", "Hello,I am a freemarker page !  You are successful of ModelAndView !");
         return mv;
     }
 
     @GetMapping("/freemarker2")
     public String freemarker2(Model mv) {
         logger.info("this is a freemarker page !");
-        mv.addAttribute("key","Hello,I am a freemarker page !  You are successful of Model !");
+        mv.addAttribute("key", "Hello,I am a freemarker page !  You are successful of Model !");
         return "freemarker";
     }
 
     @GetMapping("/freemarker3")
-    public String freemarker3(Map<String,Object> map) {
+    public String freemarker3(Map<String, Object> map) {
         logger.info("this is a freemarker page !");
-        map.put("key","Hello,I am a freemarker page !  You are successful of Model !");
+        map.put("key", "Hello,I am a freemarker page !  You are successful of Model !");
         return "freemarker";
     }
 
     @GetMapping("/freemarker4")
     public String freemarker4(ModelMap map) {
         logger.info("this is a freemarker page !");
-        map.put("key","Hello,I am a freemarker page !  You are successful of Model !");
+        map.put("key", "Hello,I am a freemarker page !  You are successful of Model !");
         return "freemarker";
     }
 

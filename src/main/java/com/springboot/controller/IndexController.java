@@ -12,8 +12,8 @@ public class IndexController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value="/goIndex",method = RequestMethod.GET)
-    public String goIndex(){
+    @RequestMapping(value = "/goIndex", method = RequestMethod.GET)
+    public String goIndex() {
         logger.info("=================进入首页============================");
         return "/pages/index";
     }

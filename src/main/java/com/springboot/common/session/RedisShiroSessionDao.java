@@ -24,7 +24,6 @@ public class RedisShiroSessionDao extends EnterpriseCacheSessionDAO {
 
     /**
      * @description: 获取加工后的key的字节数组
-     * @author cheng
      * @dateTime 2018/4/24 9:57
      */
     private byte[] getKey(String key) {
@@ -33,7 +32,6 @@ public class RedisShiroSessionDao extends EnterpriseCacheSessionDAO {
 
     /**
      * @description: 更新会话；如更新会话最后访问时间/停止会话/设置超时时间/设置移除属性等会调用
-     * @author cheng
      * @dateTime 2018/4/24 9:32
      */
     @Override
@@ -51,7 +49,6 @@ public class RedisShiroSessionDao extends EnterpriseCacheSessionDAO {
 
     /**
      * @description: 删除会话；当会话过期/会话停止（如用户退出时）会调用
-     * @author cheng
      * @dateTime 2018/4/24 9:31
      */
     @Override
@@ -69,7 +66,6 @@ public class RedisShiroSessionDao extends EnterpriseCacheSessionDAO {
      * @description: 如DefaultSessionManager在创建完session后会调用该方法；
      * 如保存到关系数据库/文件系统/NoSQL数据库；即可以实现会话的持久化；
      * 返回会话ID；主要此处返回的ID.equals(session.getId())；
-     * @author cheng
      * @dateTime 2018/4/24 9:32
      */
     @Override
@@ -93,7 +89,6 @@ public class RedisShiroSessionDao extends EnterpriseCacheSessionDAO {
 
     /**
      * @description: 根据会话ID获取会话
-     * @author cheng
      * @dateTime 2018/4/24 9:32
      */
     @Override
@@ -111,7 +106,6 @@ public class RedisShiroSessionDao extends EnterpriseCacheSessionDAO {
 
     /**
      * @description: 获取当前所有活跃用户，如果用户量多此方法影响性能
-     * @author cheng
      * @dateTime 2018/4/24 9:32
      */
     @Override
