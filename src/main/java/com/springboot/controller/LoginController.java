@@ -97,8 +97,12 @@ public class LoginController {
 
     @RequestMapping(value="/userLogin",method = RequestMethod.POST)
     @ResponseBody
-    public Object userLogin(String username,String password,String validCode){
+    public Object userLogin(HttpServletRequest request,String username,String password,String validCode){
         logger.info(username + " " + password + " " + validCode);
+        Object code = request.getSession().getAttribute("code");
+        if(code == null || validCode.equals(code.toString())){
+            return ResponseData.fail("验证码不正确","登陆失败");
+        }
         // 从SecurityUtils里边创建一个 subject
         Subject subject = SecurityUtils.getSubject();
         // 在认证提交前准备 token（令牌）

@@ -69,10 +69,18 @@ public class MyRealm extends AuthorizingRealm {
             throw new UnknownAccountException("帐号不存在");
         }
         User user = (User)apiResponse.getData();
+        // 使用主键作为加盐
+        Long salt = user.getId();
         // 获取用户状态
         String userStatus = user.getStatus();
         // 获取用户密码
         String userPassword = user.getPassWord();
+        // 获取用户输入密码
+        String inputPassword = String.valueOf(newToken.getPassword());
+        // 密码错误
+        if (!userPassword.equals(encrypt(inputPassword,String.valueOf(salt)))) {
+            throw new IncorrectCredentialsException("密码错误");
+        }
         // 账号锁定
         if (userStatus == UserStatusEnum.LOCKED_ACCOUNT.name()) {
             throw new LockedAccountException("帐号已锁定");
@@ -81,8 +89,6 @@ public class MyRealm extends AuthorizingRealm {
         if (userStatus == UserStatusEnum.DISABLED_ACCOUNT.name()) {
             throw new DisabledAccountException("帐号不可用");
         }
-        // 盐
-        Long salt = user.getId();
         // 保存当前用户信息到shiro session中
         ShiroUtil.setCurrentUser(user);
         // 与UsernamePasswordToken(userAccount, userPassword)进行比较
