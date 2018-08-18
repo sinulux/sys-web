@@ -27,7 +27,7 @@ public class ConstantController {
     @RequestMapping("/constant")
     public String getConstantPage() {
         logger.info("常量主页面...");
-        return "/pages/system/constant_list";
+        return "/pages/system/constant/constant_list";
     }
 
     @RequestMapping("/list")

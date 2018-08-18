@@ -35,7 +35,7 @@ public class ShiroUtil {
     /**
      * 全局session过期时间
      */
-    public static final int GLOBAL_SESSION_TIMEOUT = 60000;
+    public static final int GLOBAL_SESSION_TIMEOUT = 60*60*1000;
     /**
      * 自定义shiro session的cookie名称
      */
@@ -55,7 +55,7 @@ public class ShiroUtil {
     /**
      * shiro session过期时间-秒
      */
-    public static final int EXPIRE_SECONDS = 60;
+    public static final int EXPIRE_SECONDS = 60 * 60;
 
     /**
      * @description: 私有化构造函数

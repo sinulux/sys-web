@@ -25,7 +25,6 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -101,8 +100,8 @@ public class LoginController {
     @ResponseBody
     public Object userLogin(HttpServletRequest request, String username, String password, String validCode) {
         logger.info(username + " " + password + " " + validCode);
-        Object code = request.getSession().getAttribute("code");
-        if (code == null || validCode.equals(code.toString())) {
+        Object code = request.getSession().getAttribute("/login/getGhCode");
+        if (code == null || !validCode.equalsIgnoreCase(code.toString())) {
             return ResponseData.fail("验证码不正确", "登陆失败");
         }
         // 从SecurityUtils里边创建一个 subject
@@ -118,14 +117,14 @@ public class LoginController {
         } catch (Exception e) {
             // 用户认证失败,删除当前用户
             ShiroUtil.removeCurrentUser();
-            return ResponseData.success(e.getMessage(), "登陆失败");
+            return ResponseData.fail(e.getMessage(), "登陆失败");
         }
         //根据权限，指定返回数据
         ResponseData role = userService.selectByUserAccount(username);
         if (role == null) {
             // 用户认证失败,删除当前用户
             ShiroUtil.removeCurrentUser();
-            return ResponseData.success("登陆失败");
+            return ResponseData.fail("当前用户没有配置角色","登陆失败");
         }
         // 在此添加权限信息到用户
         // TODO
@@ -135,7 +134,7 @@ public class LoginController {
         return ResponseData.success(user, "普通用户登陆成功");
     }
 
-    @RequestMapping(value = "/logOut", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ResponseData logout() {
         Subject subject = SecurityUtils.getSubject();
         //注销

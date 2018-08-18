@@ -35,4 +35,43 @@
 	<update id="del" parameterType="MenuEo">
 		delete from sys_menu where rid = #{id}
 	</update>
+
+	<select id="getBtnPageCnt" parameterType="map" resultType="long">
+		select count(1) from sys_btn where menu_id = #{menuId}
+		<if test="key != null and key != ''">
+			and code = #{key} or name like concat('%',concat(#{key},'%'))
+		</if>
+	</select>
+
+	<select id="getBtnPageList" parameterType="map" resultType="map">
+		select * from sys_btn where menu_id = #{menuId}
+		<if test="key != null and key != ''">
+			and code = #{key} or name like concat('%',concat(#{key},'%'))
+		</if>
+		order by rid desc
+		limit #{startNum},#{pageSize}
+	</select>
+
+	<insert id="saveBtnInfo" parameterType="BtnInfoEO">
+		insert into sys_btn(code,name,btn_url,menu_id,remark)
+		values(#{code},#{name},#{btnUrl},#{menuId},#{remark})
+	</insert>
+
+	<select id="getOneById" parameterType="Integer" resultType="BtnInfoEO">
+		select rid id,code ,name,btn_url btnUrl,menu_id menuId,remark from sys_btn
+		where rid = #{id}
+	</select>
+
+	<update id="updateBtnInfo" parameterType="BtnInfoEO">
+		update sys_btn
+		set code = #{code},
+		name = #{name},
+		btn_url = #{btnUrl},
+		remark = #{remark}
+		where rid = #{id}
+	</update>
+
+	<delete id="delBtnById" parameterType="Integer">
+		delete from sys_btn where rid = #{id}
+	</delete>
 </mapper> 

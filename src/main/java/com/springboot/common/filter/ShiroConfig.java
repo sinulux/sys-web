@@ -159,20 +159,16 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSuccessUrl("/index/goIndex");
         shiroFilterFactoryBean.setUnauthorizedUrl("/common/403");
 
-        // 过滤器
+        // 过滤器 配置不会被过滤的链接 顺序判断 过虑器链定义，从上向下顺序执行，一般将/**放在最下边
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
-        // 配置不会被过滤的链接 顺序判断
-        // 过虑器链定义，从上向下顺序执行，一般将/**放在最下边
         // 验证码1
         filterChainDefinitionMap.put("/login/getGhCode", "anon");
         // 验证码2
         filterChainDefinitionMap.put("/login/getCode", "anon");
         // 开放登陆
         filterChainDefinitionMap.put("/login/userLogin", "anon");
-        // 退出登录
-        filterChainDefinitionMap.put("/login/logOut", "logout");
-        // 对静态资源设置匿名访问
-        // anon:所有url都都可以匿名访问
+
+        // 对静态资源设置匿名访问 anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/bootstrap/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/images/**", "anon");

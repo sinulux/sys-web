@@ -1,16 +1,3 @@
-/*
- * JedisService.java         2015年8月21日 <br/>
- *
- * Copyright (c) 1994-1999 AnHui LonSun, Inc. <br/>
- * All rights reserved.	<br/>
- *
- * This software is the confidential and proprietary information of AnHui	<br/>
- * LonSun, Inc. ("Confidential Information").  You shall not	<br/>
- * disclose such Confidential Information and shall use it only in	<br/>
- * accordance with the terms of the license agreement you entered into	<br/>
- * with Sun. <br/>
- */
-
 package com.springboot.cache.jedis;
 
 import org.springframework.stereotype.Component;
@@ -33,7 +20,7 @@ import java.util.*;
 public class JedisCache {
 
     @Resource
-    private JedisTemplate template;
+    private com.springboot.cache.jedis.JedisTemplate jedisTemplate;
 
     /**
      * 失效--等同于删除缓存
@@ -43,7 +30,7 @@ public class JedisCache {
      */
     public Long evictGroup(final String... group) {
         // 操作
-        return template.execute(new JedisHandler<Long>() {
+        return jedisTemplate.execute(new JedisHandler<Long>() {
             @Override
             public Long execute(Jedis jedis) {
                 return jedis.del(group);
@@ -60,7 +47,7 @@ public class JedisCache {
      */
     public Long expire(final String key, final int seconds) {
         // 操作
-        return template.execute(new JedisHandler<Long>() {
+        return jedisTemplate.execute(new JedisHandler<Long>() {
             @Override
             public Long execute(Jedis jedis) {
                 return jedis.expire(key, seconds);
@@ -77,7 +64,7 @@ public class JedisCache {
      */
     public boolean exists(final String group) {
         // 操作
-        return template.execute(new JedisHandler<Boolean>() {
+        return jedisTemplate.execute(new JedisHandler<Boolean>() {
             @Override
             public Boolean execute(Jedis jedis) {
                 return jedis.exists(group);
@@ -94,7 +81,7 @@ public class JedisCache {
      */
     public List<String> getKeys(final String group) {
         // 操作
-        return template.execute(new JedisHandler<List<String>>() {
+        return jedisTemplate.execute(new JedisHandler<List<String>>() {
             @Override
             public List<String> execute(Jedis jedis) {
                 return new ArrayList<String>(jedis.hkeys(group));
@@ -111,7 +98,7 @@ public class JedisCache {
      */
     public String getValue(final String key) {
         // 操作
-        return template.execute(new JedisHandler<String>() {
+        return jedisTemplate.execute(new JedisHandler<String>() {
             @Override
             public String execute(Jedis jedis) {
                 return jedis.get(key);
@@ -129,7 +116,7 @@ public class JedisCache {
      */
     public String getValue(final String group, final String code) {
         // 操作
-        return template.execute(new JedisHandler<String>() {
+        return jedisTemplate.execute(new JedisHandler<String>() {
             @Override
             public String execute(Jedis jedis) {
                 return jedis.hget(group, code);
@@ -146,7 +133,7 @@ public class JedisCache {
      */
     public String saveOrUpdate(final String key, final String value) {
         // 操作
-        return template.execute(new JedisHandler<String>() {
+        return jedisTemplate.execute(new JedisHandler<String>() {
             @Override
             public String execute(Jedis jedis) {
                 return jedis.set(key, value);
@@ -164,7 +151,7 @@ public class JedisCache {
      */
     public Long saveOrUpdate(final String group, final String code, final String value) {
         // 操作
-        return template.execute(new JedisHandler<Long>() {
+        return jedisTemplate.execute(new JedisHandler<Long>() {
             @Override
             public Long execute(Jedis jedis) {
                 return jedis.hset(group, code, value);
@@ -181,7 +168,7 @@ public class JedisCache {
      */
     public String saveOrUpdate(final String group, final Map<String, String> map) {
         // 操作
-        return template.execute(new JedisHandler<String>() {
+        return jedisTemplate.execute(new JedisHandler<String>() {
             @Override
             public String execute(Jedis jedis) {
                 Pipeline p = jedis.pipelined();
@@ -201,7 +188,7 @@ public class JedisCache {
      */
     public Long delete(final String group, final String... code) {
         // 操作
-        return template.execute(new JedisHandler<Long>() {
+        return jedisTemplate.execute(new JedisHandler<Long>() {
             @Override
             public Long execute(Jedis jedis) {
                 return jedis.hdel(group, code);

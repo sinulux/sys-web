@@ -1,36 +1,19 @@
-/*
- * JedisTemplate.java         2015年8月21日 <br/>
- *
- * Copyright (c) 1994-1999 AnHui LonSun, Inc. <br/>
- * All rights reserved.	<br/>
- *
- * This software is the confidential and proprietary information of AnHui	<br/>
- * LonSun, Inc. ("Confidential Information").  You shall not	<br/>
- * disclose such Confidential Information and shall use it only in	<br/>
- * accordance with the terms of the license agreement you entered into	<br/>
- * with Sun. <br/>
- */
-
 package com.springboot.cache.jedis;
 
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-import javax.annotation.Resource;
-
 /**
  * jedis操作模板模式 <br/>
  *
- * @author fangtinghua <br/>
  * @version v1.0 <br/>
  * @date 2015年8月21日 <br/>
  */
 @Component
 public class JedisTemplate {
 
-    @Resource
-    private JedisPool jedisPool;
+    private JedisPool jedisPool =new JedisPool("127.0.0.1",6397);
 
     public <T> T execute(JedisHandler<T> jedisHandler) {
         T result = null;
