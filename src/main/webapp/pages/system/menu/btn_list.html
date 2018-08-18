@@ -3,6 +3,9 @@
         <button type="button" class="btn btn-default" onclick="save()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
         </button>
+        <button type="button" class="btn btn-danger" onclick="batchDel()">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除
+        </button>
         <button type="button" class="btn btn-default" style="float: right" onclick="$('#key').val('');loadList()">
             <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>显示全部
         </button>
@@ -14,6 +17,7 @@
     <table id="dataGrid" class="table table-bordered">
         <thead>
         <tr>
+            <th class="text-center"><input type="checkbox" name="checkAll"></th>
             <th>编码</th>
             <th>名称</th>
             <th>连接</th>
@@ -24,7 +28,7 @@
         <tbody></tbody>
         <tfoot>
         <tr>
-            <td colspan="5" align="center">
+            <td colspan="6" align="center">
                 <div id="pagination"></div>
             </td>
         </tr>
@@ -87,7 +91,57 @@
     $(function() {
         loadList();
         formValid();
+        checkedAll();
     });
+
+    function checkedAll(){
+        $("input[name=checkAll]").click(function(){
+            if(this.checked){
+                $("input[name=check]").attr("checked",'true');//全选
+            }else{
+                $("input[name=check]").removeAttr("checked");//取消全选
+            }
+        });
+    }
+
+    function getChecks(){
+        var ids = [];
+        $("input[name=check]").each(function(index,el){
+            if(el.checked){
+                ids.push(parseInt(el.value));
+            }
+        });
+        return ids;
+    }
+
+    function batchDel(){
+        var ids = getChecks();
+        if(ids.length == 0){
+            layer.msg("请选择一条记录",{icon:7,shade: 0.01,time:1000});
+            return;
+        }
+        console.log(ids);
+        layer.confirm('是否确定删除选择的所有记录？', {
+            icon:3,
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            try {
+                $.post("/menu/batchDelBtn", {ids: ids}, function (result) {
+                    if (result.status == 1) {
+                        layer.msg(result.desc, {icon: 1, shade: 0.01, time: 1000}, function (index) {
+                            layer.close(index);
+                            loadList();
+                        });
+                    } else {
+                        layer.msg(result.desc, {icon: 2, shade: 0.01, time: 1000});
+                    }
+                });
+            }catch(e){
+                layer.msg(e, {icon: 2, shade: 0.01, time: 1000});
+            }
+        }, function(){
+        });
+    }
 
     function loadList(){
         var loadIndex = layer.msg('加载中', {
@@ -106,27 +160,28 @@
                 layer.close(loadIndex);
                 if(result.total == 0){
                     grid.empty().append(
-                        '<tr><td class="text-danger text-center" colspan="5">暂无数据</td></tr>'
+                        '<tr><td class="text-danger text-center" colspan="6">暂无数据</td></tr>'
                     );
                 }else{
                     var list = result.data;
                     var tr = '';
                     for(var i = 0; i < list.length; i ++){
                         tr += '<tr>';
+                        tr += '<td class="text-center"><input type="checkbox" name="check" value="'+ list[i].RID +'"></td>';
                         tr += '<td>' + list[i].CODE + '</td>';
                         tr += '<td>' + list[i].NAME + '</td>';
                         tr += '<td>' + list[i].BTN_URL + '</td>';
                         tr += '<td>' + list[i].REMARK + '</td>';
                         tr += '<td>' +
-                            '<button type="button" class="btn btn-xs btn-primary" onclick="save(' + list[i].RID + ',1)">\n' +
-                            '   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>修改\n' +
-                            '</button>&nbsp;&nbsp;' +
-                            '<button type="button" class="btn btn-xs btn-info" onclick="view(' + list[i].RID + ',2)">\n' +
-                            '   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>查看\n' +
-                            '</button>&nbsp;&nbsp;' +
-                            '<button type="button" class="btn btn-xs btn-danger" onclick="del(' + list[i].RID + ')">\n' +
-                            '   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>删除\n' +
-                            '</button>' +
+                            '<a class="text-warning" href="javascript:save(' + list[i].RID + ',1)">\n' +
+                            '   <span class="glyphicon glyphicon-pencil btn-xs" aria-hidden="true"></span>修改\n' +
+                            '</a>' +
+                            '<a class="text-info" href="javascript:view(' + list[i].RID + ',2)">\n' +
+                            '   <span class="glyphicon glyphicon-search" aria-hidden="true"></span>查看\n' +
+                            '</a>' +
+                            '<a class="text-danger" href="javascript:del(' + list[i].RID + ')">\n' +
+                            '   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除\n' +
+                            '</a>' +
                             '</td>';
                         tr += '</tr>';
                     }

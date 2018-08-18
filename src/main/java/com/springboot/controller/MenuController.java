@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -116,6 +117,21 @@ public class MenuController {
     public ResponseData delBtnById(Integer id) {
         try {
             menuService.delBtnById(id);
+        } catch (Exception e) {
+            return ResponseData.fail(e.getMessage());
+        }
+        return ResponseData.success("删除成功！");
+    }
+
+    @RequestMapping("/batchDelBtn")
+    @ResponseBody
+    public ResponseData batchDelBtn(@RequestParam("ids[]") List<Integer> ids) {
+        try {
+            if(ids != null){
+                for(Integer id:ids){
+                    menuService.delBtnById(id);
+                }
+            }
         } catch (Exception e) {
             return ResponseData.fail(e.getMessage());
         }
