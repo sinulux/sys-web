@@ -6,6 +6,9 @@
         <button type="button" class="btn btn-danger" onclick="batchDel()">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除
         </button>
+        <button type="button" class="btn btn-warning" onclick="general()">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>一般功能
+        </button>
         <button type="button" class="btn btn-default" style="float: right" onclick="$('#key').val('');loadList()">
             <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>显示全部
         </button>
@@ -14,7 +17,7 @@
         </button>
         <input style="width:300px;float: right" type="text" class="form-control" id="key" name="key" placeholder="编码/名称" />
     </div>
-    <table id="dataGrid" class="table table-bordered">
+    <table id="dataGrid" class="table table-bordered table-hover">
         <thead>
         <tr>
             <th class="text-center"><input type="checkbox" name="checkAll"></th>
@@ -93,6 +96,36 @@
         formValid();
         checkedAll();
     });
+
+    function general(){
+        var loadIndex = layer.msg('正在生成...', {
+            icon: 16
+            ,shade: 0.01
+        });
+        setTimeout(function(){
+            var list = [];
+            list.push({code:'General@Button#1',name:'新增',btnUrl:'/',remark:'新增',menuId:selectNode.id});
+            list.push({code:'General@Button#2',name:'修改',btnUrl:'/',remark:'修改',menuId:selectNode.id});
+            list.push({code:'General@Button#3',name:'删除',btnUrl:'/',remark:'删除',menuId:selectNode.id});
+            list.push({code:'General@Button#4',name:'查询',btnUrl:'/',remark:'查询',menuId:selectNode.id});
+            list.push({code:'General@Button#5',name:'导入',btnUrl:'/',remark:'导入',menuId:selectNode.id});
+            list.push({code:'General@Button#6',name:'导出',btnUrl:'/',remark:'导出',menuId:selectNode.id});
+            list.push({code:'General@Button#7',name:'生成报表',btnUrl:'/',remark:'生成报表',menuId:selectNode.id});
+            list.push({code:'General@Button#8',name:'生成WORD',btnUrl:'/',remark:'生成WORD',menuId:selectNode.id});
+            for(var i = 0; i < list.length; i ++){
+                $.post("/menu/saveBtn",list[i]);
+            }
+            layer.close(loadIndex);
+            layer.msg(
+                "生成完毕！",
+                {icon: 1,shade: 0.01,time:1000},
+                function(index){
+                    layer.close(index);
+                    loadList();
+                }
+            );
+        },2000);
+    }
 
     function checkedAll(){
         $("input[name=checkAll]").click(function(){
