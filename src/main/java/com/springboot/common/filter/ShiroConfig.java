@@ -32,17 +32,17 @@ public class ShiroConfig {
      * @dateTime 2018/4/18 15:44
      */
     @Bean
-    public MyRealm createMyRealm() {
+    public ShiroAuthRealm createMyRealm() {
         // 加密相关
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         // 散列算法
         hashedCredentialsMatcher.setHashAlgorithmName(ShiroUtil.HASH_ALGORITHM_NAME);
         // 散列次数
         hashedCredentialsMatcher.setHashIterations(ShiroUtil.HASH_ITERATIONS);
-        MyRealm myRealm = new MyRealm();
-        myRealm.setCredentialsMatcher(hashedCredentialsMatcher);
+        ShiroAuthRealm shiroAuthRealm = new ShiroAuthRealm();
+        shiroAuthRealm.setCredentialsMatcher(hashedCredentialsMatcher);
         log.debug("自定义realm注入完成");
-        return myRealm;
+        return shiroAuthRealm;
     }
 
     /**

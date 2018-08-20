@@ -1,5 +1,6 @@
 package com.springboot.controller;
 
+import com.springboot.common.anno.LogParams;
 import com.springboot.common.busi.ResponseData;
 import com.springboot.common.filter.ShiroUtil;
 import com.springboot.common.util.CodeUtil;
@@ -98,6 +99,7 @@ public class LoginController {
 
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     @ResponseBody
+    @LogParams(value=LoginController.class,type="login",method="userLogin",desc="用户登陆")
     public Object userLogin(HttpServletRequest request, String username, String password, String validCode) {
         logger.info(username + " " + password + " " + validCode);
         Object code = request.getSession().getAttribute("/login/getGhCode");
@@ -135,6 +137,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @LogParams(value=LoginController.class,type="logout",method="logout",desc="用户登出")
     public ResponseData logout() {
         Subject subject = SecurityUtils.getSubject();
         //注销

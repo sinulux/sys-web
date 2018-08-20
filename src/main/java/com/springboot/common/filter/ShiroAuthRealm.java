@@ -19,12 +19,12 @@ import java.util.List;
 
 /**
  * @author wangshibao
- * @className: MyRealm
+ * @className: ShiroAuthRealm
  * @description: 自定义realm
  * @dateTime 2018/4/18 15:40
  */
 @Slf4j
-public class MyRealm extends AuthorizingRealm {
+public class ShiroAuthRealm extends AuthorizingRealm {
 
     /**
      * 用户业务逻辑,因为使用的spring的自动装配，

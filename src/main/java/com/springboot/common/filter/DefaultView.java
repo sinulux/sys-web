@@ -1,4 +1,4 @@
-package com.springboot.common.busi;
+package com.springboot.common.filter;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;

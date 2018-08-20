@@ -1,4 +1,4 @@
-package com.springboot.common.busi;
+package com.springboot.common.filter;
 
 import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -13,7 +13,7 @@ import java.io.IOException;
  * 这是一个置自定义的filter
  */
 @Configuration
-public class WebConfiguration {
+public class WebConfig {
     @Bean
     public RemoteIpFilter remoteIpFilter() {
         return new RemoteIpFilter();
