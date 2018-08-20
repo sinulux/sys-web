@@ -220,6 +220,12 @@
                     }
                 }
             });
+            $(".main-sidebar ul li").each(function(){
+                if(this.type == 'URL'){
+                    $(this).trigger('click').addClass('active');
+                    return false;
+                }
+            });
         });
     }
 
