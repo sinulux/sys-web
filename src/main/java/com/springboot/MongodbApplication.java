@@ -8,7 +8,7 @@
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
 //
 //@SpringBootApplication
-//public class SpringbootMongodbApplication implements CommandLineRunner {
+//public class MongodbApplication implements CommandLineRunner {
 //
 //
 //    @Autowired
