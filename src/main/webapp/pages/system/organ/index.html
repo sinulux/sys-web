@@ -1,0 +1,288 @@
+<div class="container row col-xs-12">
+    <div class="col-xs-3">
+        <div class="text-center text-danger bg-danger" style="height: 50px;font-size: 20px;line-height: 50px;">组织机构
+        </div>
+        <ul id="organTree" class="ztree bg-warning"
+            style="height: 700px;overflow: auto;border-right:1px solid #C9C9C9">
+        </ul>
+    </div>
+    <div class="col-xs-9 hidden table-bordered" id="rightInfo" style="height: 750px;overflow: auto">
+        <div class="col-xs-12" style="border-bottom: 1px solid #F0F0F0;padding: 0;margin-bottom: 20px">
+            <span class="text-info" style="border-bottom: 2px solid #1E9FFF;line-height: 30px">详细信息</span>
+        </div>
+        <div class="col-xs-12">
+            <form class="form-horizontal" method="post" autocomplete="off">
+                <input type="text" style="display: none" name="parentId" value="0"/>
+                <input type="text" style="display: none" name="id"/>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label text-right">组织机构编号<span class="text-danger">*</span>：</div>
+                    <div class="col-xs-10">
+                        <input type="number" class="form-control" id="organId" name="organId" placeholder="组织机构编号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">组织机构名称<span class="text-danger">*</span>：</span>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="organName" name="organName" placeholder="组织机构名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">组织机构类型<span class="text-danger">*</span>：</span>
+                    <div class="col-xs-10">
+                        <select class="form-control" id="organType" name="organType"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">机构领导：</span>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="leader" name="leader" placeholder="机构领导"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">办公地址：</span>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="办公地址"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">办公电话：</span>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="addressPhone" name="addressPhone" placeholder="办公电话"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">联系方式：</span>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="联系方式"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">创建时间：</span>
+                    <div class="col-xs-10">
+                        <input onclick="WdatePicker({lang:'zh-cn',skin:'twoer',readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" class="form-control" id="createTime" name="createTime" placeholder="创建时间"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">更新时间：</span>
+                    <div class="col-xs-10">
+                        <input onclick="WdatePicker({lang:'zh-cn',skin:'twoer',readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" class="form-control" id="updateTime" name="updateTime" placeholder="更新时间"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">机构图标：</span>
+                    <div class="col-xs-10">
+                        <input type="url" class="form-control" id="organIcon" name="organIcon" placeholder="机构图标"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">链接地址：</span>
+                    <div class="col-xs-10">
+                        <input type="url" class="form-control" id="linkUrl" name="linkUrl" placeholder="链接地址"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-xs-2 control-label text-right">描述信息：</span>
+                    <div class="col-xs-10">
+                        <textarea rows="3" class="form-control" id="organDesc" name="organDesc" placeholder="描述信息"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-xs-10">
+                        <button type="submit" class="btn btn-default">提交</button>
+                        <button type="reset" class="btn btn-danger">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-xs-9 hidden table-bordered" id="buttonInfo" style="height: 720px"></div>
+</div>
+<script type="text/javascript">
+    var zTree, currNode, optType = "add", selectNode;
+    var setting = {
+        view: {
+            addDiyDom: function (treeId, treeNode) {
+                var aObj = $("#" + treeNode.tId + "_a");
+                var editStr =
+                    "<a data-toggle='tooltip' title='添加同级组织机构' id='diyBtn1_" + treeNode.id + "' onclick='add(" + treeNode.id + ");return false;'>&nbsp;<img width='18' src='/images/add_floder.png'>&nbsp;</a>" +
+                    "<a data-toggle='tooltip' title='添加下级组织机构' id='diyBtn1_" + treeNode.id + "' onclick='edit(" + treeNode.id + ",\"add\");return false;'>&nbsp;<img width='16' src='/images/organ/add.png'>&nbsp;</a>" +
+                    "<a data-toggle='tooltip' title='修改组织机构' id='diyBtn2_" + treeNode.id + "' onclick='edit(" + treeNode.id + ",\"edit\");return false;'>&nbsp;<img width='16' src='/images/organ/modify.png'>&nbsp;</a>" +
+                    "<a data-toggle='tooltip' title='删除组织机构' id='diyBtn2_" + treeNode.id + "' onclick='delorgan(" + treeNode.id + ");return false;'>&nbsp;<img width='16' src='/images/organ/delete.png'>&nbsp;</a>";
+                aObj.after(editStr);
+                $("[data-toggle='tooltip']").tooltip();
+            }
+        },
+        data: {
+            key: {
+                name: "organName"
+            },
+            simpleData: {
+                enable: true,
+                pIdKey: "parentId"
+            }
+        },
+        callback: {
+            onClick: function (event, treeId, treeNode) {
+                selectNode = treeNode;
+                if(treeNode.open){
+                    zTree.expandNode(treeNode, false, false, true);
+                }else{
+                    zTree.expandNode(treeNode, true, false, true);
+                }
+            }
+        }
+    };
+
+    function add(id) {
+        $("form")[0].reset();
+        currNode = zTree.getNodeByParam("id", id);
+        $("input[name=parentId]").val(currNode['parentId']);
+        optType = 'add';
+        showEditForm();
+        $("#createTime,#updateTime").val(new Date().format('yyyy-MM-dd HH:mm:ss'));
+    }
+
+    function edit(id, type) {
+        optType = type;
+        currNode = zTree.getNodeByParam("id", id);
+        zTree.selectNode(currNode);
+        if (type == 'add') {
+            $("form")[0].reset();
+            $("input[name=parentId]").val(currNode['id']);
+        } else {
+            $("input[name=parentId]").val(currNode['parentId']);
+            $("input[name=id]").val(currNode['id']);
+            $("input[name=organId]").val(currNode['organId']);
+            $("input[name=organName]").val(currNode['organName']);
+            $("input[name=leader]").val(currNode['leader']);
+            $("input[name=address]").val(currNode['address']);
+            $("input[name=addressPhone]").val(currNode['addressPhone']);
+            $("input[name=phone]").val(currNode['phone']);
+            $("input[name=createTime]").val(currNode['createTime']);
+            $("input[name=updateTime]").val(currNode['updateTime']);
+            $("input[name=linkUrl]").val(currNode['linkUrl']);
+            $("input[name=organIcon]").val(currNode['organIcon']);
+            $("input[name=organDesc]").val(currNode['organDesc']);
+            $("select[name=organType] option").attr("selected", false);
+            $("select[name=organType] option[value=" + currNode['organType'] + "]").attr("selected", true);
+        }
+        showEditForm();
+    }
+
+    function delorgan(id) {
+        currNode = zTree.getNodeByParam("id", id);
+        if (currNode.children != null && currNode.children.length > 0) {
+            layer.msg("该组织机构含有子组织机构，不允许删除！", {icon: 2, shade: 0.01, time: 1000});
+            return;
+        }
+        layer.confirm('删除后将不能恢复，是否确定删除？', {
+            icon: 3,
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.post(
+                "/organ/del",
+                {id: id},
+                function (result) {
+                    if (result.status == 1) {
+                        layer.msg(
+                            result.desc,
+                            {icon: 1, shade: 0.01, time: 1000},
+                            function (index) {
+                                layer.close(index);
+                                zTree.removeNode(currNode);
+                                var nodes = zTree.getNodes();
+                                if (nodes == undefined || nodes.length == 0) {
+                                    $("#organTree").empty().append('<li><a href="javascript:showEditForm()">暂无组织机构，点击添加组织机构</a></li>');
+                                }
+                            }
+                        );
+                    } else {
+                        layer.msg(result.desc, {icon: 2, shade: 0.01, time: 1000});
+                    }
+                }
+            );
+        });
+    }
+
+    function getNodes() {
+        var zNodes = [];
+        $.ajax({
+            type: 'post',
+            url: '/organ/getOrganTree',
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                zNodes = result;
+                for(var i = 0 ; i < zNodes.length ; i ++){
+                    if(zNodes[i].organType == 'directory'){
+                        zNodes[i].icon = '/images/organ/directory.gif';
+                    }else if(zNodes[i].organType == 'organ'){
+                        zNodes[i].icon = '/images/organ/organ.png';
+                    }else if(zNodes[i].organType == 'unit'){
+                        zNodes[i].icon = '/images/organ/unit.png';
+                    }
+                }
+            }
+        });
+        return zNodes;
+    }
+
+    $(document).ready(function () {
+        var nodes = getNodes();
+        zTree = $.fn.zTree.init($("#organTree"), setting, nodes);
+        if (nodes.length == 0) {
+            $("#organTree").empty().append('<li><a href="javascript:showEditForm()">暂无组织机构，点击添加组织机构</a></li>');
+        }
+        formValid();
+        getConstant("organType", "SYS_ORGAN", "ORGAN_TYPE", "组织机构类型");
+        $("#createTime,#updateTime").val(new Date().format('yyyy-MM-dd HH:mm:ss'));
+    });
+
+    function showEditForm() {
+        $("#rightInfo").show();
+    }
+
+    function formValid() {
+        $("#rightInfo form").validator({
+            fields: {
+                organId: "组织机构编码:required; length(6~20)",
+                organName: "组织机构名称:required; length(3~)",
+                organType: "组织机构类型:required"
+            },
+            focusCleanup: true,
+            timely: 3,
+            theme: 'yellow_right_effect',
+            msgClass: "n-bottom",
+            valid: function (form) {
+                // form.submit();
+                var formData = decodeURIComponent($("form").serialize(), true);
+                $.post(
+                    "/organ/save",
+                    formData,
+                    function (result) {
+                        if (result.status == 1) {
+                            layer.msg(
+                                result.desc,
+                                {icon: 1, shade: 0.01, time: 1000},
+                                function (index) {
+                                    layer.close(index);
+                                    zTree = $.fn.zTree.init($("#organTree"), setting, getNodes());
+                                    var node = zTree.getNodeByParam("id", result.data);
+                                    if (optType == 'add') {
+                                        // zTree.addNodes(currNode, node);
+                                        $("input[name=id]").val(result.data);
+                                        optType = 'edit';
+                                    }
+                                    currNode = node;
+                                    zTree.selectNode(node);
+                                }
+                            );
+                        } else {
+                            layer.msg(result.desc, {icon: 2, shade: 0.01, time: 1000});
+                        }
+                    }
+                );
+            }
+        });
+    }
+</script>
