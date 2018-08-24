@@ -1,5 +1,7 @@
 package com.springboot;
 
+import com.springboot.activemq.producer.Producer;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -9,14 +11,33 @@ import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomize
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.annotation.Resource;
+import javax.jms.Destination;
+import javax.jms.Queue;
 
 // 它组合了@Configuration、@EnableAutoConfiguration、@ComponentScan
 // 可以使用这三个注解替代@SpringBootApplication注解
 @SpringBootApplication
 @MapperScan("com.springboot.mapper")
 @EnableTransactionManagement
+@EnableJms
 public class DemoApplication extends SpringBootServletInitializer {
+
+    @Resource
+    private Producer producer;
+
+    @Bean
+    public Queue queue() {
+
+        Destination activeMQQueue = new ActiveMQQueue("sample.queue");
+        producer.sendMessage(activeMQQueue,"1-初始化模拟队列消息输送完成！");
+        activeMQQueue = new ActiveMQQueue("sample.queue2");
+        producer.sendMessage(activeMQQueue,"2-初始化模拟队列消息输送完成！");
+        return (Queue) activeMQQueue;
+    }
 
     /**
      * 启动方法：
