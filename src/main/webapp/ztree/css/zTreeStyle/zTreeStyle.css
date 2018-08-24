@@ -92,7 +92,7 @@ website:	http://code.google.com/p/jquerytree/
 }
 
 .ztree li a input.rename {
-    height: 14px;
+    height: 18px;
     width: 80px;
     padding: 0;
     margin: 0;
@@ -102,16 +102,15 @@ website:	http://code.google.com/p/jquerytree/
 }
 
 .ztree li span {
-    line-height: 16px;
+    line-height: 18px;
     margin-right: 2px
 }
 
 .ztree li span.button {
     line-height: 0;
-    margin: 3px 0 0 0;
+    margin: 3px 0 0 3px;
     width: 16px;
-    height: 16px;
-    line-height: 24px;
+    height: 18px;
     display: inline-block;
     vertical-align: middle;
     border: 0 none;
@@ -218,42 +217,42 @@ website:	http://code.google.com/p/jquerytree/
 
 .ztree li span.button.root_open {
     background-position: -92px -54px;
-    margin-top: -3px;
+    margin-top: -2px;
 }
 
 .ztree li span.button.root_close {
     background-position: -74px -54px;
-    margin-top: -3px;
+    margin-top: -2px;
 }
 
 .ztree li span.button.roots_open {
     background-position: -92px 0;
-    margin-top: -3px;
+    margin-top: -2px;
 }
 
 .ztree li span.button.roots_close {
     background-position: -74px 0;
-    margin-top: -3px;
+    margin-top: -2px;
 }
 
 .ztree li span.button.center_open {
     background-position: -92px -18px;
-    margin-top: -3px;
+    margin-top: -2px;
 }
 
 .ztree li span.button.center_close {
     background-position: -74px -18px;
-    margin-top: -3px;
+    margin-top: -2px;
 }
 
 .ztree li span.button.bottom_open {
     background-position: -92px -36px;
-    margin-top: -3px;
+    margin-top: -2px;
 }
 
 .ztree li span.button.bottom_close {
     background-position: -74px -36px;
-    margin-top: -3px;
+    margin-top: -2px;
 }
 
 .ztree li span.button.noline_open {
@@ -286,7 +285,7 @@ website:	http://code.google.com/p/jquerytree/
 
 .ztree li span.button.ico_open {
     margin-right: 2px;
-    background-position: -110px -16px;
+    background-position: -110px -14px;
     vertical-align: top;
     *vertical-align: middle
 }
