@@ -168,9 +168,9 @@ public class ShiroConfig {
         // 开放登陆
         filterChainDefinitionMap.put("/login/userLogin", "anon");
         // 开放测试
-        filterChainDefinitionMap.put("/test/**", "anon");
+        //filterChainDefinitionMap.put("/test/**", "anon");
 
-        // 对静态资源设置匿名访问 anon:所有url都都可以匿名访问
+        // 对静态资源设置匿名访问 anon:所有url都可以匿名访问
         filterChainDefinitionMap.put("/bootstrap/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/images/**", "anon");

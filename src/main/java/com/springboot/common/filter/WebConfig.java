@@ -4,6 +4,7 @@ import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +12,11 @@ import java.io.IOException;
 
 /**
  * 这是一个置自定义的filter
+ *
+ * 添加多视图解析，按优先级查找，直到找到为止
  */
 @Configuration
+@ImportResource("applicationContext.xml")
 public class WebConfig {
     @Bean
     public RemoteIpFilter remoteIpFilter() {

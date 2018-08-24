@@ -5,10 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-<span>${key}</span><br/>
-<span>${mkey}</span><br/>
-<span>${mmkey}</span><br/>
-<span>${model}</span><br/>
-<#--<span>${!test}</span>-->
+<span>${key!"不存在"}</span><br/>
+<span>${mkey!"不存在"}</span><br/>
+<span>${mmkey!"不存在"}</span><br/>
+<span>${model!"不存在"}</span><br/>
+<span>${test!"不存在"}</span>
 </body>
 </html>

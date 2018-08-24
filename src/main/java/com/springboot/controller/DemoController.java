@@ -2,23 +2,23 @@ package com.springboot.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/test")
 public class DemoController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * 测试时发现只有ModelAndView对象会被freemarker解析
+     * 测试时发现只有放在方法内的对象（或者ModelAndView）才能被ftl解析
      * 支持如下几种对象传递参数
      *
      * @param mv
@@ -31,8 +31,8 @@ public class DemoController {
         map.put("mkey", "Map key");
         mm.put("mmkey", "modelMap key");
         m.addAttribute("model", "model");
-//        ModelMap test = new ModelMap();
-//        test.addAttribute("test","哈哈哈哈哈，这个不行啊");//看看单独new的对象能否被解析到
+        ModelMap test = new ModelMap();
+        test.addAttribute("test", "哈哈哈哈哈，这个不行啊");//看看单独new的对象能否被解析到
         mv.addObject("key", "Hello,I am a freemarker page !  You are successful of ModelAndView !");
         return mv;
     }
@@ -60,10 +60,20 @@ public class DemoController {
 
     @GetMapping("/freemarker5")
     public String freemarker5(String key) {
+        // 非对象结构ftl不能获取到key
         logger.info("this is a freemarker page !");
         key = "Hello,I am a freemarker page !  You are successful of Model !";
         logger.info(key);
         return "freemarker";
+    }
+
+    @GetMapping("/freemarker6")
+    public ModelAndView freemarker6() {
+        logger.info("this is a freemarker page !");
+        String key = "Hello,I am a freemarker page !  You are successful of Model !";
+        ModelAndView modelAndView = new ModelAndView("freemarker");
+        modelAndView.addObject("key",key);
+        return modelAndView;
     }
 
 }
