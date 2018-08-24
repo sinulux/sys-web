@@ -2,6 +2,7 @@ package com.springboot.common.filter;
 
 import com.springboot.cache.RedisShiroCacheManager;
 import com.springboot.common.session.RedisShiroSessionDao;
+import com.springboot.common.util.PropertiesUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author wangshibao
@@ -167,8 +169,11 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login/getCode", "anon");
         // 开放登陆
         filterChainDefinitionMap.put("/login/userLogin", "anon");
+
         // 开放测试
-        //filterChainDefinitionMap.put("/test/**", "anon");
+        if(PropertiesUtil.getProperty("test-open").equals("true")){
+            filterChainDefinitionMap.put("/test/**", "anon");
+        }
 
         // 对静态资源设置匿名访问 anon:所有url都可以匿名访问
         filterChainDefinitionMap.put("/bootstrap/**", "anon");
@@ -179,6 +184,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/niceValidator/**", "anon");
         filterChainDefinitionMap.put("/pagination/**", "anon");
         filterChainDefinitionMap.put("/ztree/**", "anon");
+
         // authc:所有url都必须认证通过才可以访问
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
