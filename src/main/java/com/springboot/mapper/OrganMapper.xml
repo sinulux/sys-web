@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.OrganMapper">
+    <select id="getOrganTree" parameterType="OrganEo" resultType="OrganEo">
+        select
+        id,organ_type organType, organ_id organId,organ_name organName,leader,address,address_phone addressPhone,
+        organ_desc organDesc,phone,parent_id parentId,create_time createTime,update_time updateTime,
+        update_user updateUser,create_user createUser,is_effect isEffect,record_state recordState,
+        link_url linkUrl ,organ_icon organIcon
+        from sys_organ where is_effect = 1 and record_state = 'Normal'
+        <if test="id !=null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="organName !=null and organName != ''">
+            and organ_name like concat(concat('%',#{organName}),'%')
+        </if>
+        <if test="organType !=null and organType != ''">
+            and organ_type = #{organType}
+        </if>
+        order by create_time desc
+    </select>
+    <insert id="saveOrganInfo" useGeneratedKeys="true" keyProperty="id" parameterType="OrganEo">
+		insert into sys_organ(
+			organ_type, organ_id,organ_name,leader,address,address_phone,
+			organ_desc,phone,parent_id,create_time,update_time,
+			update_user,create_user,is_effect,record_state,link_url,organ_icon
+		)
+		values(#{organType},#{organId},#{organName},#{leader},#{address},#{addressPhone},
+		#{organDesc},#{phone},#{parentId},#{createTime},#{updateTime},
+		#{updateUser},#{createUser},#{isEffect},#{recordState},#{linkUrl},#{organIcon})
+	</insert>
+
+    <update id="updateOrganInfo" parameterType="OrganEo">
+		update sys_organ set
+			organ_type = #{organType}, organ_id = #{organId},organ_name = #{organName},
+			leader = #{leader},address = #{address},address_phone = #{addressPhone},organ_desc = #{organDesc},
+			phone = #{phone},parent_id = #{parentId},create_time = #{createTime},update_time = #{updateTime},
+			update_user = #{updateUser},create_user = #{createUser},
+			is_effect = #{isEffect},record_state = #{recordState},link_url = #{linkUrl},organ_icon = #{organIcon}
+		where id = #{id}
+	</update>
+
+    <delete id="del" parameterType="OrganEo">
+		delete from sys_organ where id = #{id}
+	</delete>
+</mapper>
