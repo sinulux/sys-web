@@ -3,7 +3,7 @@
         <div class="text-center text-danger bg-danger" style="height: 50px;font-size: 20px;line-height: 50px;">组织机构
         </div>
         <ul id="organTree" class="ztree bg-warning"
-            style="height: 700px;overflow: auto;border-right:1px solid #C9C9C9">
+            style="height: 700px;overflow: auto;border-right:1px solid #C9C9C9;">
         </ul>
     </div>
     <div class="col-xs-9 hidden table-bordered" id="rightInfo" style="height: 750px;overflow: auto">
@@ -162,11 +162,12 @@
             $("input[name=updateTime]").val(currNode['updateTime']);
             $("input[name=linkUrl]").val(currNode['linkUrl']);
             $("input[name=organIcon]").val(currNode['organIcon']);
-            $("input[name=organDesc]").val(currNode['organDesc']);
+            $("textarea[name=organDesc]").val(currNode['organDesc']);
             $("select[name=organType] option").attr("selected", false);
             $("select[name=organType] option[value=" + currNode['organType'] + "]").attr("selected", true);
         }
         showEditForm();
+        $("#createTime,#updateTime").val(new Date().format('yyyy-MM-dd HH:mm:ss'));
     }
 
     function delorgan(id) {
@@ -214,13 +215,7 @@
             success: function (result) {
                 zNodes = result;
                 for(var i = 0 ; i < zNodes.length ; i ++){
-                    if(zNodes[i].organType == 'directory'){
-                        zNodes[i].icon = '/images/organ/directory.gif';
-                    }else if(zNodes[i].organType == 'organ'){
-                        zNodes[i].icon = '/images/organ/organ.png';
-                    }else if(zNodes[i].organType == 'unit'){
-                        zNodes[i].icon = '/images/organ/unit.png';
-                    }
+                    zNodes[i].icon = '/images/organ/'+ zNodes[i].organType +'.png';
                 }
             }
         });

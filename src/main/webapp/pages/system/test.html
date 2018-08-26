@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="generator" content=
+            "HTML Tidy for HTML5 for Windows version 5.0.0.RC1">
+    <title></title>
+</head>
+<body>
+<script>
+    var dataArray =
+        [
+            {id: "c_13819806949295104", parentId: "0", icon: "/luckui/libs/icons/folder.gif", name: "销售员", open: true},
+
+            {id: "c_13862269925967872", parentId: "0", icon: "/luckui/libs/icons/folder.gif", name: "测试", open: true},
+
+            {id: "c_13876928080070656", parentId: "0", icon: "/luckui/libs/icons/folder.gif", name: "qq", open: true},
+
+            {id: "13819808273253376", parentId: "c_13819806949295104", name: "吕总", open: true, clickExpand: false},
+
+            {id: "13819815144687616", parentId: "c_13819806949295104", name: "曹霞", open: true, clickExpand: false},
+
+            {id: "13827913249948672", parentId: "c_13819806949295104", name: "李一国", open: true, clickExpand: false},
+
+            {id: "13827913673819136", parentId: "c_13819806949295104", name: "李二国", open: true, clickExpand: false},
+
+            {id: "13862270535780352", parentId: "c_13862269925967872", name: "园子", open: true, clickExpand: false}
+        ];
+
+    // 有一段JSOMArray,现在需要:将每一项 JSONObject中的id与下一项的parentId进行对比,将相同的划分为一类,并产生一个新的JSONArray以id命名
+    function getData(pid, list) {
+        var data = [];
+        for (var item in list) {
+            var obj = list[item];
+            if (obj.parentId == pid) {
+                obj[obj.id] = getData(obj.id, list);
+                data.push(obj);
+            }
+        }
+        return data;
+    }
+
+    document.write(JSON.stringify(getData("0", dataArray)));
+</script>
+</body>
+</html>
