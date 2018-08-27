@@ -1,4 +1,4 @@
-package com.springboot.dao.mongodb;
+package com.springboot.dao;
 
 import com.springboot.entity.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 /**
- * 写一个接口，继承MongoRepository，这个接口有了几本的CURD的功能。
+ * 写一个接口，继承MongoRepository，这个接口有了基本的CURD的功能。
  * 如果你想自定义一些查询，比如根据firstName来查询，获取根据lastName来查询，
  * 只需要定义一个方法即可。注意firstName严格按照存入的mongodb的字段对应。
  * 在典型的java的应用程序，写这样一个接口的方法，需要自己实现，

@@ -1,6 +1,6 @@
 //package com.springboot;
 //
-//import com.springboot.dao.mongodb.CustomerRepository;
+//import com.springboot.dao.CustomerRepository;
 //import com.springboot.entity.Customer;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.CommandLineRunner;
