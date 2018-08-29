@@ -74,7 +74,9 @@
                     </ol>
                 </div>
             </div>
-            <div class="row" id="mainContainer" style="height:800px;overflow: auto"><span class="text-danger" style="margin: 0 15px">页面加载失败！</span></div>
+            <div class="row" id="mainContainer" style="height:800px;overflow: auto"><span class="text-danger"
+                                                                                          style="margin: 0 15px">页面加载失败！</span>
+            </div>
         </div>
     </div>
 </div>
@@ -139,10 +141,11 @@
 </script>
 <script>
     // 选择的模块、选择的业务功能
-    var moduleName = "",functionName = "";
-    $(document).ready(function(){
+    var moduleName = "", functionName = "";
+    $(document).ready(function () {
         loadSysMenu(1);
     });
+
     function loadSysMenu() {
         $.post("/menu/getMenuTree", {type: "CATAGORY"}, function (result) {
             $("#mainHeader").empty().html(template('headerMenu', {data: result}));
@@ -156,20 +159,20 @@
 
     function loadLeftMenu(obj) {
         var id = $(obj).attr("data-id");
-        $.post("/menu/getMenuTree", {id: id,queryFlag:'1'}, function (result) {
+        $.post("/menu/getMenuTree", {id: id, queryFlag: '1'}, function (result) {
             $(".main-sidebar").empty().html("<ul class=\"sidebar-menu\">" + template('leftMenu', {data: result}) + "</ul>");
             $.sidebarMenu($('.sidebar-menu'));
             $('.sidebar-menu li').click(function () {
                 var type = $(this).attr("type");
                 var url = $(this).attr("reqUrl");
-                if(type == 'STATIC' || type == 'URL'){
-                    if(url == undefined || url == ''){
-                        layer.alert("缺少地址参数，无法访问该功能！",{icon:2});
+                if (type == 'STATIC' || type == 'URL') {
+                    if (url == undefined || url == '') {
+                        layer.alert("缺少地址参数，无法访问该功能！", {icon: 2});
                         return;
-                    }else{
+                    } else {
                         functionName = $(this).find("a > span").text().trim();
                         getMainHeader();
-                        $("#mainContainer").empty().load(url,function(response,status,xhr){
+                        $("#mainContainer").empty().load(url, function (response, status, xhr) {
                             // console.log(response);// html
                             // console.log(status);// 请求状态
                             // console.log(xhr);// ajax信息
@@ -187,15 +190,15 @@
                             // 503   （服务不可用） 服务器目前无法使用（由于超载或停机维护）。 通常，这只是暂时状态。
                             // 504   （网关超时）  服务器作为网关或代理，但是没有及时从上游服务器收到请求。
                             // 505   （HTTP 版本不受支持） 服务器不支持请求中所用的 HTTP 协议版本。
-                            if(status == 'error'){
+                            if (status == 'error') {
                                 var errorCode = xhr.status;
-                                if(errorCode == '403'){
+                                if (errorCode == '403') {
                                     $(this).load("/common/403");
-                                }else if(errorCode == '404'){
+                                } else if (errorCode == '404') {
                                     $(this).load("/common/404");
-                                }else if(errorCode == '500'){
+                                } else if (errorCode == '500') {
                                     $(this).load("/common/500");
-                                }else if(errorCode == '404'){
+                                } else if (errorCode == '404') {
                                     $(this).load("/common/503");
                                 }
                             }
@@ -203,8 +206,8 @@
                     }
                 }
             });
-            $(".main-sidebar ul li").each(function(){
-                if(this.type == 'URL'){
+            $(".main-sidebar ul li").each(function () {
+                if (this.type == 'URL') {
                     $(this).trigger('click').addClass('active');
                     return false;
                 }
@@ -212,7 +215,7 @@
         });
     }
 
-    function getMainHeader(){
+    function getMainHeader() {
         $("#moduleName").html(moduleName);
         $("#functionName").html(functionName);
     }
