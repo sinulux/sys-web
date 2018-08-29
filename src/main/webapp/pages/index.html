@@ -30,80 +30,7 @@
     <script src="/js/juicer.js"></script>
     <script src="/js/art.template.js"></script>
     <script src="/My97DatePicker/WdatePicker.js"></script>
-    <script type="text/javascript">
-        /*
-        函数：格式化日期
-        参数：formatStr-格式化字符串
-        d：将日显示为不带前导零的数字，如1
-        dd：将日显示为带前导零的数字，如01
-        ddd：将日显示为缩写形式，如Sun
-        dddd：将日显示为全名，如Sunday
-        M：将月份显示为不带前导零的数字，如一月显示为1
-        MM：将月份显示为带前导零的数字，如01
-        MMM：将月份显示为缩写形式，如Jan
-        MMMM：将月份显示为完整月份名，如January
-        yy：以两位数字格式显示年份
-        yyyy：以四位数字格式显示年份
-        h：使用12小时制将小时显示为不带前导零的数字，注意||的用法
-        hh：使用12小时制将小时显示为带前导零的数字
-        H：使用24小时制将小时显示为不带前导零的数字
-        HH：使用24小时制将小时显示为带前导零的数字
-        m：将分钟显示为不带前导零的数字
-        mm：将分钟显示为带前导零的数字
-        s：将秒显示为不带前导零的数字
-        ss：将秒显示为带前导零的数字
-        l：将毫秒显示为不带前导零的数字
-        ll：将毫秒显示为带前导零的数字
-        tt：显示am/pm
-        TT：显示AM/PM
-        返回：格式化后的日期
-        */
-        Date.prototype.format = function (formatStr) {
-            var date = this;
-            /*
-            函数：填充0字符
-            参数：value-需要填充的字符串, length-总长度
-            返回：填充后的字符串
-            */
-            var zeroize = function (value, length) {
-                if (!length) {
-                    length = 2;
-                }
-                value = new String(value);
-                for (var i = 0, zeros = ''; i < (length - value.length); i++) {
-                    zeros += '0';
-                }
-                return zeros + value;
-            };
-            return formatStr.replace(/"[^"]*"|'[^']*'|\b(?:d{1,4}|M{1,4}|yy(?:yy)?|([hHmstT])\1?|[lLZ])\b/g, function($0) {
-                switch ($0) {
-                    case 'd': return date.getDate();
-                    case 'dd': return zeroize(date.getDate());
-                    case 'ddd': return ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'][date.getDay()];
-                    case 'dddd': return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
-                    case 'M': return date.getMonth() + 1;
-                    case 'MM': return zeroize(date.getMonth() + 1);
-                    case 'MMM': return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][date.getMonth()];
-                    case 'MMMM': return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][date.getMonth()];
-                    case 'yy': return new String(date.getFullYear()).substr(2);
-                    case 'yyyy': return date.getFullYear();
-                    case 'h': return date.getHours() % 12 || 12;
-                    case 'hh': return zeroize(date.getHours() % 12 || 12);
-                    case 'H': return date.getHours();
-                    case 'HH': return zeroize(date.getHours());
-                    case 'm': return date.getMinutes();
-                    case 'mm': return zeroize(date.getMinutes());
-                    case 's': return date.getSeconds();
-                    case 'ss': return zeroize(date.getSeconds());
-                    case 'l': return date.getMilliseconds();
-                    case 'll': return zeroize(date.getMilliseconds());
-                    case 'tt': return date.getHours() < 12 ? 'am' : 'pm';
-                    case 'TT': return date.getHours() < 12 ? 'AM' : 'PM';
-                }
-            });
-        };
-        // document.writeln(new Date().format("yyyy-MM-dd hh:mm:ss"));
-    </script>
+    <script src="/js/common.js"></script>
 </head>
 <body style="overflow: hidden">
 <div class="container-fluid">
@@ -147,7 +74,9 @@
                     </ol>
                 </div>
             </div>
-            <div class="row" id="mainContainer" style="height:800px;overflow: auto"><span class="text-danger" style="margin: 0 15px">页面加载失败！</span></div>
+            <div class="row" id="mainContainer" style="height:800px;overflow: auto"><span class="text-danger"
+                                                                                          style="margin: 0 15px">页面加载失败！</span>
+            </div>
         </div>
     </div>
 </div>
@@ -212,30 +141,11 @@
 </script>
 <script>
     // 选择的模块、选择的业务功能
-    var moduleName = "",functionName = "";
-    $(document).ready(function(){
+    var moduleName = "", functionName = "";
+    $(document).ready(function () {
         loadSysMenu(1);
     });
-    function getConstant(id, tableName, columnName, desc) {
-        var sel = $("#" + id);
-        $.ajax({
-            type: 'post',
-            url: '/common/getConstant',
-            dataType: 'json',
-            data: {tableName: tableName, columnName: columnName},
-            async: false,
-            success: function (result) {
-                if (result.data.length == 0) {
-                    sel.empty().append('<option value="">请选择' + desc + '</option>');
-                } else {
-                    sel.empty().append('<option value="">请选择' + desc + '</option>');
-                    for (var i = 0; i < result.data.length; i++) {
-                        sel.append('<option value="' + result.data[i].CODE + '">' + result.data[i].NAME + '</option>');
-                    }
-                }
-            }
-        });
-    }
+
     function loadSysMenu() {
         $.post("/menu/getMenuTree", {type: "CATAGORY"}, function (result) {
             $("#mainHeader").empty().html(template('headerMenu', {data: result}));
@@ -248,21 +158,21 @@
     }
 
     function loadLeftMenu(obj) {
-        let id = $(obj).attr("data-id");
-        $.post("/menu/getMenuTree", {id: id,queryFlag:'1'}, function (result) {
+        var id = $(obj).attr("data-id");
+        $.post("/menu/getMenuTree", {id: id, queryFlag: '1'}, function (result) {
             $(".main-sidebar").empty().html("<ul class=\"sidebar-menu\">" + template('leftMenu', {data: result}) + "</ul>");
             $.sidebarMenu($('.sidebar-menu'));
             $('.sidebar-menu li').click(function () {
-                let type = $(this).attr("type");
-                let url = $(this).attr("reqUrl");
-                if(type == 'STATIC' || type == 'URL'){
-                    if(url == undefined || url == ''){
-                        layer.alert("缺少地址参数，无法访问该功能！",{icon:2});
+                var type = $(this).attr("type");
+                var url = $(this).attr("reqUrl");
+                if (type == 'STATIC' || type == 'URL') {
+                    if (url == undefined || url == '') {
+                        layer.alert("缺少地址参数，无法访问该功能！", {icon: 2});
                         return;
-                    }else{
+                    } else {
                         functionName = $(this).find("a > span").text().trim();
                         getMainHeader();
-                        $("#mainContainer").empty().load(url,function(response,status,xhr){
+                        $("#mainContainer").empty().load(url, function (response, status, xhr) {
                             // console.log(response);// html
                             // console.log(status);// 请求状态
                             // console.log(xhr);// ajax信息
@@ -280,15 +190,15 @@
                             // 503   （服务不可用） 服务器目前无法使用（由于超载或停机维护）。 通常，这只是暂时状态。
                             // 504   （网关超时）  服务器作为网关或代理，但是没有及时从上游服务器收到请求。
                             // 505   （HTTP 版本不受支持） 服务器不支持请求中所用的 HTTP 协议版本。
-                            if(status == 'error'){
+                            if (status == 'error') {
                                 var errorCode = xhr.status;
-                                if(errorCode == '403'){
+                                if (errorCode == '403') {
                                     $(this).load("/common/403");
-                                }else if(errorCode == '404'){
+                                } else if (errorCode == '404') {
                                     $(this).load("/common/404");
-                                }else if(errorCode == '500'){
+                                } else if (errorCode == '500') {
                                     $(this).load("/common/500");
-                                }else if(errorCode == '404'){
+                                } else if (errorCode == '404') {
                                     $(this).load("/common/503");
                                 }
                             }
@@ -296,8 +206,8 @@
                     }
                 }
             });
-            $(".main-sidebar ul li").each(function(){
-                if(this.type == 'URL'){
+            $(".main-sidebar ul li").each(function () {
+                if (this.type == 'URL') {
                     $(this).trigger('click').addClass('active');
                     return false;
                 }
@@ -305,7 +215,7 @@
         });
     }
 
-    function getMainHeader(){
+    function getMainHeader() {
         $("#moduleName").html(moduleName);
         $("#functionName").html(functionName);
     }
