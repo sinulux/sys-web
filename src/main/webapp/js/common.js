@@ -90,3 +90,25 @@ function getConstant(id, tableName, columnName, desc) {
         }
     });
 }
+
+var Mine = {
+  layer:{
+      openWin:function(title,url,width,height){
+          var cct = $("#layerWin").empty().load(url);
+          layer.open({
+              type:1,
+              title:title,
+              area:[width+"px",height+"px"],
+              content:cct
+          });
+      },
+      openIframe:function(title,url,width,height){
+          layer.open({
+              type:2,
+              title:title,
+              area:[width+"px",height+"px"],
+              content:url
+          });
+      }
+  }
+};

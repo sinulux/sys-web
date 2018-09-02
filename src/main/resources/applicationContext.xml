@@ -16,11 +16,15 @@
 
     <!-- 配置freeMarker视图解析器 -->
     <bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="viewClass" value="com.springboot.common.busi.MyFreemarkerView"/>
         <property name="contentType" value="text/html; charset=utf-8"/>
         <property name="cache" value="true"/>
         <property name="suffix" value=".ftl"/>
         <property name="order" value="0"/>
+        <property name="exposePathVariables" value="true"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="requestContextAttribute" value="rc" />
     </bean>
 
     <!-- 配置freeMarker的模板路径 -->

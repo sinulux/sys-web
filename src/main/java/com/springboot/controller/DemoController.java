@@ -83,4 +83,10 @@ public class DemoController {
         return "hello";
     }
 
+    @RequestMapping("layerPage")
+    public String testOpenLayer(Map map){
+        map.put("key","this is a layer page");
+        return "/test/layerPage";
+    }
+
 }

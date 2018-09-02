@@ -1,6 +1,5 @@
 package com.springboot.common.filter;
 
-import com.springboot.common.filter.LogIntercepter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,6 +19,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     /**
      * 注册拦截器
+     *
      * @param registry 拦截器注册中心
      */
     @Override
@@ -32,6 +32,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     /**
      * 静态资源处理
      * 将请求的如css、html等静态资源定位到项目指定位置
+     *
      * @param registry
      */
     @Override
