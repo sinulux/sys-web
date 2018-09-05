@@ -105,12 +105,11 @@
             <version>1.2.29</version>
         </dependency>
 
-        <!-- 热部署 会导致shiro-redis集成时强转报错，原因不详-->
-        <!--<dependency>
+        <!-- 热部署-->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -102,6 +102,15 @@ var Mine = {
               content:cct
           });
       },
+      openWin2:function(title,url,width,height){
+          var cct = $("#layerWin2").empty().load(url);
+          layer.open({
+              type:1,
+              title:title,
+              area:[width+"px",height+"px"],
+              content:cct
+          });
+      },
       openIframe:function(title,url,width,height){
           layer.open({
               type:2,

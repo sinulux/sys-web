@@ -89,4 +89,10 @@ public class DemoController {
         return "/test/layerPage";
     }
 
+    @RequestMapping("miniui_grid")
+    public String miniui_grid(Map map){
+        map.put("key","this is a miniui_grid page");
+        return "/test/miniui_grid";
+    }
+
 }
