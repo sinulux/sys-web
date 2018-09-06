@@ -1,0 +1,62 @@
+package com.springboot.tag.common;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.springboot.common.busi.SpringContextHolder;
+import freemarker.core.Environment;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.BeansWrapperBuilder;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateDirectiveBody;
+import freemarker.template.TemplateDirectiveModel;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
+//import static freemarker.template.ObjectWrapper.DEFAULT_WRAPPER;
+
+/**
+ * 自定义标签演示类
+ * Component注解即可，使用value-ref 是首字母小写的类名
+ */
+@Component
+public class LabelDirective implements TemplateDirectiveModel {
+
+    @Override
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+        // 获取输出对象
+        Writer out = env.getOut();
+        // 获取参数
+        TemplateModel paramValue = (TemplateModel) params.get("num");
+        int num = Integer.parseInt(paramValue.toString());
+        // 标签内部变量
+        //env.setVariable("label_inner_var",DEFAULT_WRAPPER.wrap(num));
+        env.setVariable("label_inner_var", getBeansWrapper().wrap(num));
+        // 模板变量
+        Map root = new HashMap();
+        root.put("num", num);
+        root.put("desc", "标签指定模板内部");
+        // 获取配置信息
+        FreeMarkerConfigurer configuration = SpringContextHolder.getBean(FreeMarkerConfigurer.class);
+        // 直接渲染，可能使用的较少
+        out.write("标签中：Akishimo num=" + params.get("num") + "的类型为:" + paramValue.getClass());
+        // 将数据加载到指定模板
+        Template temp = configuration.getConfiguration().getTemplate("test/test_tag.ftl");
+        temp.process(root, out);
+        if (body != null) {
+            body.render(env.getOut());
+        } else {
+            throw new RuntimeException("标签内部至少要加一个空格");
+        }
+    }
+
+    public static BeansWrapper getBeansWrapper() {
+        BeansWrapper beansWrapper = new BeansWrapperBuilder(Configuration.VERSION_2_3_26).build();
+        return beansWrapper;
+    }
+}
