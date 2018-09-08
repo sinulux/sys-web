@@ -1,5 +1,6 @@
 package com.springboot.common.util;
 
+import nl.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -15,6 +16,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,6 +87,43 @@ public class AppUtil {
         buffer.append(random);
         return buffer.toString();
 
+    }
+
+    /**
+     * <p>Discription:[根据request获取前台浏览器标识]</p>
+     * Created on 2017年11月20日 下午7:30:08
+     * @param request request对象
+     * @return String 浏览器标识
+     */
+    private static String getBrowserInfo(HttpServletRequest request) {
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        String browserInfo = userAgent.getBrowser().toString();
+        return browserInfo;
+    }
+
+    /**
+     * 判断地址是否可用
+     * @param urlString
+     * @param timeOutMillSeconds
+     * @return
+     */
+    public static boolean checkUrlWithTimeOut(String urlString,int timeOutMillSeconds){
+        URL url;
+        try {
+            url = new URL(urlString);
+            URLConnection co =  url.openConnection();
+            HttpURLConnection httpUrlConnection  =  (HttpURLConnection) co;
+            httpUrlConnection.setConnectTimeout(timeOutMillSeconds);
+            httpUrlConnection.setReadTimeout(timeOutMillSeconds);
+            httpUrlConnection.connect();
+            String code = new Integer(httpUrlConnection.getResponseCode()).toString();
+            String message = httpUrlConnection.getResponseMessage();
+            System.out.println("getResponseCode code ="+ code);
+            System.out.println("getResponseMessage message ="+ message);
+            return true;
+        } catch (Exception e1) {
+            return false;
+        }
     }
 
     /**
