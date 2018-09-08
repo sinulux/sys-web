@@ -1,7 +1,7 @@
 <div class="table-responsive" style="margin: 15px auto">
-    ${ctx}${springMacroRequestContext.getRequestUri()}
+    <#--${ctx}${springMacroRequestContext.getRequestUri()}-->
     <div id="toolBtn" style="margin-bottom: 5px">
-        <button type="button" class="btn btn-default" onclick="save()">
+        <button type="button" class="btn btn-default" onclick="()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
         </button>
         <button type="button" class="btn btn-danger" onclick="batchDel()">
@@ -15,37 +15,46 @@
         </button>
         <input style="width:300px;float: right" type="text" class="form-control" id="key" name="key" placeholder="编码/名称" />
     </div>
-    <table id="dataGrid" class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th class="text-center"><input type="checkbox" name="checkAll"></th>
-            <th>编码</th>
-            <th>角色名称</th>
-            <th>创建人</th>
-            <th>创建时间</th>
-            <th>描述</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-        <tr>
-            <td colspan="7" align="center">
-                <div id="pagination"></div>
-            </td>
-        </tr>
-        </tfoot>
-    </table>
+    <div id="dataGrid" class="mini-datagrid"
+         url="${ctx}/data/miniui_grid.json" idField="id"
+         sizeList="[20,30,50,100]" pageSize="20">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="position_name" headerAlign="center">职位</div>
+            <div field="name"      headerAlign="center">姓名</div>
+            <div field="gender"    headerAlign="center" renderer="onGenderRenderer">性别</div>
+            <div field="salary"    headerAlign="center" numberFormat="¥#,0.00">薪资</div>
+            <div field="age"       headerAlign="center" decimalPlaces="2">年龄</div>
+            <div field="createtime"headerAlign="center" dateFormat="yyyy-MM-dd">创建日期</div>
+            <div headerAlign="center" renderer="onActionRenderer">操作</div>
+        </div>
+    </div>
 </div>
 <script>
-    var pageIndex = 1,pageSize = 10;
-    var winIndex;
-    var grid = $("#dataGrid tbody");
-    $(function() {
-        loadList();
-        formValid();
-        checkedAll();
-    });
+    mini.parse();
+    var grid = mini.get("dataGrid");
+    grid.load();
+    var Genders = [{ id: 1, text: '男' }, { id: 2, text: '女'}];
+    function onGenderRenderer(e) {
+        for (var i = 0, l = Genders.length; i < l; i++) {
+            var g = Genders[i];
+            if (g.id == e.value) return g.text;
+        }
+        return "";
+    }
+
+    function onActionRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+
+        var s = '<a class="btn btn-default btn-xs" href="javascript:editRow(\'' + uid + '\')">修改</a>'
+                + '<a class="btn btn-danger btn-xs" href="javascript:delRow(\'' + uid + '\')">删除</a>';
+
+        return s;
+    }
+    // Mine.layer.openWin2("测试窗口","/test/layerPage","400","300");
 
     function checkedAll(){
         $("input[name=checkAll]").click(function(){
@@ -96,80 +105,6 @@
         });
     }
 
-    function loadList(){
-        var loadIndex = layer.msg('加载中', {
-            icon: 16
-            ,shade: 0.01
-        });
-        $.post(
-                "/menu/btn_list",
-                {
-                    pageIndex:pageIndex,
-                    pageSize:pageSize,
-                    menuId:selectNode.id,
-                    key:$("#key").val()
-                },
-                function(result){
-                    layer.close(loadIndex);
-                    if(result.total == 0){
-                        grid.empty().append(
-                                '<tr><td class="text-danger text-center" colspan="7">暂无数据</td></tr>'
-                        );
-                    }else{
-                        var list = result.data;
-                        var tr = '';
-                        for(var i = 0; i < list.length; i ++){
-                            tr += '<tr>';
-                            tr += '<td class="text-center"><input type="checkbox" name="check" value="'+ list[i].RID +'"></td>';
-                            tr += '<td>' + list[i].CODE + '</td>';
-                            tr += '<td>' + list[i].NAME + '</td>';
-                            tr += '<td>' + list[i].BTN_URL + '</td>';
-                            tr += '<td>' + list[i].REMARK + '</td>';
-                            tr += '<td>' +
-                                    '<a class="text-warning" href="javascript:save(' + list[i].RID + ',1)">\n' +
-                                    '   <span class="glyphicon glyphicon-pencil btn-xs" aria-hidden="true"></span>修改\n' +
-                                    '</a>' +
-                                    '<a class="text-info" href="javascript:view(' + list[i].RID + ',2)">\n' +
-                                    '   <span class="glyphicon glyphicon-search" aria-hidden="true"></span>查看\n' +
-                                    '</a>' +
-                                    '<a class="text-danger" href="javascript:del(' + list[i].RID + ')">\n' +
-                                    '   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除\n' +
-                                    '</a>' +
-                                    '</td>';
-                            tr += '</tr>';
-                        }
-                        grid.empty().append(tr);
-                    }
-                    pagination(result.pageIndex,result.total);
-                }
-        );
-    }
-
-    /**
-     * 总数或者页数为0与1 不显示
-     * @param currentPage
-     * @param totalPage
-     */
-    function pagination(currentPage,total){
-        $("#pagination").pagination({
-            currentPage: currentPage,
-            totalPage: Math.ceil(total/pageSize),
-            isShow: true,
-            count: 5,
-            homePageText: "首页",
-            endPageText: "尾页",
-            prevPageText: "上一页",
-            nextPageText: "下一页",
-            callback: function(current) {
-                // var info = $("#pagination").pagination("getPage");
-                // $("#pagination").pagination("setPage", 1, 10);
-                // console.log(info);
-                pageIndex = current;
-                loadList();
-            }
-        });
-    }
-
     /**
      * type =0 添加
      * type =1 修改
@@ -203,7 +138,7 @@
         }
     }
 
-    function save(id,type){
+    function add(id,type){
         getBtnInfo(id,type);
         var loadIndex = layer.msg('加载中', {
             icon: 16
@@ -232,44 +167,6 @@
             ,cancel: function(){
                 //右上角关闭回调
                 //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    }
-
-    function formValid(){
-        $("#editFrom form").validator({
-            fields: {
-                code: "编码:required; length(1~20)",
-                name: "名称:required; length(1~)",
-                btnUrl: "按钮连接:required;"
-            },
-            focusCleanup: true,
-            timely: 3,
-            theme:'yellow_right_effect',
-            msgClass: "n-bottom",
-            valid: function(form) {
-                // form.submit();
-                var formData = decodeURIComponent($("#editFrom form").serialize(),true);
-                formData += "&menuId=" + selectNode.id;
-                $.post(
-                        "/menu/saveBtn",
-                        formData,
-                        function(result){
-                            if(result.status == 1){
-                                layer.msg(
-                                        result.desc,
-                                        {icon: 1,shade: 0.01,time:1000},
-                                        function(index){
-                                            layer.close(index);
-                                            layer.close(winIndex);
-                                            loadList();
-                                        }
-                                );
-                            }else{
-                                layer.msg(result.desc,{icon:2,shade: 0.01,time:1000});
-                            }
-                        }
-                );
             }
         });
     }

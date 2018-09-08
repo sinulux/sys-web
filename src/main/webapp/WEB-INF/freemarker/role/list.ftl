@@ -1,12 +1,9 @@
-<div class="container row col-xs-12">
-    <div class="col-xs-3">
-        <div class="text-center text-danger bg-danger" style="height: 50px;font-size: 20px;line-height: 50px;">组织机构
-        </div>
-        <ul id="organTree" class="ztree bg-warning"
-            style="height: 700px;overflow: auto;border-right:1px solid #C9C9C9;">
-        </ul>
+<div class="col-md-12">
+    <div class="col-md-2 tree-bg">
+        <div class="text-center text-danger bg-danger tree-header">机构角色</div>
+        <ul id="organTree" class="ztree" style="height: 750px;overflow: auto"></ul>
     </div>
-    <div class="col-xs-9 hidden table-bordered" id="rightInfo" style="height: 750px;overflow: auto"></div>
+    <div class="col-md-10 hidden table-bordered" id="rightInfo" style="height: 800px;overflow: auto"></div>
 </div>
 <script type="text/javascript">
     var zTree, selectNode;
