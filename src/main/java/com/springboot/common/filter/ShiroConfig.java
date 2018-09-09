@@ -12,8 +12,10 @@ import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -151,7 +153,7 @@ public class ShiroConfig {
      * @description: shiro web过滤器
      * @dateTime 2018/4/18 15:50
      */
-    @Bean
+    @Bean("shiroFilter")
     public ShiroFilterFactoryBean createShiroFilter() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(createSecurityManager());
@@ -189,6 +191,20 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         log.debug("注入资源访问配置完成：" + filterChainDefinitionMap);
         return shiroFilterFactoryBean;
+    }
+
+    /**
+     * 解决UnavailableSecurityManagerException异常问题
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean delegatingFilterProxy(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+        proxy.setTargetFilterLifecycle(true);
+        proxy.setTargetBeanName("shiroFilter");
+        filterRegistrationBean.setFilter(proxy);
+        return filterRegistrationBean;
     }
 
 }
