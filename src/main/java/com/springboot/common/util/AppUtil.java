@@ -9,7 +9,10 @@ import org.springframework.beans.FatalBeanException;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -38,6 +41,26 @@ import java.util.UUID;
  * 通用方法，使用频率非常高的方法，如数值类型转换,对象值拷贝
  */
 public class AppUtil {
+
+    /**
+     *是否是Ajax请求,如果是ajax请求响应头会有，x-requested-with
+     * @param request
+     * @return
+     */
+    public static boolean isAjax(ServletRequest request){
+        return "XMLHttpRequest".equalsIgnoreCase(((HttpServletRequest)request).getHeader("X-Requested-With"));
+    }
+
+    /**
+     * response 设置超时
+     * @param servletResponse
+     */
+    public static void out(ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setCharacterEncoding("UTF-8");
+        //在响应头设置session状态
+        response.setHeader("session-status", "timeout");
+    }
 
     /**
      * *
