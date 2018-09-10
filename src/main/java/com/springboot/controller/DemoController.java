@@ -1,5 +1,6 @@
 package com.springboot.controller;
 
+import com.springboot.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -84,8 +88,48 @@ public class DemoController {
     }
 
     @RequestMapping("layerPage")
-    public String testOpenLayer(Map map){
+    public String testOpenLayer(Map map, User user){
         map.put("key","this is a layer page");
+        user.setUserName("傻了吧唧的，名字都起不好");
+        List<Map<String,Object>> firstList = new ArrayList<>();
+        List<Map<String,Object>> secList = new ArrayList<>();
+        List<Map<String,Object>> secList2 = new ArrayList<>();
+        List<Map<String,Object>> secList3 = new ArrayList<>();
+
+        Map<String,Object> item1 = new HashMap<>();
+        item1.put("name","wang");
+        item1.put("busi","主套餐");
+        item1.put("secList",secList);
+        firstList.add(item1);
+
+        Map<String,Object> item2 = new HashMap<>();
+        item2.put("name","wang");
+        item2.put("busi","其他业务");
+        Map<String,Object> item21 = new HashMap<>();
+        item21.put("name","wang");
+        item21.put("busi","彩铃");
+        Map<String,Object> item22 = new HashMap<>();
+        item22.put("name","wang");
+        item22.put("busi","20G流量半年包");
+        secList2.add(item21);
+        secList2.add(item22);
+        item2.put("secList",secList2);
+        firstList.add(item2);
+
+        Map<String,Object> item3 = new HashMap<>();
+        item3.put("name","li");
+        item3.put("busi","已办业务");
+        Map<String,Object> item31 = new HashMap<>();
+        item31.put("name","li");
+        item31.put("busi","50M家庭宽带，赠送分返12月，每月返还30元");
+        Map<String,Object> item32 = new HashMap<>();
+        item32.put("name","li");
+        item32.put("busi","IPTV有线电视2年套餐");
+        secList3.add(item31);
+        secList3.add(item32);
+        item3.put("secList",secList3);
+        firstList.add(item3);
+        map.put("firstList",firstList);
         return "/test/layerPage";
     }
 
