@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.springboot.common.busi.SpringContextHolder;
+import freemarker.core.DirectiveCallPlace;
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
@@ -14,6 +15,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
+import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -31,6 +33,22 @@ public class LabelDirective implements TemplateDirectiveModel {
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         // 获取输出对象
         Writer out = env.getOut();
+        Configuration configuration1 = env.getConfiguration();
+        System.out.println(configuration1.getSettingNames(true));
+        // 完整标签
+        DirectiveCallPlace currentDirectiveCallPlace = env.getCurrentDirectiveCallPlace();
+        TemplateHashModel dataModel = env.getDataModel();
+        System.out.println(dataModel);
+        String label = currentDirectiveCallPlace.toString();
+        System.out.println(label.substring(label.indexOf("@"),label.indexOf(" ")));
+        System.out.println(currentDirectiveCallPlace.getBeginColumn());
+        System.out.println(currentDirectiveCallPlace.getBeginLine());
+        System.out.println(currentDirectiveCallPlace.getEndColumn());
+        System.out.println(currentDirectiveCallPlace.getEndLine());
+        Environment.Namespace currentNamespace = env.getCurrentNamespace();
+        System.out.println(currentNamespace.getTemplate().getName());//标签所在模板路径
+        System.out.println(currentNamespace.getTemplate());// 模板内容
+        System.out.println(env.getCurrentVisitorNode());
         // 获取参数
         TemplateModel paramValue = (TemplateModel) params.get("num");
         int num = Integer.parseInt(paramValue.toString());
@@ -43,6 +61,7 @@ public class LabelDirective implements TemplateDirectiveModel {
         root.put("desc", "标签指定模板内部");
         // 获取配置信息
         FreeMarkerConfigurer configuration = SpringContextHolder.getBean(FreeMarkerConfigurer.class);
+        //configuration.setFreemarkerVariables(null);//注入标签
         // 直接渲染，可能使用的较少
         out.write("标签中：Akishimo num=" + params.get("num") + "的类型为:" + paramValue.getClass());
         // 将数据加载到指定模板
