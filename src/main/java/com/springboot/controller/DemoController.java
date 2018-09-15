@@ -1,8 +1,11 @@
 package com.springboot.controller;
 
+import com.springboot.dao.business.IAdviceDao;
+import com.springboot.dao.business.entity.AdviceEO;
 import com.springboot.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -133,9 +136,16 @@ public class DemoController {
         return "/test/layerPage";
     }
 
+    @Autowired
+    private IAdviceDao adviceDao;
     @RequestMapping("miniui_grid")
     public String miniui_grid(Map map){
         map.put("key","this is a miniui_grid page");
+        AdviceEO adviceEO = new AdviceEO();
+        adviceEO.setNum(System.currentTimeMillis());
+        adviceEO.setContent("测试数据");
+        adviceEO.setAddress("合肥市蜀山区和谐花园");
+        adviceDao.save(adviceEO);
         return "/test/miniui_grid";
     }
 

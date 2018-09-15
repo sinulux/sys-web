@@ -75,6 +75,8 @@ public class LogIntercepter extends HandlerInterceptorAdapter {
         } else {
             viewName = "/pages/error/unknow";
         }
-        arg3.setViewName(viewName);
+        if(arg3 != null){
+            arg3.setViewName(viewName);
+        }
     }
 }

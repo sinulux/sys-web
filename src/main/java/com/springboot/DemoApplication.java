@@ -3,6 +3,8 @@ package com.springboot;
 import com.springboot.activemq.producer.Producer;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.coyote.http11.AbstractHttp11Protocol;
+import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,6 +39,16 @@ public class DemoApplication extends SpringBootServletInitializer {
         activeMQQueue = new ActiveMQQueue("sample.queue2");
         producer.sendMessage(activeMQQueue,"2-初始化模拟队列消息输送完成！");
         return (Queue) activeMQQueue;
+    }
+
+    /**
+     * 注入hibernate的SessionFactory
+     * @param hibernateEntityManagerFactory
+     * @return
+     */
+    @Bean
+    public SessionFactory sessionFactory(HibernateEntityManagerFactory hibernateEntityManagerFactory){
+        return hibernateEntityManagerFactory.getSessionFactory();
     }
 
     /**
