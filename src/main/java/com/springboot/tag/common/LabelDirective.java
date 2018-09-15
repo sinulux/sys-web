@@ -18,6 +18,9 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 //import static freemarker.template.ObjectWrapper.DEFAULT_WRAPPER;
@@ -31,6 +34,15 @@ public class LabelDirective implements TemplateDirectiveModel {
 
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+        // 获取请求该标签对应的action的参数
+        // 例如访问该标签的是test/miniui_grid.ftl模板，miniui_grid.ftl则是由
+        // /test/miniui_grid?test=qwqwqw这个controller访问得到的
+        // 因此这里获取的是test值来自/test/miniui_grid请求
+        RequestAttributes requestAttributes =
+                RequestContextHolder.currentRequestAttributes();
+        ServletRequestAttributes requestAttributes1 = (ServletRequestAttributes) requestAttributes;
+        String test = requestAttributes1.getRequest().getParameter("test");
+        System.out.println(test);
         // 获取输出对象
         Writer out = env.getOut();
         Configuration configuration1 = env.getConfiguration();
