@@ -10,7 +10,7 @@ import java.sql.Date;
 /**
  * mapper的实体类
  */
-public class User implements Serializable {
+public class UserEO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -23,7 +23,10 @@ public class User implements Serializable {
     private Date createDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateDate;
-    public enum Sex{ Male, FeMale}
+
+    public enum Sex {Male, FeMale}
+
+    public enum Status {Normal, Removed, Locked, Disabled}
 
     public Long getId() {
         return id;
@@ -79,10 +82,5 @@ public class User implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-
-    public static void main(String[] args){
-        System.out.println(Sex.Male.name());
     }
 }

@@ -2,17 +2,17 @@ package com.springboot.entity;
 
 import org.springframework.data.annotation.Id;
 
-public class Customer {
+public class CustomerEO {
     @Id
     public String id;
 
     public String firstName;
     public String lastName;
 
-    public Customer() {
+    public CustomerEO() {
     }
 
-    public Customer(String firstName, String lastName) {
+    public CustomerEO(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -20,7 +20,7 @@ public class Customer {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%s, firstName='%s', lastName='%s']",
+                "CustomerEO[id=%s, firstName='%s', lastName='%s']",
                 id, firstName, lastName);
     }
 

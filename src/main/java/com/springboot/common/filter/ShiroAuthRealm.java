@@ -1,8 +1,7 @@
 package com.springboot.common.filter;
 
 import com.springboot.common.busi.ResponseData;
-import com.springboot.entity.User;
-import com.springboot.entity.UserStatusEnum;
+import com.springboot.entity.UserEO;
 import com.springboot.service.system.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
@@ -47,8 +46,8 @@ public class ShiroAuthRealm extends AuthorizingRealm {
         return md5Hash.toString();
     }
 
-    public static void main(String[] args){
-        System.out.println(encrypt("111111","1"));
+    public static void main(String[] args) {
+        System.out.println(encrypt("111111", "1"));
     }
 
     /**
@@ -68,29 +67,29 @@ public class ShiroAuthRealm extends AuthorizingRealm {
         if (apiResponse == null || apiResponse.getData() == null) {
             throw new UnknownAccountException("帐号不存在");
         }
-        User user = (User)apiResponse.getData();
+        UserEO userEO = (UserEO) apiResponse.getData();
         // 使用主键作为加盐
-        Long salt = user.getId();
+        Long salt = userEO.getId();
         // 获取用户状态
-        String userStatus = user.getStatus();
+        String userStatus = userEO.getStatus();
         // 获取用户密码
-        String userPassword = user.getPassWord();
+        String userPassword = userEO.getPassWord();
         // 获取用户输入密码
         String inputPassword = String.valueOf(newToken.getPassword());
         // 密码错误
-        if (!userPassword.equals(encrypt(inputPassword,String.valueOf(salt)))) {
+        if (!userPassword.equals(encrypt(inputPassword, String.valueOf(salt)))) {
             throw new IncorrectCredentialsException("密码错误");
         }
         // 账号锁定
-        if (userStatus == UserStatusEnum.LOCKED_ACCOUNT.name()) {
+        if (userStatus == UserEO.Status.Locked.name()) {
             throw new LockedAccountException("帐号已锁定");
         }
         // 账号禁用
-        if (userStatus == UserStatusEnum.DISABLED_ACCOUNT.name()) {
+        if (userStatus == UserEO.Status.Disabled.name()) {
             throw new DisabledAccountException("帐号不可用");
         }
         // 保存当前用户信息到shiro session中
-        ShiroUtil.setCurrentUser(user);
+        ShiroUtil.setCurrentUser(userEO);
         // 与UsernamePasswordToken(userAccount, userPassword)进行比较
         // 如果没有配置Shiro加密，会直接进行比较
         // 如果配置了Shiro的加密,会先对UsernamePasswordToken(userAccount, userPassword)中的密码进行加密，

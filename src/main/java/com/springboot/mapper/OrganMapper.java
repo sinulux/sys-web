@@ -1,17 +1,17 @@
 package com.springboot.mapper;
 
-import com.springboot.entity.OrganEo;
+import com.springboot.entity.OrganEO;
 
 import java.util.List;
 
 public interface OrganMapper {
 
-    public List<OrganEo> getOrganTree(OrganEo eo);
+    public List<OrganEO> getOrganTree(OrganEO eo);
 
-    public Integer saveOrganInfo(OrganEo eo);
+    public Integer saveOrganInfo(OrganEO eo);
 
-    void updateOrganInfo(OrganEo eo);
+    void updateOrganInfo(OrganEO eo);
 
-    Integer del(OrganEo eo);
+    Integer del(OrganEO eo);
 
 }

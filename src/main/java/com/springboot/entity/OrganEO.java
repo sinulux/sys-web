@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class OrganEo {
+public class OrganEO {
 
     @Id
     private Integer id;//ID

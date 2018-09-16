@@ -1,6 +1,6 @@
 <#--div可编辑属性 contenteditable-->
 <div class="text-danger" contenteditable="true">
-    ${key}，${user.userName}
+    ${key}，${userEO.userName}
 </div>
 <div class="text-info">业务办理</div>
 <table class="table table-striped table-bordered">

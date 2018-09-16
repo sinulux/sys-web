@@ -119,7 +119,7 @@ public class AppUtil {
      * @return String 浏览器标识
      */
     private static String getBrowserInfo(HttpServletRequest request) {
-        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("UserEO-Agent"));
         String browserInfo = userAgent.getBrowser().toString();
         return browserInfo;
     }

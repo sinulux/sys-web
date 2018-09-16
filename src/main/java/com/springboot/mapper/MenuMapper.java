@@ -1,20 +1,20 @@
 package com.springboot.mapper;
 
 import com.springboot.entity.BtnInfoEO;
-import com.springboot.entity.MenuEo;
+import com.springboot.entity.MenuEO;
 
 import java.util.List;
 import java.util.Map;
 
 public interface MenuMapper {
 
-    public List<MenuEo> getMenuTree(MenuEo eo);
+    public List<MenuEO> getMenuTree(MenuEO eo);
 
-    public Integer saveMenuInfo(MenuEo eo);
+    public Integer saveMenuInfo(MenuEO eo);
 
-    void updateMenuInfo(MenuEo eo);
+    void updateMenuInfo(MenuEO eo);
 
-    Integer del(MenuEo eo);
+    Integer del(MenuEO eo);
 
     Long getBtnPageCnt(Map<String, Object> params);
 

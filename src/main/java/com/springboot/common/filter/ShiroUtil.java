@@ -1,6 +1,6 @@
 package com.springboot.common.filter;
 
-import com.springboot.entity.User;
+import com.springboot.entity.UserEO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
@@ -136,9 +136,9 @@ public class ShiroUtil {
      * @description: 获取当前用户
      * @dateTime 2018/4/19 10:59
      */
-    public static User getCurrentUser() {
-        User user = (User) getAttribute(CURRENT_USER);
-        return user;
+    public static UserEO getCurrentUser() {
+        UserEO userEO = (UserEO) getAttribute(CURRENT_USER);
+        return userEO;
     }
 
     /**

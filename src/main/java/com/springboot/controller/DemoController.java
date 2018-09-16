@@ -2,7 +2,7 @@ package com.springboot.controller;
 
 import com.springboot.dao.business.IAdviceDao;
 import com.springboot.dao.business.entity.AdviceEO;
-import com.springboot.entity.User;
+import com.springboot.entity.UserEO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,9 +91,9 @@ public class DemoController {
     }
 
     @RequestMapping("layerPage")
-    public String testOpenLayer(Map map, User user){
+    public String testOpenLayer(Map map, UserEO userEO){
         map.put("key","this is a layer page");
-        user.setUserName("傻了吧唧的，名字都起不好");
+        userEO.setUserName("傻了吧唧的，名字都起不好");
         List<Map<String,Object>> firstList = new ArrayList<>();
         List<Map<String,Object>> secList = new ArrayList<>();
         List<Map<String,Object>> secList2 = new ArrayList<>();

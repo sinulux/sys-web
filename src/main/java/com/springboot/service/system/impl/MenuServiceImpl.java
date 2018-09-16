@@ -1,7 +1,7 @@
 package com.springboot.service.system.impl;
 
 import com.springboot.entity.BtnInfoEO;
-import com.springboot.entity.MenuEo;
+import com.springboot.entity.MenuEO;
 import com.springboot.mapper.MenuMapper;
 import com.springboot.service.system.IMenuService;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,12 @@ public class MenuServiceImpl implements IMenuService {
     private MenuMapper menuMapper;
 
     @Override
-    public List<MenuEo> getMenuTree(MenuEo eo) {
+    public List<MenuEO> getMenuTree(MenuEO eo) {
         return menuMapper.getMenuTree(eo);
     }
 
     @Override
-    public Integer saveMenuInfo(MenuEo eo) {
+    public Integer saveMenuInfo(MenuEO eo) {
         if(eo.getId() == null){
             menuMapper.saveMenuInfo(eo);
         }else{
@@ -33,7 +33,7 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     @Override
-    public Integer del(MenuEo eo) {
+    public Integer del(MenuEO eo) {
         return menuMapper.del(eo);
     }
 

@@ -1,6 +1,6 @@
 package com.springboot.dao;
 
-import com.springboot.entity.Customer;
+import com.springboot.entity.CustomerEO;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
  * 在典型的java的应用程序，写这样一个接口的方法，需要自己实现，
  * 但是在springboot中，你只需要按照格式写一个接口名和对应的参数就可以了，因为springboot已经帮你实现了。
  */
-public interface CustomerRepository extends MongoRepository<Customer, String> {
+public interface CustomerRepository extends MongoRepository<CustomerEO, String> {
 
-    public Customer findByFirstName(String firstName);
+    public CustomerEO findByFirstName(String firstName);
 
-    public List<Customer> findByLastName(String lastName);
+    public List<CustomerEO> findByLastName(String lastName);
 
 }

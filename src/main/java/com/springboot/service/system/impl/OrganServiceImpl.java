@@ -1,6 +1,6 @@
 package com.springboot.service.system.impl;
 
-import com.springboot.entity.OrganEo;
+import com.springboot.entity.OrganEO;
 import com.springboot.mapper.OrganMapper;
 import com.springboot.service.system.IOrganService;
 import org.springframework.stereotype.Service;
@@ -15,12 +15,12 @@ public class OrganServiceImpl implements IOrganService {
     private OrganMapper organMapper;
 
     @Override
-    public List<OrganEo> getOrganTree(OrganEo eo) {
+    public List<OrganEO> getOrganTree(OrganEO eo) {
         return organMapper.getOrganTree(eo);
     }
 
     @Override
-    public Integer saveOrganInfo(OrganEo eo) {
+    public Integer saveOrganInfo(OrganEO eo) {
         if (eo.getId() == null) {
             organMapper.saveOrganInfo(eo);
         } else {
@@ -31,7 +31,7 @@ public class OrganServiceImpl implements IOrganService {
     }
 
     @Override
-    public Integer del(OrganEo eo) {
+    public Integer del(OrganEO eo) {
         return organMapper.del(eo);
     }
 }

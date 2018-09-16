@@ -1,11 +1,11 @@
-package com.springboot.entity;
+package com.springboot.vo;
 
 import java.util.List;
 
 /**
  * 分页对象
  */
-public class Pagination<T> {
+public class PaginationVO<T> {
 
     private Integer pageIndex;
 
@@ -47,7 +47,7 @@ public class Pagination<T> {
         this.data = data;
     }
 
-    public Pagination(Integer pageIndex, Integer pageSize, Long total, List<T> data) {
+    public PaginationVO(Integer pageIndex, Integer pageSize, Long total, List<T> data) {
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;
         this.total = total;

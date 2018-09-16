@@ -1,17 +1,13 @@
 package com.springboot.common.busi;
 
-import com.springboot.entity.TipsMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * 运行时异常，用户无法处理或不需要处理的异常（包括无法处理或不需要处理的业务异常）
  * 系统RunTime基异常，系统中需要抛出的RunTime类型异常有以下两种做法：
  * 1.自定义继承自BaseRunTimeException的异常
  * 2.直接抛出BaseRunTimeException，并赋与不同的key（在定义key之前需要查看异常约定文档以确保key不重复）
- *
- * @author
  */
 public class BaseRunTimeException extends RuntimeException {
 
@@ -21,6 +17,15 @@ public class BaseRunTimeException extends RuntimeException {
     private static final long serialVersionUID = -6320797208357263746L;
 
     protected Logger logger = LoggerFactory.getLogger(BaseRunTimeException.class);
+
+
+    /**
+     * 用于标识获取异常提示信息的方式
+     */
+    public enum TipsMode {
+        Key,//通过在exceptionTipsMessage中获取
+        Message//抛出异常时直接定义
+    }
 
     //提示方式
     private String tipsMode = TipsMode.Key.toString();

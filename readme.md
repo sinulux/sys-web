@@ -35,10 +35,10 @@ nohup java -jar target/demo-0.0.1-SNAPSHOT.jar &
     rest	    org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter
     roles	    org.apache.shiro.web.filter.authz.RolesAuthorizationFilter
     ssl	        org.apache.shiro.web.filter.authz.SslFilter
-    user	    org.apache.shiro.web.filter.authc.UserFilter
+    userEO	    org.apache.shiro.web.filter.authc.UserFilter
     anon:所有url都都可以匿名访问
     authc: 需要认证才能进行访问
-    user:配置记住我或认证通过可以访问
+    userEO:配置记住我或认证通过可以访问
     
     登录认证实现
 

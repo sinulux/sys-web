@@ -2,7 +2,7 @@ package com.springboot.service.common.impl;
 
 import com.springboot.common.busi.ResponseData;
 import com.springboot.common.filter.ShiroUtil;
-import com.springboot.entity.User;
+import com.springboot.entity.UserEO;
 import com.springboot.service.common.ILoginService;
 import com.springboot.service.system.IUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ public class LoginServiceImpl implements ILoginService {
         // 自己创建令牌
         UsernamePasswordToken token = new UsernamePasswordToken(userAccount, userPassword);
         // 当前登录用户信息
-        User user = null;
+        UserEO userEO = null;
         // 提示信息
         String msg = null;
         try {
@@ -49,13 +49,13 @@ public class LoginServiceImpl implements ILoginService {
             token.setRememberMe(true);
             subject.login(token);
             // 用户认证成功,获取当前用户
-            user = ShiroUtil.getCurrentUser();
+            userEO = ShiroUtil.getCurrentUser();
             // 完成认证的后续操作
             // 修改用户信息
-//            user.setLastLoginTime(new Date());
-//            userService.updateUser(user);
+//            userEO.setLastLoginTime(new Date());
+//            userService.updateUser(userEO);
             msg = "用户登录成功";
-            return ResponseData.success(user, msg);
+            return ResponseData.success(userEO, msg);
         } catch (UnknownAccountException e) {
             msg = "用户账号不存在";
             log.warn(msg, e);

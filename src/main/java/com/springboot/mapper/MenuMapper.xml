@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springboot.mapper.MenuMapper">
-    <select id="getMenuTree" parameterType="MenuEo" resultType="MenuEo">
+    <select id="getMenuTree" parameterType="MenuEo" resultType="MenuEO">
 		select rid,rid id,url reqUrl,pid,code,name,ord,type,
 		create_user createUser,status,icon_class iconClass  from sys_menu
 		where 1=1
@@ -17,14 +17,14 @@
 		</if>
 		order by ord
 	</select>
-	<insert id="saveMenuInfo" useGeneratedKeys="true" keyProperty="rid" parameterType="MenuEo">
+	<insert id="saveMenuInfo" useGeneratedKeys="true" keyProperty="rid" parameterType="MenuEO">
 		insert into sys_menu(
 			url,pid,code,name,ord,type,create_time,create_user,status,icon_class
 		)
 		values(#{reqUrl},#{pid},#{code},#{name},#{ord},#{type},(select now() from dual),#{createUser},#{status},#{iconClass})
 	</insert>
 
-	<update id="updateMenuInfo" parameterType="MenuEo">
+	<update id="updateMenuInfo" parameterType="MenuEO">
 		update sys_menu set
 			url = #{reqUrl},pid = #{pid},code = #{code},name = #{name},ord = #{ord},
 			type = #{type},update_time = (select now() from dual),update_user = #{createUser},status = #{status}
@@ -32,7 +32,7 @@
 		where rid = #{id}
 	</update>
 
-	<update id="del" parameterType="MenuEo">
+	<update id="del" parameterType="MenuEO">
 		delete from sys_menu where rid = #{id}
 	</update>
 

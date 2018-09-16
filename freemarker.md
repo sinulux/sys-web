@@ -323,9 +323,9 @@ Number of words: ${x?word_list?size}
   
 ${x}  
   
-<#assign x>Hello ${user}!</#assign>          error  
+<#assign x>Hello ${userEO}!</#assign>          error  
   
-<#assign x=" Hello ${user}!">         true  
+<#assign x=" Hello ${userEO}!">         true  
  同时也支持中文赋值，如：
 
 Ftl代码  收藏代码
@@ -703,17 +703,17 @@ Ftl代码  收藏代码
 
  
 
-<#assign   user="zhangsan"/>
+<#assign   userEO="zhangsan"/>
 
 字符串连接
 
-${"Hello  ${user}!"}   与 ${"Hello " + user + "!"} 相同
+${"Hello  ${userEO}!"}   与 ${"Hello " + userEO + "!"} 相同
 
 结果：Hello  zhangsan
 
 获取字符
 
-${user[0]}    ${user[4]}
+${userEO[0]}    ${userEO[4]}
 
 结果：z  g
 

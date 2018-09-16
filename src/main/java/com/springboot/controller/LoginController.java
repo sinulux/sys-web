@@ -5,7 +5,7 @@ import com.springboot.common.busi.ResponseData;
 import com.springboot.common.filter.ShiroUtil;
 import com.springboot.common.util.CodeUtil;
 import com.springboot.common.util.GraphicHelper;
-import com.springboot.entity.User;
+import com.springboot.entity.UserEO;
 import com.springboot.service.system.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -110,12 +110,12 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         // 在认证提交前准备 token（令牌）
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        User user = null;
+        UserEO userEO = null;
         // 执行认证登陆
         try {
             subject.login(token);
             // 用户认证成功,获取当前用户
-            user = ShiroUtil.getCurrentUser();
+            userEO = ShiroUtil.getCurrentUser();
         } catch (Exception e) {
             // 用户认证失败,删除当前用户
             ShiroUtil.removeCurrentUser();
@@ -130,10 +130,10 @@ public class LoginController {
         }
         // 在此添加权限信息到用户
         // TODO
-        if ("sysadmin".equals(((User) role.getData()).getUserName())) {
+        if ("sysadmin".equals(((UserEO) role.getData()).getUserName())) {
             return ResponseData.success("欢迎来到管理员页面");
         }
-        return ResponseData.success(user, "普通用户登陆成功");
+        return ResponseData.success(userEO, "普通用户登陆成功");
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

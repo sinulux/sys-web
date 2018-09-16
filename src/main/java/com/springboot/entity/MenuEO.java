@@ -2,7 +2,7 @@ package com.springboot.entity;
 
 import java.util.List;
 
-public class MenuEo {
+public class MenuEO {
 
     private Integer id;
 
@@ -24,7 +24,7 @@ public class MenuEo {
 
     private Integer createUser;
 
-    private List<MenuEo> children;
+    private List<MenuEO> children;
 
     private String queryFlag;
 
@@ -46,11 +46,11 @@ public class MenuEo {
         this.queryFlag = queryFlag;
     }
 
-    public List<MenuEo> getChildren() {
+    public List<MenuEO> getChildren() {
         return children;
     }
 
-    public void setChildren(List<MenuEo> children) {
+    public void setChildren(List<MenuEO> children) {
         this.children = children;
     }
 

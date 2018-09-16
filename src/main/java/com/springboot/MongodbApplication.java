@@ -2,12 +2,12 @@
 //
 //import com.springboot.dao.CustomerRepository;
 //import com.springboot.entity.ContentMongoEO;
-//import com.springboot.entity.Customer;
+//import com.springboot.entity.CustomerEO;
 //import com.springboot.service.mongodb.impl.MongoServiceImpl;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.boot.SpringApplication;
-//import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.autoconfigure.MainApplication;
 //import org.springframework.data.mongodb.core.query.Criteria;
 //import org.springframework.data.mongodb.core.query.Query;
 //
@@ -15,7 +15,7 @@
 //import java.util.List;
 //import java.util.regex.Pattern;
 //
-//@SpringBootApplication
+//@MainApplication
 //public class MongodbApplication implements CommandLineRunner {
 //
 //
@@ -34,25 +34,25 @@
 //        repository.deleteAll();
 //
 //        // save a couple of customers
-//        repository.save(new Customer("Alice", "Smith"));
-//        repository.save(new Customer("Bob", "Smith"));
+//        repository.save(new CustomerEO("Alice", "Smith"));
+//        repository.save(new CustomerEO("Bob", "Smith"));
 //
 //        // fetch all customers
 //        System.out.println("Customers found with findAll():");
 //        System.out.println("-------------------------------");
-//        for (Customer customer : repository.findAll()) {
+//        for (CustomerEO customer : repository.findAll()) {
 //            System.out.println(customer);
 //        }
 //        System.out.println();
 //
 //        // fetch an individual customer
-//        System.out.println("Customer found with findByFirstName('Alice'):");
+//        System.out.println("CustomerEO found with findByFirstName('Alice'):");
 //        System.out.println("--------------------------------");
 //        System.out.println(repository.findByFirstName("Alice"));
 //
 //        System.out.println("Customers found with findByLastName('Smith'):");
 //        System.out.println("--------------------------------");
-//        for (Customer customer : repository.findByLastName("Smith")) {
+//        for (CustomerEO customer : repository.findByLastName("Smith")) {
 //            System.out.println(customer);
 //        }
 //        // INSERT

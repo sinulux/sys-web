@@ -1,7 +1,7 @@
 package com.springboot.controller;
 
 import com.springboot.common.busi.ResponseData;
-import com.springboot.entity.OrganEo;
+import com.springboot.entity.OrganEO;
 import com.springboot.service.system.IOrganService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,15 +29,15 @@ public class OrganController {
 
     @RequestMapping("/getOrganTree")
     @ResponseBody
-    public List<OrganEo> getOrganTree(OrganEo eo) {
-        List<OrganEo> organTree = new ArrayList<>();
+    public List<OrganEO> getOrganTree(OrganEO eo) {
+        List<OrganEO> organTree = new ArrayList<>();
         organTree = organService.getOrganTree(eo);
         return organTree;
     }
 
     @RequestMapping("/save")
     @ResponseBody
-    public ResponseData save(OrganEo eo) {
+    public ResponseData save(OrganEO eo) {
         logger.info("保存组织机构信息...");
         eo.setCreateUser(1);
         eo.setUpdateUser(1);
@@ -47,7 +47,7 @@ public class OrganController {
 
     @RequestMapping("/del")
     @ResponseBody
-    public ResponseData del(OrganEo eo) {
+    public ResponseData del(OrganEO eo) {
         logger.info("删除组织机构信息...");
         Integer cnt = organService.del(eo);
         return ResponseData.success(cnt, "删除成功！");

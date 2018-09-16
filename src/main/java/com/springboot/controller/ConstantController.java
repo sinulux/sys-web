@@ -2,7 +2,7 @@ package com.springboot.controller;
 
 import com.springboot.common.busi.ResponseData;
 import com.springboot.entity.ConstantEO;
-import com.springboot.entity.Pagination;
+import com.springboot.vo.PaginationVO;
 import com.springboot.service.system.IConstantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class ConstantController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Pagination getConstantPageList(Integer pageIndex, Integer pageSize, String key) {
+    public PaginationVO getConstantPageList(Integer pageIndex, Integer pageSize, String key) {
         logger.info("常量分页查询...");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pageIndex", pageIndex);
@@ -41,7 +41,7 @@ public class ConstantController {
         params.put("key", key);
         Long constantPageCnt = constantService.getConstantPageCnt(params);
         List<Map<String, Object>> constantPageList = constantService.getConstantPageList(params);
-        return new Pagination(pageIndex, pageSize, constantPageCnt, constantPageList);
+        return new PaginationVO(pageIndex, pageSize, constantPageCnt, constantPageList);
     }
 
     @RequestMapping("/save")

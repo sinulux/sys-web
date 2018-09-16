@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springboot.mapper.OrganMapper">
-    <select id="getOrganTree" parameterType="OrganEo" resultType="OrganEo">
+    <select id="getOrganTree" parameterType="OrganEO" resultType="OrganEO">
         select
         id,organ_type organType, organ_id organId,organ_name organName,leader,address,address_phone addressPhone,
         organ_desc organDesc,phone,parent_id parentId,create_time createTime,update_time updateTime,
@@ -20,7 +20,7 @@
         </if>
         order by create_time desc
     </select>
-    <insert id="saveOrganInfo" useGeneratedKeys="true" keyProperty="id" parameterType="OrganEo">
+    <insert id="saveOrganInfo" useGeneratedKeys="true" keyProperty="id" parameterType="OrganEO">
 		insert into sys_organ(
 			organ_type, organ_id,organ_name,leader,address,address_phone,
 			organ_desc,phone,parent_id,create_time,update_time,
@@ -31,7 +31,7 @@
 		#{updateUser},#{createUser},#{isEffect},#{recordState},#{linkUrl},#{organIcon})
 	</insert>
 
-    <update id="updateOrganInfo" parameterType="OrganEo">
+    <update id="updateOrganInfo" parameterType="OrganEO">
 		update sys_organ set
 			organ_type = #{organType}, organ_id = #{organId},organ_name = #{organName},
 			leader = #{leader},address = #{address},address_phone = #{addressPhone},organ_desc = #{organDesc},
@@ -41,7 +41,7 @@
 		where id = #{id}
 	</update>
 
-    <delete id="del" parameterType="OrganEo">
+    <delete id="del" parameterType="OrganEO">
 		delete from sys_organ where id = #{id}
 	</delete>
 </mapper>

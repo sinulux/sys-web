@@ -1,7 +1,7 @@
 package com.springboot.service.system.impl;
 
 import com.springboot.common.busi.ResponseData;
-import com.springboot.entity.User;
+import com.springboot.entity.UserEO;
 import com.springboot.mapper.UserMapper;
 import com.springboot.service.system.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseData selectByUserAccount(String userAccount) {
-        User user = userMapper.getLoginUserByUserId(userAccount);
-        return ResponseData.success(user,"查询用户成功");
+        UserEO userEO = userMapper.getLoginUserByUserId(userAccount);
+        return ResponseData.success(userEO,"查询用户成功");
     }
 }

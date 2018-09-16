@@ -2,8 +2,8 @@ package com.springboot.controller;
 
 import com.springboot.common.busi.ResponseData;
 import com.springboot.entity.BtnInfoEO;
-import com.springboot.entity.MenuEo;
-import com.springboot.entity.Pagination;
+import com.springboot.entity.MenuEO;
+import com.springboot.vo.PaginationVO;
 import com.springboot.service.system.IMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +40,8 @@ public class MenuController {
 
     @RequestMapping("/getMenuTree")
     @ResponseBody
-    public List<MenuEo> getMenuTree(MenuEo eo) {
-        List<MenuEo> menuTree = new ArrayList<>();
+    public List<MenuEO> getMenuTree(MenuEO eo) {
+        List<MenuEO> menuTree = new ArrayList<>();
         if (eo.getId() != null) {
             menuTree = this.getChildren(eo);
         } else {
@@ -50,10 +50,10 @@ public class MenuController {
         return menuTree;
     }
 
-    public List<MenuEo> getChildren(MenuEo eo) {
-        List<MenuEo> children = new ArrayList<MenuEo>();
+    public List<MenuEO> getChildren(MenuEO eo) {
+        List<MenuEO> children = new ArrayList<MenuEO>();
         children = menuService.getMenuTree(eo);
-        for (MenuEo item : children) {
+        for (MenuEO item : children) {
             eo.setId(item.getId());
             item.setChildren(getChildren(eo));
         }
@@ -62,7 +62,7 @@ public class MenuController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public ResponseData save(MenuEo eo) {
+    public ResponseData save(MenuEO eo) {
         logger.info("保存菜单信息...");
         eo.setCreateUser(1);
         Integer primaryKey = menuService.saveMenuInfo(eo);
@@ -71,7 +71,7 @@ public class MenuController {
 
     @RequestMapping("/del")
     @ResponseBody
-    public ResponseData del(MenuEo eo) {
+    public ResponseData del(MenuEO eo) {
         logger.info("删除菜单信息...");
         Integer cnt = menuService.del(eo);
         return ResponseData.success(cnt, "删除成功！");
@@ -79,7 +79,7 @@ public class MenuController {
 
     @RequestMapping("/btn_list")
     @ResponseBody
-    public Pagination getBtnPageList(Integer pageIndex, Integer pageSize,Long menuId, String key) {
+    public PaginationVO getBtnPageList(Integer pageIndex, Integer pageSize, Long menuId, String key) {
         logger.info("按钮权限分页查询...");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pageIndex", pageIndex);
@@ -89,7 +89,7 @@ public class MenuController {
         params.put("key", key);
         Long constantPageCnt = menuService.getBtnPageCnt(params);
         List<Map<String, Object>> constantPageList = menuService.getBtnPageList(params);
-        return new Pagination(pageIndex, pageSize, constantPageCnt, constantPageList);
+        return new PaginationVO(pageIndex, pageSize, constantPageCnt, constantPageList);
     }
 
     @RequestMapping("/saveBtn")

@@ -20,34 +20,36 @@ import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.jms.Queue;
 
-// 它组合了@Configuration、@EnableAutoConfiguration、@ComponentScan
-// 可以使用这三个注解替代@SpringBootApplication注解
+/**
+ * SpringBootApplication注解组合了@Configuration、@EnableAutoConfiguration、@ComponentScan
+ * 可以使用这三个注解替代@SpringBootApplication注解
+ */
 @SpringBootApplication
 @MapperScan("com.springboot.mapper")
 @EnableTransactionManagement
 @EnableJms
-public class DemoApplication extends SpringBootServletInitializer {
+public class MainApplication extends SpringBootServletInitializer {
 
     @Resource
     private Producer producer;
 
     @Bean
     public Queue queue() {
-
         Destination activeMQQueue = new ActiveMQQueue("sample.queue");
-        producer.sendMessage(activeMQQueue,"1-初始化模拟队列消息输送完成！");
+        producer.sendMessage(activeMQQueue, "1-初始化模拟队列消息输送完成！");
         activeMQQueue = new ActiveMQQueue("sample.queue2");
-        producer.sendMessage(activeMQQueue,"2-初始化模拟队列消息输送完成！");
+        producer.sendMessage(activeMQQueue, "2-初始化模拟队列消息输送完成！");
         return (Queue) activeMQQueue;
     }
 
     /**
      * 注入hibernate的SessionFactory
+     *
      * @param hibernateEntityManagerFactory
-     * @return
+     * @return SessionFactory
      */
     @Bean
-    public SessionFactory sessionFactory(HibernateEntityManagerFactory hibernateEntityManagerFactory){
+    public SessionFactory sessionFactory(HibernateEntityManagerFactory hibernateEntityManagerFactory) {
         return hibernateEntityManagerFactory.getSessionFactory();
     }
 
@@ -56,23 +58,25 @@ public class DemoApplication extends SpringBootServletInitializer {
      * 1、如下main方法直接运行
      * 2、进入到项目的根目录后执行 mvn spring-boot:run
      * 3、进入到项目根目录 执行 mvn install 编译项目 然后 cd target 执行dir 再利用 java -jar 项目名.jar启动
+     *
      * @param args
      */
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(MainApplication.class, args);
     }
 
-
-    // Tomcat large file upload connection reset
-    // 设置tomcat的长传文件最大限制为不限制
-    // tomcatEmbedded这段代码是为了解决，上传文件大于10M出现连接重置的问题。此异常内容GlobalException也捕获不到
-    // 可以将容量限制放在业务中处理,方便异常处理
+    /**
+     * 设置tomcat的长传文件最大限制为不限制
+     * tomcatEmbedded这段代码是为了解决，上传文件大于10M出现连接重置的问题
+     * 此异常内容GlobalException也捕获不到,可以将容量限制放在业务中处理,方便异常处理
+     *
+     * @return
+     */
     @Bean
     public TomcatEmbeddedServletContainerFactory tomcatEmbedded() {
         TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
         tomcat.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> {
             if ((connector.getProtocolHandler() instanceof AbstractHttp11Protocol<?>)) {
-                //-1 means unlimited
                 ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(-1);
             }
         });
@@ -81,6 +85,6 @@ public class DemoApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(DemoApplication.class);
+        return application.sources(MainApplication.class);
     }
 }
