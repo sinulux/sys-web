@@ -63,6 +63,7 @@ public class MainApplication extends SpringBootServletInitializer {
      */
     public static void main(String[] args) {
         SpringApplication.run(MainApplication.class, args);
+        openExploer();
     }
 
     /**
@@ -86,5 +87,16 @@ public class MainApplication extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(MainApplication.class);
+    }
+
+    public static void openExploer(){
+        String cmd = "C:\\Users\\abc\\AppData\\Roaming\\360se6\\Application\\360se.exe http://localhost:8816";
+        Runtime run = Runtime.getRuntime();
+        try{
+            run.exec(cmd);
+            System.out.println("启动浏览器打开项目成功");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
