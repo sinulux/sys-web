@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * 分页查询返回对象
- * @param <T>
  */
 public class Pagination{
 	//支持分页获取的最多记录数量

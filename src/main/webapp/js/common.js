@@ -95,7 +95,7 @@ var Mine = {
   layer:{
       openWin:function(title,url,width,height){
           var cct = $("#layerWin").empty().load(url);
-          layer.open({
+          return layer.open({
               type:1,
               title:title,
               area:[width+"px",height+"px"],
@@ -104,7 +104,7 @@ var Mine = {
       },
       openWin2:function(title,url,width,height){
           var cct = $("#layerWin2").empty().load(url);
-          layer.open({
+          return layer.open({
               type:1,
               title:title,
               area:[width+"px",height+"px"],
@@ -112,7 +112,7 @@ var Mine = {
           });
       },
       openIframe:function(title,url,width,height){
-          layer.open({
+          return layer.open({
               type:2,
               title:title,
               area:[width+"px",height+"px"],

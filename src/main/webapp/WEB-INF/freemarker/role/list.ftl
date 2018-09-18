@@ -25,7 +25,7 @@
                 }else{
                     zTree.expandNode(treeNode, true, false, true);
                 }
-                $("#rightInfo").load("/role/roleInfo").show();
+                $("#rightInfo").load("/role/roleInfo?organId=" + selectNode.id).show();
             }
         }
     };
