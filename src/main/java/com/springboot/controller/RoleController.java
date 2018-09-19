@@ -19,15 +19,15 @@ public class RoleController {
     @Autowired
     private IRoleDao roleDao;
 
-    @RequestMapping("/list")
+    @RequestMapping("/index")
     public String getIndex(){
-        return "/role/list";
+        return "/role/index";
     }
 
-    @RequestMapping("/roleInfo")
+    @RequestMapping("/list")
     public String roleInfo(Long organId,Model model){
         model.addAttribute("organId",organId);
-        return "/role/role_info";
+        return "/role/list";
     }
 
     @RequestMapping("/getPage")
