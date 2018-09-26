@@ -187,7 +187,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/ztree/**", "anon");
 
         // authc:所有url都必须认证通过才可以访问
-        filterChainDefinitionMap.put("/**", "anon");
+        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         log.debug("注入资源访问配置完成：" + filterChainDefinitionMap);
         return shiroFilterFactoryBean;
