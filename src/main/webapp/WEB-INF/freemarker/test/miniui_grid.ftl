@@ -1,6 +1,7 @@
 <div class="text-info">${key!''}</div>
 <#--自定义标签-->
 <@mine_test num="12">标签内部${label_inner_var!''}</@mine_test>
+<@demo param="com.springboot.tag.generate.DemoBeanService">标签内部${resultObj!''}</@demo>
 <div style="margin: 10px">
     <div id="dataGrid" class="mini-datagrid"
          url="${ctx}/data/miniui_grid.json" idField="id"

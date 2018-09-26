@@ -10,16 +10,17 @@ public class AbstractLabelService implements LabelService{
 
     @Override
     public boolean before(JSONObject paramObj) {
-        return false;
+        System.out.println("this tag service executing before");
+        return true;
     }
 
     @Override
     public Object getObject(JSONObject paramObj) {
-        return null;
+        return "";
     }
 
     @Override
     public String objToStr(String content, Object resultObj, JSONObject paramObj) {
-        return null;
+        return "未找到模板";
     }
 }
