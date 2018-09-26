@@ -7,10 +7,12 @@ import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 @Slf4j
 public class MyFreeMarkerConfigurer extends FreeMarkerConfigurer {
@@ -37,6 +39,17 @@ public class MyFreeMarkerConfigurer extends FreeMarkerConfigurer {
         model.put("xml_escape", SpringContextHolder.getBean("fmXmlEscape"));  // xml解析
         model.put("mine_test", SpringContextHolder.getBean("labelDirective"));// 测试
         super.setFreemarkerVariables(model);
+        super.setTemplateLoaderPath("/WEB-INF/freemarker/");
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(System.getProperty("user.dir")+"/src/main/resources/freemarkerSettings.properties"));
+        super.setFreemarkerSettings(properties);
         super.afterPropertiesSet();
     }
+
+    public static void main(String[] args) throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(System.getProperty("user.dir")+"/src/main/resources/freemarkerSettings.properties"));
+        System.out.println(properties);
+    }
+
 }

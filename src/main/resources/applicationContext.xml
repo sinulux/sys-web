@@ -32,13 +32,13 @@
         <property name="templateLoaderPath">
             <value>/WEB-INF/freemarker/</value>
         </property>
-        <!--<property name="freemarkerVariables">
+        <property name="freemarkerVariables">
             <map>
                 <entry key="xml_escape" value-ref="fmXmlEscape"/>
                 <entry key="mine_test" value-ref="labelDirective"/>
                 <entry key="demo" value-ref="labelService"/>
             </map>
-        </property>-->
+        </property>
         <property name="defaultEncoding">
             <value>utf-8</value>
         </property>

@@ -1,5 +1,7 @@
 package com.springboot.controller;
 
+import com.springboot.common.busi.ResponseData;
+import com.springboot.common.util.LabelUtils;
 import com.springboot.dao.business.IAdviceDao;
 import com.springboot.dao.business.entity.AdviceEO;
 import com.springboot.entity.UserEO;
@@ -147,6 +149,13 @@ public class DemoController {
         adviceEO.setAddress("合肥市蜀山区和谐花园");
         adviceDao.save(adviceEO);
         return "/test/miniui_grid";
+    }
+
+    @RequestMapping("beanSet")
+    @ResponseBody
+    public ResponseData beanSet(){
+        LabelUtils.register();
+        return ResponseData.success();
     }
 
 }
