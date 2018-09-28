@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.springboot</groupId>
-    <artifactId>zhpt</artifactId>
+    <artifactId>sys-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -14,8 +14,8 @@
     <!--4：尽可能自动配置spring应用。-->
     <!--5：提供生产指标,健壮检查和外部化配置-->
     <!--6：绝对没有代码生成和XML配置要求-->
-    <name>zhpt</name>
-    <description>zhpt project for Spring Boot</description>
+    <name>sys-web</name>
+    <description>sys-web project for Spring Boot</description>
 
     <!--声明这是一个springboot的子项目-->
     <!--默认使用Java 8-->
