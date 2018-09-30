@@ -43,7 +43,7 @@ public class RedisShiroSessionDao extends EnterpriseCacheSessionDAO {
             byte[] value = SerializationUtils.serialize(session);
             // 把session信息存储到redis中
             RedisUtil.set(key, value);
-            log.info("更新session:{}", session);
+            log.info("update session:{}", session);
         }
     }
 

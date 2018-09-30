@@ -36,7 +36,7 @@ public class SQLInterceptor implements Interceptor {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${com.mine.databaseType}")
+    @Value("mysql")
     private String databaseType;
     /**
      * 拦截后要执行的方法
