@@ -5,7 +5,6 @@ import redis.clients.jedis.Jedis;
 /**
  * jedis操作接口 <br/>
  *
- * @author fangtinghua <br/>
  * @version v1.0 <br/>
  * @date 2015年8月21日 <br/>
  */

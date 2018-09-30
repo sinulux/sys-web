@@ -12,7 +12,6 @@ import java.util.*;
 /**
  * jedis服务类，存储格式为json <br/>
  *
- * @author fangtinghua <br/>
  * @version v1.0 <br/>
  * @date 2015年8月21日 <br/>
  */

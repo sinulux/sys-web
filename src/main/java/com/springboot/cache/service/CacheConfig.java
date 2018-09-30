@@ -13,7 +13,6 @@ import java.util.Map;
 /**
  * 缓存配置 <br/>
  *
- * @author fangtinghua <br/>
  * @version v1.0 <br/>
  * @date 2015年8月24日 <br/>
  */
@@ -23,7 +22,6 @@ public class CacheConfig {
     private static final Logger logger = LoggerFactory.getLogger(CacheConfig.class);
 
     private CacheConfig() {
-
     }
 
     private String clazz;// 唯一clazz，存储在redis中的第一键值
