@@ -1,11 +1,11 @@
 <div class="text-info">${key!''}</div>
 <div class="date-picker">
-    日期1--${date?string("yyyy-MM-dd HH:mm:ss")}
+    日期1--${date?string("yyyy-MM-dd HH:mm:ss")}<br/>
     日期2--${dateFormat(date)}
 </div>
 <#--自定义标签-->
-<@mine_test num="12">标签内部${label_inner_var!''}</@mine_test>
-<@demo param="com.springboot.tag.generate.DemoBeanService">标签内部${resultObj!''}</@demo>
+<@mine_test num="12">标签内部${label_inner_var!''}</@mine_test><br/>
+<@demo param="com.springboot.tag.generate.DemoBeanService">标签内部${resultObj!''}</@demo><br/>
 <div style="margin: 10px">
     <div id="dataGrid" class="mini-datagrid"
          url="${ctx}/data/miniui_grid.json" idField="id"
