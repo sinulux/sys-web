@@ -5,6 +5,7 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -21,7 +22,10 @@ public class FreemarkerExceptionHandler implements TemplateExceptionHandler {
         log.warn(te.getMessage());
         // 完整标签
         DirectiveCallPlace currentDirectiveCallPlace = env.getCurrentDirectiveCallPlace();
-        String label = currentDirectiveCallPlace.toString();
+        if(ObjectUtils.isEmpty(currentDirectiveCallPlace)){
+            return;
+        }
+        String label = String.valueOf(currentDirectiveCallPlace);
         String labelName = label.substring(label.indexOf("@")+1,label.indexOf(" "));
         try {
             String[] tmp = te.getMessageWithoutStackTop().split("\n");

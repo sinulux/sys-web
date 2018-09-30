@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,13 +142,14 @@ public class DemoController {
     @Autowired
     private IAdviceDao adviceDao;
     @RequestMapping("miniui_grid")
-    public String miniui_grid(Map map){
+    public String miniui_grid(Map map, Model model){
         map.put("key","this is a miniui_grid page");
         AdviceEO adviceEO = new AdviceEO();
         adviceEO.setNum(System.currentTimeMillis());
         adviceEO.setContent("测试数据");
         adviceEO.setAddress("合肥市蜀山区和谐花园");
         adviceDao.save(adviceEO);
+        model.addAttribute("date",new Date());
         return "/test/miniui_grid";
     }
 
