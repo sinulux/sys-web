@@ -1,6 +1,6 @@
 package com.springboot.common.filter;
 
-import com.springboot.entity.UserEO;
+import com.springboot.entity.mybatis.UserEO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;

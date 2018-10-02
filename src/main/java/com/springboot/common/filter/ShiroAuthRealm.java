@@ -1,7 +1,7 @@
 package com.springboot.common.filter;
 
 import com.springboot.common.busi.ResponseData;
-import com.springboot.entity.UserEO;
+import com.springboot.entity.mybatis.UserEO;
 import com.springboot.service.system.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;

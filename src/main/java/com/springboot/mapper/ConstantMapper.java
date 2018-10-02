@@ -1,6 +1,6 @@
 package com.springboot.mapper;
 
-import com.springboot.entity.ConstantEO;
+import com.springboot.entity.mybatis.ConstantEO;
 
 import java.util.List;
 import java.util.Map;

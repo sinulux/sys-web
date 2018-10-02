@@ -1,10 +1,10 @@
 package com.springboot.dao.business.impl;
 
 import com.springboot.dao.business.IRoleDao;
-import com.springboot.dao.business.entity.RoleEO;
-import com.springboot.dao.business.vo.QueryRoleVO;
-import com.springboot.dao.hibernate.dao.impl.MockDao;
-import com.springboot.dao.hibernate.entity.Pagination;
+import com.springboot.entity.business.RoleEO;
+import com.springboot.vo.QueryRoleVO;
+import com.springboot.dao.hibernate.impl.MockDao;
+import com.springboot.entity.hibernate.Pagination;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 

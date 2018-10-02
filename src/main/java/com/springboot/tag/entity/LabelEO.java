@@ -1,6 +1,6 @@
 package com.springboot.tag.entity;
 
-import com.springboot.dao.hibernate.entity.ABaseEntity;
+import com.springboot.entity.hibernate.impl.ABaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

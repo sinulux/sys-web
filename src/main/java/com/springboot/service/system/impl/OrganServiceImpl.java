@@ -1,6 +1,6 @@
 package com.springboot.service.system.impl;
 
-import com.springboot.entity.OrganEO;
+import com.springboot.entity.mybatis.OrganEO;
 import com.springboot.mapper.OrganMapper;
 import com.springboot.service.system.IOrganService;
 import org.springframework.stereotype.Service;

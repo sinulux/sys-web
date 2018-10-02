@@ -1,7 +1,7 @@
 package com.springboot.dao.business;
 
-import com.springboot.dao.business.entity.AdviceEO;
-import com.springboot.dao.hibernate.dao.IMockDao;
+import com.springboot.entity.business.AdviceEO;
+import com.springboot.dao.hibernate.IMockDao;
 
 /**
  * test

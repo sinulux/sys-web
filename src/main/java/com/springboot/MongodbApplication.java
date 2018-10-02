@@ -1,13 +1,13 @@
 //package com.springboot;
 //
-//import com.springboot.dao.CustomerRepository;
-//import com.springboot.entity.ContentMongoEO;
-//import com.springboot.entity.CustomerEO;
+//import com.springboot.dao.jpa.impl.CustomerRepository;
+//import com.springboot.entity.mongo.ContentMongoEO;
+//import com.springboot.entity.mongo.CustomerEO;
 //import com.springboot.service.mongodb.impl.MongoServiceImpl;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.boot.SpringApplication;
-//import org.springframework.boot.autoconfigure.MainApplication;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.data.mongodb.core.query.Criteria;
 //import org.springframework.data.mongodb.core.query.Query;
 //
@@ -15,7 +15,7 @@
 //import java.util.List;
 //import java.util.regex.Pattern;
 //
-//@MainApplication
+//@SpringBootApplication
 //public class MongodbApplication implements CommandLineRunner {
 //
 //

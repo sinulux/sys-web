@@ -1,9 +1,9 @@
 package com.springboot.dao.business;
 
-import com.springboot.dao.business.entity.RoleEO;
-import com.springboot.dao.business.vo.QueryRoleVO;
-import com.springboot.dao.hibernate.dao.IMockDao;
-import com.springboot.dao.hibernate.entity.Pagination;
+import com.springboot.entity.business.RoleEO;
+import com.springboot.vo.QueryRoleVO;
+import com.springboot.dao.hibernate.IMockDao;
+import com.springboot.entity.hibernate.Pagination;
 
 public interface IRoleDao extends IMockDao<RoleEO> {
 

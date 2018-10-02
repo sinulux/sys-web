@@ -1,7 +1,7 @@
 package com.springboot.controller;
 
 import com.springboot.common.busi.ResponseData;
-import com.springboot.entity.OrganEO;
+import com.springboot.entity.mybatis.OrganEO;
 import com.springboot.service.system.IOrganService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

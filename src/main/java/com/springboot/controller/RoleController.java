@@ -2,8 +2,8 @@ package com.springboot.controller;
 
 import com.springboot.common.busi.ResponseData;
 import com.springboot.dao.business.IRoleDao;
-import com.springboot.dao.business.entity.RoleEO;
-import com.springboot.dao.business.vo.QueryRoleVO;
+import com.springboot.entity.business.RoleEO;
+import com.springboot.vo.QueryRoleVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

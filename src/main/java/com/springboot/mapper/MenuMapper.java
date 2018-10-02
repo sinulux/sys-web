@@ -1,7 +1,7 @@
 package com.springboot.mapper;
 
-import com.springboot.entity.BtnInfoEO;
-import com.springboot.entity.MenuEO;
+import com.springboot.entity.mybatis.BtnInfoEO;
+import com.springboot.entity.mybatis.MenuEO;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package com.springboot.service.system.impl;
 
-import com.springboot.entity.ConstantEO;
+import com.springboot.entity.mybatis.ConstantEO;
 import com.springboot.mapper.ConstantMapper;
 import com.springboot.service.system.IConstantService;
 import org.springframework.beans.factory.annotation.Autowired;

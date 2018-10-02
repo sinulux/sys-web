@@ -1,7 +1,7 @@
 package com.springboot.service.mongodb.impl;
 
-import com.springboot.dao.impl.ContentMongoDaoImpl;
-import com.springboot.entity.ContentMongoEO;
+import com.springboot.dao.mongo.impl.ContentMongoDaoImpl;
+import com.springboot.entity.mongo.ContentMongoEO;
 import com.springboot.service.mongodb.IMongoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

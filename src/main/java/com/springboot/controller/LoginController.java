@@ -5,7 +5,7 @@ import com.springboot.common.busi.ResponseData;
 import com.springboot.common.filter.ShiroUtil;
 import com.springboot.common.util.CodeUtil;
 import com.springboot.common.util.GraphicHelper;
-import com.springboot.entity.UserEO;
+import com.springboot.entity.mybatis.UserEO;
 import com.springboot.service.system.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;

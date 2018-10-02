@@ -1,6 +1,6 @@
 package com.springboot.service.mongodb;
 
-import com.springboot.entity.ContentMongoEO;
+import com.springboot.entity.mongo.ContentMongoEO;
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;

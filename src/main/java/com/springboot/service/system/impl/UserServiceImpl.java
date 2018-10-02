@@ -1,7 +1,7 @@
 package com.springboot.service.system.impl;
 
 import com.springboot.common.busi.ResponseData;
-import com.springboot.entity.UserEO;
+import com.springboot.entity.mybatis.UserEO;
 import com.springboot.mapper.UserMapper;
 import com.springboot.service.system.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

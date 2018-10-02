@@ -121,3 +121,24 @@ var Mine = {
       }
   }
 };
+
+window.alert = function (msg,callback){
+  layer.alert(msg,function (index) {
+      layer.close(index);
+      if(typeof(callback) === "function"){
+          callback("ok");
+      }
+  });
+};
+
+window.confirm = function (msg,okName,cancleName,callback){
+    layer.confirm(msg,{
+        icon:3,
+        btn: [okName == undefined?'确定':okName,cancleName == undefined ?'取消':cancleName] //按钮
+    },function (index) {
+        layer.close(index);
+        if(typeof(callback) === "function"){
+            callback("ok");
+        }
+    });
+};

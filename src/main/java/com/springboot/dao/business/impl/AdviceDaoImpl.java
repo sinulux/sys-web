@@ -1,8 +1,8 @@
 package com.springboot.dao.business.impl;
 
 import com.springboot.dao.business.IAdviceDao;
-import com.springboot.dao.business.entity.AdviceEO;
-import com.springboot.dao.hibernate.dao.impl.MockDao;
+import com.springboot.entity.business.AdviceEO;
+import com.springboot.dao.hibernate.impl.MockDao;
 import org.springframework.stereotype.Repository;
 
 @Repository("adviceDao")

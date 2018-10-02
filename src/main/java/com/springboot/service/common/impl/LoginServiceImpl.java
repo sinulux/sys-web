@@ -2,7 +2,7 @@ package com.springboot.service.common.impl;
 
 import com.springboot.common.busi.ResponseData;
 import com.springboot.common.filter.ShiroUtil;
-import com.springboot.entity.UserEO;
+import com.springboot.entity.mybatis.UserEO;
 import com.springboot.service.common.ILoginService;
 import com.springboot.service.system.IUserService;
 import lombok.extern.slf4j.Slf4j;

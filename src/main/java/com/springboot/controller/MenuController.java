@@ -1,8 +1,8 @@
 package com.springboot.controller;
 
 import com.springboot.common.busi.ResponseData;
-import com.springboot.entity.BtnInfoEO;
-import com.springboot.entity.MenuEO;
+import com.springboot.entity.mybatis.BtnInfoEO;
+import com.springboot.entity.mybatis.MenuEO;
 import com.springboot.vo.PaginationVO;
 import com.springboot.service.system.IMenuService;
 import org.slf4j.Logger;

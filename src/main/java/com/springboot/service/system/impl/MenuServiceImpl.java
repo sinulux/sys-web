@@ -1,7 +1,7 @@
 package com.springboot.service.system.impl;
 
-import com.springboot.entity.BtnInfoEO;
-import com.springboot.entity.MenuEO;
+import com.springboot.entity.mybatis.BtnInfoEO;
+import com.springboot.entity.mybatis.MenuEO;
 import com.springboot.mapper.MenuMapper;
 import com.springboot.service.system.IMenuService;
 import org.springframework.stereotype.Service;

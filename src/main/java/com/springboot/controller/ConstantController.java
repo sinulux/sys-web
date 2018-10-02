@@ -1,7 +1,7 @@
 package com.springboot.controller;
 
 import com.springboot.common.busi.ResponseData;
-import com.springboot.entity.ConstantEO;
+import com.springboot.entity.mybatis.ConstantEO;
 import com.springboot.vo.PaginationVO;
 import com.springboot.service.system.IConstantService;
 import org.slf4j.Logger;
