@@ -12,3 +12,19 @@
 .layer-form{
     padding: 20px;
 }
+.main-bg{
+    width: auto;
+    height: 1600px;
+    background: #eceff3;
+    margin: 0 15px;
+}
+.main-bg .video{
+    min-height:657px;
+}
+.main-bg .page-header{
+    margin: 0;
+}
+.main-bg .bg-success{
+    height: 60px;
+    line-height:60px;
+}
