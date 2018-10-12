@@ -1,4 +1,4 @@
-<div class="table-responsive" style="margin: 15px auto">
+<div class="table-responsive">
     <#--${ctx}${springMacroRequestContext.getRequestUri()}-->
     <div id="toolBtn" style="margin-bottom: 5px">
         <button type="button" class="btn btn-default" onclick="addOrEdit()">
@@ -17,7 +17,7 @@
     </div>
     <div id="dataGrid" class="mini-datagrid"
          url="${ctx}<#--/data/miniui_grid.json-->/role/getPage" idField="id"
-         sizeList="[15,30,50,100]" pageSize="15" multiSelect="true" style="height: 700px">
+         sizeList="[15,30,50,100]" pageSize="15" multiSelect="true" style="height: 600px">
         <div property="columns">
             <div type="checkcolumn">选择</div>
             <div type="indexcolumn">序号</div>

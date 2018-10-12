@@ -1,9 +1,8 @@
-<div class="col-md-12">
+<div class="row">
     <div class="col-md-2 tree-bg">
-        <div class="text-center text-danger bg-danger tree-header">机构角色</div>
-        <ul id="organTree" class="ztree" style="height: 750px;overflow: auto"></ul>
+        <ul id="organTree" class="ztree" style="height: 660px;overflow: auto"></ul>
     </div>
-    <div class="col-md-10 hidden table-bordered" id="rightInfo" style="height: 800px;overflow: auto"></div>
+    <div class="col-md-10 hidden" id="rightInfo"></div>
 </div>
 <script type="text/javascript">
     var zTree, selectNode;

@@ -4,22 +4,12 @@
 }
 .tree-bg{
     background-color: #f6fafd;
-    padding: 0;
-}
-.tree-header{
-    height: 50px;font-size: 20px;line-height: 50px;
 }
 .layer-form{
     padding: 20px;
 }
-.main-bg{
-    width: auto;
-    height: 1600px;
-    background: #eceff3;
-    margin: 0 15px;
-}
 .main-bg .video{
-    min-height:657px;
+    min-height:300px;
 }
 .main-bg .page-header{
     margin: 0;
@@ -27,4 +17,10 @@
 .main-bg .bg-success{
     height: 60px;
     line-height:60px;
+}
+#mainContainer{
+    margin: 10px 0;
+}
+#mainBody{
+    overflow: auto;
 }
