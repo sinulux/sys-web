@@ -44,13 +44,13 @@
                 <p><a class="btn btn-warning" href="#" role="button">more</a></p>
             </div>
         </div>
-        <div class="row col-md-6">
+        <div class="row col-md-6" id="video">
             <div class="text-warning">
                 ************************精彩视频************************
             </div>
             <div class="video">
-                <div class="m">
-                    <video width="660" id="my-video" class="video-js" controls preload="auto" poster="/plugins/video/m.jpg"
+                <div class="m" align="center">
+                    <video height="600" id="my-video" class="video-js" controls preload="auto" poster="/plugins/video/m.jpg"
                            data-setup="{}">
                         <source src="/plugins/video/HotSummer.mp4" type="video/mp4">
                         <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
@@ -70,3 +70,9 @@
         </div>
     </div>
 </div>
+<script>
+    setInterval(function () {
+        $(".video #my-video").width($("#video").width()+60);
+        $(".video #my-video").height(600);
+    },200)
+</script>

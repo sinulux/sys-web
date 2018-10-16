@@ -17,7 +17,7 @@
     </div>
     <div id="dataGrid" class="mini-datagrid"
          url="${ctx}<#--/data/miniui_grid.json-->/role/getPage" idField="id"
-         sizeList="[15,30,50,100]" pageSize="15" multiSelect="true" style="height: 600px">
+         sizeList="[15,30,50,100]" pageSize="15" multiSelect="true">
         <div property="columns">
             <div type="checkcolumn">选择</div>
             <div type="indexcolumn">序号</div>
@@ -33,6 +33,7 @@
     mini.parse();
     var grid = mini.get("dataGrid");
     var organId = ${organId!''};
+    resetHeight("dataGrid",169);
     grid.load({organId:organId});
     function search(){
         grid.load({searchKey:$("#key").val()});

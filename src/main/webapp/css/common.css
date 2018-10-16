@@ -4,6 +4,7 @@
 }
 .tree-bg{
     background-color: #f6fafd;
+    border-right: 1px solid #A3C6C8;
 }
 .layer-form{
     padding: 20px;

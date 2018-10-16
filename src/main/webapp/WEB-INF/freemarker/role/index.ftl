@@ -1,10 +1,11 @@
 <div class="row">
     <div class="col-md-2 tree-bg">
-        <ul id="organTree" class="ztree" style="height: 660px;overflow: auto"></ul>
+        <ul id="organTree" class="ztree" style="overflow: auto"></ul>
     </div>
     <div class="col-md-10 hidden" id="rightInfo"></div>
 </div>
 <script type="text/javascript">
+    resetHeight("organTree",130);
     var zTree, selectNode;
     var setting = {
         data: {

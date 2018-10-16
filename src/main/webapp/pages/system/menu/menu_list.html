@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-2 tree-bg">
-        <ul id="menuTree" class="ztree" style="height: 660px;overflow: auto"></ul>
+        <ul id="menuTree" class="ztree" style="overflow: auto"></ul>
     </div>
     <div class="col-md-10 hidden" id="rightInfo">
         <div class="col-xs-12" style="border-bottom: 1px solid #F0F0F0;padding: 0;margin-bottom: 20px">
@@ -64,6 +64,8 @@
     <div class="col-md-10 hidden" id="buttonInfo"></div>
 </div>
 <script type="text/javascript">
+    resetHeight("menuTree",130);
+    resetHeight("buttonInfo",130);
     var zTree, currNode, optType = "add",selectNode;
     var setting = {
         view: {

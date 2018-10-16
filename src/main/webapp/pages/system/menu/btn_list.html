@@ -29,14 +29,8 @@
         </tr>
         </thead>
         <tbody></tbody>
-        <tfoot>
-        <tr>
-            <td colspan="6" align="center">
-                <div id="pagination"></div>
-            </td>
-        </tr>
-        </tfoot>
     </table>
+    <div id="pagination" align="center"></div>
 </div>
 <div id="editFrom" class="hidden" style="margin: 10px auto;overflow-x: hidden">
     <form class="form-horizontal" method="post">
@@ -88,7 +82,7 @@
     </table>
 </div>
 <script>
-    var pageIndex = 1,pageSize = 10;
+    var pageIndex = 1,pageSize = 15;
     var winIndex;
     var grid = $("#dataGrid tbody");
     $(function() {
@@ -220,7 +214,9 @@
                     }
                     grid.empty().append(tr);
                 }
-                pagination(result.pageIndex,result.total);
+                if(Math.ceil(result.total/pageSize) > 1){
+                    pagination(result.pageIndex,result.total);
+                }
             }
         );
     }
