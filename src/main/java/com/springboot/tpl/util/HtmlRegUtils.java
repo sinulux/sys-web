@@ -1,21 +1,11 @@
 package com.springboot.tpl.util;
 
-import com.springboot.common.busi.BaseRunTimeException;
+import com.alibaba.fastjson.JSONObject;
 import com.springboot.common.busi.SpringContextHolder;
-import com.springboot.common.util.AppUtil;
-import com.springboot.dao.mongo.impl.ContentMongoDaoImpl;
-import com.springboot.entity.mongo.ContentMongoEO;
-import org.apache.commons.lang3.StringUtils;
-import org.dom4j.Attribute;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import com.springboot.tpl.service.AbstractTplService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,8 +13,6 @@ import java.util.regex.Pattern;
  * parse page template of string
  */
 public class HtmlRegUtils {
-
-    private static ContentMongoDaoImpl contentMongoService = SpringContextHolder.getBean(ContentMongoDaoImpl.class);
 
     // 该正则表达式支持两种闭合方式、支持标签嵌套、支持取单独属性，暂不支持相同标签嵌套
     private static final String LIST_REGEX = "\\{mine:([\\w]+)([^\\}]*)(?:/\\}|\\}(.*?)\\{/mine:\\1\\})";
@@ -38,34 +26,37 @@ public class HtmlRegUtils {
     private static class LabelEntry {
         private String labelName;
         private String param;
+        private JSONObject object;
 
-        public LabelEntry(String labelName, String param) {
+        public LabelEntry(String labelName, String param, JSONObject object) {
             super();
             this.labelName = labelName;
             this.param = param;
+            this.object = object;
         }
-    }
 
-    /**
-     * 解析参数，针对相同参数做缓存处理
-     */
-    public static Map<String, String> parseText(String param) {
-        Map<String, String> map = new HashMap<String, String>();// 参数map
-        // 判断空
-        if (StringUtils.isEmpty(param)) {
-            return map;
+        public String getLabelName() {
+            return labelName;
         }
-        try {
-            Document document = DocumentHelper.parseText("<Regex " + param.replaceAll("&", "&amp;") + "></Regex>");
-            Element element = (Element) document.selectSingleNode("Regex");
-            Iterator<?> it = element.attributeIterator();
-            while (it.hasNext()) {
-                Attribute attr = (Attribute) it.next();
-                map.put(attr.getName(), attr.getValue());
-            }
-            return map;
-        } catch (Throwable e) {
-            throw new BaseRunTimeException("参数[" + param + "]解析错误.");
+
+        public void setLabelName(String labelName) {
+            this.labelName = labelName;
+        }
+
+        public String getParam() {
+            return param;
+        }
+
+        public void setParam(String param) {
+            this.param = param;
+        }
+
+        public JSONObject getMap() {
+            return object;
+        }
+
+        public void setMap(JSONObject object) {
+            this.object = object;
         }
     }
 
@@ -82,47 +73,41 @@ public class HtmlRegUtils {
         while (m.find()) {
             // 标签名称
             String labelName = m.group(1).trim();
-            // 当有指定标签时，必须包含指定标签才解析
-            if (labelName.equals("include")) {
-                // 参数
-                String param = m.group(2).trim();
-                // 放入list中
-                labelEntryList.add(new LabelEntry(labelName, param));
-                // 替换
-                m.appendReplacement(sb, "\\{" + labelName + ":" + index++ + "\\}");
+            // 参数
+            String param = m.group(2).trim();
+            // 放入list中
+            JSONObject object = new JSONObject();
+            object.put("labelName", labelName);
+            String[] params = param.split(" ");
+            for (String s : params) {
+                if (s.equals("") || s.trim().equals("")) {
+                    continue;
+                }
+                String[] itemParam = s.split("=");
+                object.put(itemParam[0].replaceAll(" ", ""), itemParam[1].replaceAll(" ", ""));
             }
+            labelEntryList.add(new LabelEntry(labelName, param, object));
+            // 替换
+            m.appendReplacement(sb, "\\{" + labelName + ":" + index++ + "\\}");
         }
 
         m.appendTail(sb);
-        //返回字符串
+        //简化后的字符串模板，附带索引
         String result = sb.toString();
-
-        // 解析
-        if (!labelEntryList.isEmpty()) {
-            index = 0;// 重新计数
-            for (LabelEntry entry : labelEntryList) {
-
-                //标签名称
-                String labelName = entry.labelName;
-
-                // 转换参数并检查类型
-                Map<String, String> paramObj = parseText(entry.param);
-
-                String r = "";
-                if (!AppUtil.isEmpty(paramObj.get("id"))) {
-                    Long tplId = Long.valueOf(paramObj.get("id"));
-                    ContentMongoEO eo = contentMongoService.queryById(tplId);
-                    // 查询结果
-                    if (eo != null && !"".equals(eo)) {
-                        r = StringUtils.trim(eo.getContent());
-                    }
-                }
-
-                // 由于$出现在replacement中时，表示对捕获组的反向引用，所以要对上面替换内容中的$进行替换
-                result = result.replaceFirst("\\{" + labelName + ":" + index++ + "\\}", Matcher.quoteReplacement(r));
-            }
+        int pos = 0;
+        for (LabelEntry entry : labelEntryList) {
+            AbstractTplService tplService = SpringContextHolder.getBean(entry.labelName + "TplService");
+            String labelResult = tplService.objToStr(entry.object);
+            result = result.replace("{" + entry.labelName + ":" + pos + "}", labelResult);
+            pos++;
         }
-
         return result;
+    }
+
+    public static void main(String[] args) {
+        String content = "测试模板<div>{mine:aa num=1 name=test}{/mine:aa}{mine:bb num=1 name=test}{/mine:bb}{mine:cc a=1 b=2/}</div>";
+        System.out.println(parseLabel(content));
+        String regEx = "(?s)^(?=.*\\d.*\\d.*\\d).+$";
+        System.out.println(Pattern.matches(regEx,"dqwdq123w"));
     }
 }
