@@ -1,3 +1,4 @@
+<#include "../common/header.ftl">
 <div class="text-info">${key!''}</div>
 <div class="date-picker">
     日期1--${date?string("yyyy-MM-dd HH:mm:ss")}<br/>
@@ -46,5 +47,5 @@
 
         return s;
     }
-    Mine.layer.openWin2("测试窗口","/test/layerPage","400","300");
 </script>
+<#include "../common/footer.ftl">

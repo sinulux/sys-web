@@ -30,6 +30,5 @@
  </#list>
 </#if>
 </table>
-<#include "footer.ftl">
 </body>
 </html>
