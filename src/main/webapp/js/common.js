@@ -145,5 +145,12 @@ window.confirm = function (msg,okName,cancleName,callback){
 function resetHeight(id,cuteHeight) {
     var h = document.documentElement.clientHeight; //获取当前窗口可视操作区域高度
     var bodyHeight = document.getElementById(id); //寻找ID为content的对象
-    bodyHeight.style.height = (h - cuteHeight) + "px"; //你想要自适应高度的对象
+    if(bodyHeight){
+        bodyHeight.style.height = (h - cuteHeight) + "px"; //你想要自适应高度的对象
+    }
+}
+function autoHeight(id,cuteHeight){
+    setInterval(function(){
+        resetHeight(id,cuteHeight);
+    },200);
 }

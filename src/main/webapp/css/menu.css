@@ -1,6 +1,6 @@
 .sidebar-menu {
     list-style: none;
-    height: 1200px;
+    height: 2000px;
     overflow: auto;
     margin: 0;
     padding: 0;
@@ -73,9 +73,8 @@
 .sidebar-menu .treeview-menu {
     display: none;
     list-style: none;
-    padding: 0;
+    padding: 5px 0 0 0;
     margin: 0;
-    padding-left: 5px;
 }
 
 .sidebar-menu .treeview-menu .treeview-menu {
@@ -115,17 +114,19 @@
     background-color: #222d32;
     display: block;
 }
-
-.header ul {
-    float: left;
-    margin-right: 10px;
+body{
+    overflow: hidden;
 }
-
+.banner {
+    line-height: 70px;
+    font-size: 20px;
+    font-weight: bold;
+}
 .header ul li {
     float: left;
     list-style: none;
-    height: 25px;
-    line-height: 25px;
+    height: 30px;
+    line-height: 30px;
     width: auto;
     padding: 0 10px;
 }
@@ -135,7 +136,8 @@
     border-bottom: 2px solid #FF5722;
     cursor: pointer;
 }
-.active-header{
+
+.active-header {
     background: rgba(0, 0, 0, 0.3);
     border-bottom: 2px solid #FF5722;
     cursor: pointer;
@@ -144,25 +146,26 @@
 .f_left {
     float: left;
     width: auto;
-    padding: 0 5px;
+    padding: 10px;
     cursor: pointer;
-    margin: 10px auto;
+
 }
 
 .f_left:hover {
-    color: #FF5722
+    color: #FF5722;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /*css主要部分的样式*//*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
 
 ::-webkit-scrollbar {
-    width: 8px; /*对垂直流动条有效*/
-    height: 8px; /*对水平流动条有效*/
+    width: 6px; /*对垂直流动条有效*/
+    height: 6px; /*对水平流动条有效*/
 }
 
 /*定义滚动条的轨道颜色、内阴影及圆角*/
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.3);
     background-color: #f6fafd;
     border-radius: 3px;
 }
@@ -173,7 +176,7 @@
     -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, .3);
     background-color: #C9C9C9;
     opacity: 0.3;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 /*定义两端按钮的样式*/
@@ -184,6 +187,13 @@
 ::-webkit-scrollbar-corner {
     background: #f6fafd;
 }
-#mainHeader{
-    font-size: 14px;
+#mainMenu{
+    margin: 0;
+    padding: 0;
+}
+#mainContainer{
+    overflow: auto;
+}
+.mr0{
+    padding-right: 0;
 }

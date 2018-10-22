@@ -1,5 +1,4 @@
 <div class="table-responsive">
-    <#--${ctx}${springMacroRequestContext.getRequestUri()}-->
     <div id="toolBtn" style="margin-bottom: 5px">
         <button type="button" class="btn btn-default" onclick="addOrEdit()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
@@ -15,17 +14,17 @@
         </button>
         <input style="width:300px;float: right" type="text" class="form-control" id="key" name="key" placeholder="编码/名称" />
     </div>
-    <div id="dataGrid" class="mini-datagrid"
-         url="${ctx}<#--/data/miniui_grid.json-->/role/getPage" idField="id"
-         sizeList="[15,30,50,100]" pageSize="15" multiSelect="true">
+    <div id="dataGrid" class="mini-datagrid" style="width: 100%;overflow-x:hidden"
+         url="${ctx}/role/getPage" idField="id"
+         sizeList="[15,30,50,100]" pageSize="15" multiSelect="true" allowResize="true">
         <div property="columns">
-            <div type="checkcolumn">选择</div>
-            <div type="indexcolumn">序号</div>
-            <div field="roleCode"      headerAlign="center">角色编码</div>
-            <div field="roleName"    headerAlign="center" renderer="onGenderRenderer">角色名称</div>
-            <div field="roleDesc"       headerAlign="center" >描述</div>
-            <div field="createDate"headerAlign="center" dateFormat="yyyy-MM-dd HH:mm:ss">创建日期</div>
-            <div headerAlign="center" renderer="onActionRenderer">操作</div>
+            <div type="checkcolumn" width="5%">选择</div>
+            <div type="indexcolumn" width="5%" headerAlign="center">序号</div>
+            <div field="roleCode" width="20%" headerAlign="center">角色编码</div>
+            <div field="roleName" width="20%" headerAlign="center" renderer="onGenderRenderer">角色名称</div>
+            <div field="roleDesc" width="20%%" headerAlign="center" >描述</div>
+            <div field="createDate" width="15%" headerAlign="center" dateFormat="yyyy-MM-dd HH:mm:ss">创建日期</div>
+            <div headerAlign="center" width="15%" align="center" renderer="onActionRenderer">操作</div>
         </div>
     </div>
 </div>
@@ -33,7 +32,7 @@
     mini.parse();
     var grid = mini.get("dataGrid");
     var organId = ${organId!''};
-    resetHeight("dataGrid",169);
+    autoHeight("dataGrid",120);
     grid.load({organId:organId});
     function search(){
         grid.load({searchKey:$("#key").val()});

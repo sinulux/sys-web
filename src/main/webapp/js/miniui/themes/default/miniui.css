@@ -3560,7 +3560,7 @@ a:hover.mini-calendar-menu-year
 .mini-grid-rows-view
 {
     position:relative;z-index:9;
-    overflow:auto;height:100%;
+    overflow:hidden;height:100%;
     width:auto;
     _width:100%;
     

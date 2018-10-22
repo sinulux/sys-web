@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="z-ch">
 <head>
-    <title>首页</title>
+    <title>演示站点主页</title>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8">
@@ -11,37 +11,35 @@
     <meta http-equiv="Cache" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, userEO-scalable=no">
-    <meta name="keywords"
-          content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
+    <meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
     <meta name="author" content="设计：王齐 <wangqi@bootcss.com>">
     <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/css/icon/iconfont.css" rel="stylesheet"/>
-    <link href="/css/sidebar-menu.css" rel="stylesheet"/>
     <link href="/plugins/pagination/css/jquery.pagination.css" rel="stylesheet"/>
     <link href="/plugins/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
-    <link href="/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"/>
     <link href="/plugins/niceValidator/dist/jquery.validator.css" rel="stylesheet"/>
     <link href="/plugins/video/css/video-js.min.css" rel="stylesheet"/>
+    <link href="/css/icon/iconfont.css" rel="stylesheet"/>
+    <link href="/css/menu.css" rel="stylesheet"/>
     <link href="/css/common.css" rel="stylesheet"/>
     <script src="/js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="/plugins/layer/layer.js" type="text/javascript"></script>
     <script src="/plugins/niceValidator/dist/jquery.validator.min.js?local=zh-CN" type="text/javascript"></script>
     <script src="/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/plugins/ztree/js/jquery.ztree.all.min.js"></script>
-    <script src="/plugins/pagination/js/jquery.pagination.min.js"></script>
+    <script src="/plugins/ztree/js/jquery.ztree.all.min.js" type="text/javascript"></script>
+    <script src="/plugins/pagination/js/jquery.pagination.min.js" type="text/javascript"></script>
     <script src="/js/juicer.js"></script>
     <script src="/js/art.template.js"></script>
-    <script src="/plugins/My97DatePicker/WdatePicker.js"></script>
-    <script src="/plugins/video/js/video.min.js"></script>
-    <script src="/plugins/video/js/zh-CN.js"></script>
-    <script src="/js/boot.js"></script>
-    <script src="/js/common.js"></script>
+    <script src="/plugins/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="/plugins/video/js/video.min.js" type="text/javascript"></script>
+    <script src="/plugins/video/js/zh-CN.js" type="text/javascript"></script>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <script src="/js/common.js" type="text/javascript"></script>
 </head>
-<body style="overflow: hidden">
+<body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 bg-primary" style="height: 70px">
-            <div class="col-xs-2" style="line-height: 70px;font-size: 20px;font-weight: bold">LONSUN EX8</div>
+        <div class="col-xs-12 bg-primary">
+            <div class="col-xs-2 banner">LONSUN EX8</div>
             <div class="col-xs-10">
                 <div class="row pull-right">
                     <div class="f_left">
@@ -60,20 +58,13 @@
                         <span class="glyphicon glyphicon-off"></span>&nbsp;退出登录
                     </div>
                 </div>
-                <br/><br/>
                 <div id="mainHeader" class="row header pull-right"></div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-1 main-sidebar"></div>
-        <div class="col-xs-11" id="mainBody">
-            <div class="row table-bordered main-header">
-                <span class="glyphicon glyphicon-map-marker text-info" aria-hidden="true"></span>
-                &nbsp;<a href="#" id="moduleName">正在加载...</a>&nbsp;/&nbsp;<a href="#" id="functionName">正在加载...</a>
-            </div>
-            <div id="mainContainer"></div>
-        </div>
+        <div class="col-md-1" id="mainMenu"></div>
+        <div class="col-md-11" id="mainContainer"></div>
     </div>
 </div>
 <div id="layerWin" class="hidden"></div>
@@ -88,14 +79,6 @@
         </li>
         <%}%>
     </ul>
-    <div class="input-group pull-right">
-        <input style="width: 150px;height: 25px;line-height: 25px;color:#1E9FFF;border-right: 0" type="text"
-               class="form-control" placeholder="搜索站点信息"/>
-        <a style="height: 25px;height: 25px;color:#1E9FFF;float: right;border-left: 0;margin-left: -3px"
-           class="btn btn-default" href="#" role="button">
-            <span class="glyphicon glyphicon-search" style="position: relative;top:-2px;left:2px"></span>
-        </a>
-    </div>
 </script>
 <script id="leftMenu" type="text/html">
     <% for( var i = 0 ; i < data.length ; i ++ ) {%>
@@ -138,8 +121,6 @@
     <%}%>
 </script>
 <script>
-    // 选择的模块、选择的业务功能
-    var moduleName = "", functionName = "";
     $(document).ready(function () {
         loadSysMenu();
     });
@@ -149,7 +130,6 @@
             $("#mainHeader").empty().html(template('headerMenu', {data: result}));
             $("#mainHeader ul li").click(function () {
                 $(this).addClass('active-header').siblings().removeClass('active-header');
-                moduleName = $(this).text().trim();
             });
             $("#mainHeader ul li:first").trigger("click");
         });
@@ -158,18 +138,16 @@
     function loadLeftMenu(obj) {
         var id = $(obj).attr("data-id");
         $.post("/menu/getMenuTree", {id: id, queryFlag: '1'}, function (result) {
-            $(".main-sidebar").empty().html("<ul class=\"sidebar-menu\">" + template('leftMenu', {data: result}) + "</ul>");
+            $("#mainMenu").empty().html("<ul class=\"sidebar-menu\">" + template('leftMenu', {data: result}) + "</ul>");
             $.sidebarMenu($('.sidebar-menu'));
             $('.sidebar-menu li').click(function () {
                 var type = $(this).attr("type");
                 var url = $(this).attr("reqUrl");
                 if (type == 'STATIC' || type == 'URL') {
                     if (url == undefined || url == '') {
-                        layer.msg("缺少地址参数，无法访问该功能！", {icon: 2, shade: 0.01, time: 2000});
+                        layer.msg("缺少地址参数，无法访问该功能！", {icon: 2, shade: 0.01, time: 1000});
                         return;
                     } else {
-                        functionName = $(this).find("a > span").text().trim();
-                        getMainHeader();
                         $("#mainContainer").empty().load(url, function (response, status, xhr) {
                             if (status == 'error') {
                                 var errorCode = xhr.status;
@@ -187,7 +165,7 @@
                     }
                 }
             });
-            $(".main-sidebar ul li").each(function () {
+            $("#mainMenu ul li").each(function () {
                 if (this.type == 'URL') {
                     $(this).trigger('click').addClass('active');
                     return false;
@@ -195,11 +173,10 @@
             });
         });
     }
-
-    function getMainHeader() {
-        $("#moduleName").html(moduleName);
-        $("#functionName").html(functionName);
-    }
-    resetHeight("mainBody",70);
+    setInterval(function(){
+        var h = document.documentElement.clientHeight;
+        var bodyHeight = document.getElementById("mainContainer");
+        bodyHeight.style.height = (h - 70) + "px";
+    },200);
 </script>
 </html>
