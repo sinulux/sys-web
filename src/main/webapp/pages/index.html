@@ -58,7 +58,7 @@
                         <span class="glyphicon glyphicon-off"></span>&nbsp;退出登录
                     </div>
                 </div>
-                <div id="mainHeader" class="row header pull-right"></div>
+                <div id="mainHeader" class="row mainHeader pull-right"></div>
             </div>
         </div>
     </div>
@@ -123,6 +123,15 @@
 <script>
     $(document).ready(function () {
         loadSysMenu();
+        $(".f_left:eq(4)").click(function(){
+            $.get("/login/logout",function(d){
+                if(d.status == 1){
+                    window.location.reload(true);
+                }else{
+                    layer.msg(d.desc, {icon: 2, shade: 0.01, time: 1000});
+                }
+            });
+        });
     });
 
     function loadSysMenu() {

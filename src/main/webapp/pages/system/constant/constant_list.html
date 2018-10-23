@@ -117,13 +117,13 @@
                         tr += '<td>' + list[i].TABLE_NAME + '</td>';
                         tr += '<td>' + list[i].COLUMN_NAME + '</td>';
                         tr += '<td>' +
-                                '<a class="text-warning" onclick="save(' + list[i].RID + ',1)">\n' +
+                                '<a href="javascript:" class="text-warning" onclick="save(' + list[i].RID + ',1)">\n' +
                                 '   <span class="glyphicon glyphicon-pencil btn-xs" aria-hidden="true"></span>修改\n' +
                                 '</a>' +
-                                '<a class="text-info" onclick="view(' + list[i].RID + ',2)">\n' +
+                                '<a href="javascript:" class="text-info" onclick="view(' + list[i].RID + ',2)">\n' +
                                 '   <span class="glyphicon glyphicon-search" aria-hidden="true"></span>查看\n' +
                                 '</a>' +
-                                '<a class="text-danger" onclick="del(' + list[i].RID + ')">\n' +
+                                '<a href="javascript:" class="text-danger" onclick="del(' + list[i].RID + ')">\n' +
                                 '   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除\n' +
                                 '</a>' +
                             '</td>';

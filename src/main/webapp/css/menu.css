@@ -122,7 +122,12 @@ body{
     font-size: 20px;
     font-weight: bold;
 }
-.header ul li {
+.mainHeader{
+    position: absolute;
+    right: 15px;
+    top:40px;
+}
+.mainHeader ul li {
     float: left;
     list-style: none;
     height: 30px;
@@ -131,7 +136,7 @@ body{
     padding: 0 10px;
 }
 
-.header ul li:hover {
+.mainHeader ul li:hover {
     background: rgba(0, 0, 0, 0.3);
     border-bottom: 2px solid #FF5722;
     cursor: pointer;

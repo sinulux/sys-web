@@ -137,6 +137,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ResponseBody
     @LogParams(value=LoginController.class,type="logout",method="logout",desc="用户登出")
     public ResponseData logout() {
         Subject subject = SecurityUtils.getSubject();
