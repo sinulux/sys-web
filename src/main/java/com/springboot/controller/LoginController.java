@@ -13,6 +13,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -144,5 +145,11 @@ public class LoginController {
         //注销
         subject.logout();
         return ResponseData.success("成功注销！");
+    }
+
+    @RequestMapping("mainSite")
+    public String goHome(Model model){
+        model.addAttribute("title","主站点后台管理系统");
+        return "/site/index";
     }
 }

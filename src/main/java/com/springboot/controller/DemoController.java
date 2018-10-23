@@ -160,4 +160,9 @@ public class DemoController {
         return ResponseData.success();
     }
 
+    @RequestMapping("/site/role")
+    public String role(){
+        return "/site/system/role";
+    }
+
 }

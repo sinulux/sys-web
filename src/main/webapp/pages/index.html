@@ -123,6 +123,9 @@
 <script>
     $(document).ready(function () {
         loadSysMenu();
+        $(".f_left:eq(0)").click(function(){
+            window.location.href = "/login/mainSite";
+        });
         $(".f_left:eq(4)").click(function(){
             $.get("/login/logout",function(d){
                 if(d.status == 1){
