@@ -118,6 +118,9 @@ var Mine = {
               area:[width+"px",height+"px"],
               content:url
           });
+      },
+      tips:function(desc,icon){
+          layer.msg(desc, {icon: icon, shade: 0.01, time: 1000});
       }
   }
 };

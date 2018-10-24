@@ -45,7 +45,7 @@
 <body>
 <div class="navbar">
     <div class="navbar-header">
-        <div class="navbar-brand">去尼玛比</div>
+        <div class="navbar-brand"> MINE UI </div>
         <div class="navbar-brand navbar-brand-compact">M</div>
     </div>
     <ul class="nav navbar-nav">
@@ -81,7 +81,7 @@
         <div id="mainTabs" class="mini-tabs main-tabs" activeIndex="0" style="height:100%;" plain="false"
              buttons="#tabsButtons" arrowPosition="side" >
             <div name="index" iconCls="fa-android" title="控制台">
-                专业杀人三十年，一直被模仿，从未被超越
+                专注前端三十年，一直被模仿，从未被超越!
             </div>
         </div>
         <div id="tabsButtons">
@@ -122,9 +122,10 @@
         new MenuTip(menu);
 
         $.ajax({
-            url: "/data/menu.txt",
-            success: function (text) {
-                var data = mini.decode(text);
+            // url: "/data/menu.json",
+            url: "/info/getTpl",
+            success: function (d) {
+                var data = mini.decode(d.data);
                 menu.loadData(data);
             }
         });
