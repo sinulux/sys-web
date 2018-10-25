@@ -1,3 +1,4 @@
+[已停更]
 #打包
     cd 项目跟目录（和pom.xml同级）
     mvn clean package
